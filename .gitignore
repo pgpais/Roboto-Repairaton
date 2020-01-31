@@ -1,0 +1,18 @@
+# Unity Folders
+Temp/
+Obj/
+UnityGenerated/
+[Ll]ibrary/
+[Bb]uilds/
+
+# Rewired Folders
+[Ee]xamples/
+[Dd]ocumentation/
+
+# Visual Studio Files
+*.vs
+*.csproj
+*.CSharp
+*.sln
+*.userprefs
+*.exe
