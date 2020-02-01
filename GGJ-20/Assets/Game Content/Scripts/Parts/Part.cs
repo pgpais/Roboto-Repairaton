@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// Robot Part that is used for assembling a robot.
 /// </summary>
-[CreateAssetMenu(fileName = "New Part", menuName = "Robot/Part")]
+[CreateAssetMenu(fileName = "New Part", menuName = "Robots/Part")]
 public class Part : ScriptableObject
 {
     [Header("Definition")]
@@ -14,6 +14,9 @@ public class Part : ScriptableObject
     public Sprite sprite;
     public GameObject instance;
     public PartType partType;
+
+    [Header("Probability")]
+    public int poolChance;
 }
 
 public enum PartType
