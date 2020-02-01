@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,8 +12,14 @@ public class PartInstance : MonoBehaviour
     public bool beingGrabbed;
     public BoxCollider2D col;
 
+    private Rigidbody2D rb;
     [SerializeField]
     private LayerMask mask;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     public void OnGrab(Transform claw)
     {
@@ -39,8 +46,10 @@ public class PartInstance : MonoBehaviour
         }
         else
         {
-            // Destroy if outside of building zone  
-            Destroy(gameObject);
+            // Destroy if outside of building zone
+            rb.bodyType = RigidbodyType2D.Dynamic;
+            rb.gravityScale = 2;
+            Destroy(gameObject, 4);
         }
 
         
