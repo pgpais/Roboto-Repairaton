@@ -17,6 +17,9 @@ public class Pattern : ScriptableObject
     [ValidateInput("ValidateLegs", "This part is not a leg part or is not assigned!", InfoMessageType.Warning)]
     public Part legsPart;
 
+    [Header("Probability")]
+    public int poolChance;
+
     #region Validations
 #if UNITY_EDITOR
     public static bool ValidateHead(Part headPart)

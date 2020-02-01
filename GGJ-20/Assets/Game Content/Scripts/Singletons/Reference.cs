@@ -7,4 +7,7 @@ public class Reference : ScriptableObject
 {
     [Header("Parts")]
     public List<Part> parts;
+
+    [Header("Patterns")]
+    public List<Pattern> patterns;
 }

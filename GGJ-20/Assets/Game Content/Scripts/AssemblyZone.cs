@@ -7,24 +7,65 @@ using UnityEngine;
 /// </summary>
 public class AssemblyZone : MonoBehaviour
 {
-    [SerializeField]
-    public Transform attachPoint = null;
+    public Transform[] attachPoints = new Transform[3];
+    protected List<PartInstance> partsOnAssembly = new List<PartInstance>();
 
-
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// Attaches a part to the collider.
+    /// </summary>
+    public void AttachPart(PartInstance part)
     {
-        attachPoint = transform.Find("Assembly Attach Point");
+        partsOnAssembly.Add(part);
+        ValidateAssembly();
+
+        Transform attachPoint = attachPoints[partsOnAssembly.Count];
+        part.transform.parent = attachPoint;
+        part.transform.position = attachPoint.position;
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Removes a part from assembly.
+    /// </summary>
+    public void RemovePart(PartInstance part)
     {
-        
+        partsOnAssembly.Remove(part);
     }
 
-    public void AttachPart(BoxCollider2D partCol)
+    /// <summary>
+    /// Validates the pieces that have been put into assembly.
+    /// </summary>
+    public void ValidateAssembly()
     {
-        attachPoint.Translate(0, partCol.size.y, 0);
+        // Checks if the player has done any mistake.
+        if (partsOnAssembly.Count == 1 && partsOnAssembly[0].part.partType != PartType.Legs)
+        {
+            RemoveAll();
+        }
+
+        if (partsOnAssembly.Count == 2 && partsOnAssembly[1].part.partType != PartType.Body)
+        {
+            RemoveAll();
+        }
+
+        foreach (PartInstance part in partsOnAssembly)
+        {
+            if(partsOnAssembly.Find(x => x != part && x.part.partType == part.part.partType))
+            {
+                RemoveAll();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Removes all parts from the assembly line.
+    /// </summary>
+    public void RemoveAll()
+    {
+        foreach(PartInstance partInstance in partsOnAssembly)
+        {
+            partInstance.ThrowPiece();
+        }
+
+        partsOnAssembly.Clear();
     }
 }

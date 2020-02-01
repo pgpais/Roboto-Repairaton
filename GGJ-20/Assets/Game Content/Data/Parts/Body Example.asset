@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57a72fe5c892c7740b18dd8b939d22ed, type: 3}
   m_Name: Body Example
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  sprite: {fileID: -4354162317286045023, guid: eb848fa8498c43f4ab60d3023b4d4fdc, type: 3}
   instance: {fileID: 199456938661041760, guid: 561ec092d639a00439821233d5d8a643, type: 3}
   partType: 1
   poolChance: 2

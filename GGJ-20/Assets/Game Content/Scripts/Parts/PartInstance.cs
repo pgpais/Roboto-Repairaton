@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,13 +8,19 @@ using UnityEngine;
 /// </summary>
 public class PartInstance : MonoBehaviour
 {
+    [Header("Part")]
+    public Part part;
+
+    [ReadOnly]
     public ConveyerBelt belt;
+    [ReadOnly]
     public bool beingGrabbed;
     public BoxCollider2D col;
 
     private Rigidbody2D rb;
     [SerializeField]
     private LayerMask mask;
+    private bool inAssembly;
 
     private void Start()
     {
@@ -23,11 +29,19 @@ public class PartInstance : MonoBehaviour
 
     public void OnGrab(Transform claw)
     {
-        transform.parent = claw;
+        transform.SetParent(claw);
         transform.localPosition = Vector3.zero;
         
         // This should only remove part from the belt's list?
-        belt.RemoveConveyerPart(this);
+        if(belt != null)
+        {
+            belt.RemoveConveyerPart(this);
+        }
+
+        if(inAssembly)
+        {
+            GameManager.Instance.AssemblyZone.RemovePart(this);
+        }
     }
 
     public void OnRelease()
@@ -39,19 +53,30 @@ public class PartInstance : MonoBehaviour
         {
             // Attach to something if inside?
             AssemblyZone assembly = hit.GetComponent<AssemblyZone>();
-            transform.parent = assembly.transform;
-            transform.position = assembly.attachPoint.position;
             transform.localRotation = Quaternion.identity;
-            assembly.AttachPart(col);
+            assembly.AttachPart(this);
+
+            inAssembly = true;
         }
         else
         {
-            // Destroy if outside of building zone
+            // Destroy if outside of building zone.
             rb.bodyType = RigidbodyType2D.Dynamic;
             rb.gravityScale = 2;
             Destroy(gameObject, 4);
-        }
+        }    
+    }
 
-        
+    /// <summary>
+    /// Throws the piece into oblivion.
+    /// </summary>
+    public void ThrowPiece()
+    {
+        inAssembly = false;
+
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.gravityScale = 2;
+        rb.AddForce(new Vector2(Random.Range(-400, 400), Random.Range(200, 400)));
+        Destroy(gameObject, 4);
     }
 }

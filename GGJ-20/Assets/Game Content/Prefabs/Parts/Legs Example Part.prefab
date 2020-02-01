@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b5da9239db2d014e9180e7c5486f1cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  part: {fileID: 11400000, guid: 2c4fc47b685a1fa46816dde5b4c986f3, type: 2}
   belt: {fileID: 0}
   beingGrabbed: 0
   col: {fileID: 6890467486435768501}

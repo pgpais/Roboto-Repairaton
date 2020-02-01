@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57a72fe5c892c7740b18dd8b939d22ed, type: 3}
   m_Name: Legs Example
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  sprite: {fileID: -2249462346400924630, guid: eb848fa8498c43f4ab60d3023b4d4fdc, type: 3}
   instance: {fileID: 8079061271835679219, guid: 0a3a51b7064c7794db1d624e5876db41,
     type: 3}
   partType: 0

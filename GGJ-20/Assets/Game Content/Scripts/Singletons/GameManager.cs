@@ -9,11 +9,12 @@ using WhalesAndGames.Pools;
 public class GameManager : SingletonBehaviour<GameManager>
 {
     [Header("Game State")]
-    public GameState gameState;
-    public Reference reference;
+    public GameState GameState;
+    public Reference Reference;
 
     [Header("Pool Parts")]
     public PoolTable partPool;
+    public PoolTable patternPool;
 
     [Header("Conveyers")]
     public float startingSpawnTime;
@@ -21,6 +22,10 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     [Header("Patterns")]
     public Pattern targetPattern;
+
+    // Serice Locator
+    [HideInInspector]
+    public AssemblyZone AssemblyZone;
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -33,7 +38,8 @@ public class GameManager : SingletonBehaviour<GameManager>
         }
 
         // Clones the reference for future-proofing.
-        reference = Instantiate(reference);
+        Reference = Instantiate(Reference);
+        AssemblyZone = FindObjectOfType<AssemblyZone>();
     }
 
     /// <summary>
@@ -41,7 +47,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     /// </summary>
     private void Start()
     {
-        List<Part> parts = GameManager.Instance.reference.parts;
+        List<Part> parts = Reference.parts;
         if (parts.Count == 0)
         {
             Debug.LogError("No Parts Exist in the Reference!");
@@ -54,8 +60,21 @@ public class GameManager : SingletonBehaviour<GameManager>
             partPool.AddVariable(variable);
         }
 
+        List<Pattern> patterns = Reference.patterns;
+        if (parts.Count == 0)
+        {
+            Debug.LogError("No Patterns Exist in the Reference!");
+            return;
+        }
+
+        foreach (Pattern pattern in patterns)
+        {
+            PoolVariable variable = new PoolVariable(pattern, pattern.poolChance);
+            patternPool.AddVariable(variable);
+        }
+
         // Starts the conveyer belts.
-        gameState = GameState.Start;
+        GameState = GameState.Start;
         foreach(ConveyerBelt belt in conveyerBelts)
         {
             belt.StartSpawnParts();
