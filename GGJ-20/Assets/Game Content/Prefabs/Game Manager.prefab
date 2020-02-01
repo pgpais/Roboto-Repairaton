@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2417276153425680818}
   - component: {fileID: 2417276153425680829}
+  - component: {fileID: 1375239652}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -43,4 +44,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7cd9808a38a17c43b3c77a0ca570fc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference: {fileID: 11400000, guid: 9f4ab3464ceaf0d44adcfb4253bcb142, type: 2}
+  GameState: 0
+  Reference: {fileID: 11400000, guid: 9f4ab3464ceaf0d44adcfb4253bcb142, type: 2}
+  partPool:
+    poolVariables: []
+  patternPool:
+    poolVariables: []
+  startingSpawnTime: 2
+  conveyerBelts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  targetPattern: {fileID: 11400000, guid: c70c5ae82d704144fb72a46570f5a4b6, type: 2}
+  AssemblyZone: {fileID: 0}
+--- !u!114 &1375239652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2417276153425680828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f5c20710b1d48ad8ff933ed08cea833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startEvent: 0
