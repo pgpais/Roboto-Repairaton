@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
+using UnityEngine.Serialization;
 
 public class RobotArm : MonoBehaviour
 {
@@ -17,15 +18,20 @@ public class RobotArm : MonoBehaviour
     [Header("Grab Options")] 
     public LayerMask mask;
 
+    [Header("CHAOS")] 
+    public bool stretchInverted;
+    public bool rotationInverted;
+    
     private Transform clawBase;
     private Transform arm;
     private Transform claw;
-    private Transform clawGear;
+    private Transform grabArea;
+    //private Transform clawGear;
     
     private Player player;
     private SpriteRenderer armRender;
     private BoxCollider2D armCollider;
-    private BoxCollider2D clawCollider;
+    private BoxCollider2D grabCollider;
     private Rigidbody2D rb;
     
     // Input vars TODO: are these necessary? Can the input work on FixedUpdate?
@@ -44,11 +50,12 @@ public class RobotArm : MonoBehaviour
         clawBase = transform.Find("ClawBase");
         arm = clawBase.Find("Arm");
         claw = arm.Find("Claw");
-        clawGear = claw.Find("ClawHead/ClawGear");
+        grabArea = claw.Find("ClawHead/ClawMagnet/Grab Area");
+        //clawGear = claw.Find("ClawHead/ClawGear");
 
         armRender = arm.GetComponent<SpriteRenderer>();
         armCollider = arm.GetComponent<BoxCollider2D>();
-        clawCollider = claw.GetComponent<BoxCollider2D>();
+        grabCollider = grabArea.GetComponent<BoxCollider2D>();
         rb = clawBase.GetComponent<Rigidbody2D>();
     }
 
@@ -63,12 +70,12 @@ public class RobotArm : MonoBehaviour
         // Extend and shrink arm
         v = player.GetAxis("Vertical");
         Vector2 size = armRender.size;
-        size.x = size.x + (v * armExtendSpeed * Time.deltaTime);
-        size.x = Mathf.Clamp(size.x, armClampedSize.x, armClampedSize.y);
+        size.y = size.y + ( (stretchInverted? -v : v) * armExtendSpeed * Time.deltaTime);
+        size.y = Mathf.Clamp(size.y, armClampedSize.x, armClampedSize.y);
         armRender.size = size;
 
         Vector2 clawPosition = claw.transform.localPosition;
-        clawPosition.x = size.x + 0.6f;
+        clawPosition.y = size.y - 1.7f;
         claw.transform.localPosition = clawPosition;
 
         // Rotate Arms
@@ -81,20 +88,21 @@ public class RobotArm : MonoBehaviour
 
         // Update Collider
         Vector2 spriteSize = armRender.size;
+        spriteSize.x *= 0.3f;
         armCollider.size = spriteSize;
-        armCollider.offset = new Vector2(spriteSize.x / 2, 0);
+        armCollider.offset = new Vector2(0, spriteSize.y / 2);
 
         // Grab part
         if (player.GetButtonDown("Grab"))
         {
             // Try to Grab
-            Collider2D hit = Physics2D.OverlapBox(claw.position, clawCollider.size, claw.rotation.eulerAngles.z, mask);
+            Collider2D hit = Physics2D.OverlapBox(grabArea.position, grabCollider.size, grabArea.rotation.eulerAngles.z, mask);
             if (hit)
             {
                 if(hit.tag.Equals("Part"))
                 {
                     grabbedPart = hit.GetComponent<PartInstance>();
-                    grabbedPart.OnGrab(claw);
+                    grabbedPart.OnGrab(grabArea);
                     
                     isGrabbing = true;
                 }
@@ -133,7 +141,7 @@ public class RobotArm : MonoBehaviour
     private void DoRotation()
     {
         float rot = rb.rotation;
-        rot += h * armRotationSpeed * Time.deltaTime;
+        rot += (rotationInverted? -h : h) * armRotationSpeed * Time.deltaTime;
         rb.rotation = rot;
     }
 }
