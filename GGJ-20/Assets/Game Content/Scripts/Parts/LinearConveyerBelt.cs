@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// A linear conveyer belt tracks 
+/// A linear conveyer belt tracks parts from point A to point B.
 /// </summary>
 public class LinearConveyerBelt : ConveyerBelt
 {

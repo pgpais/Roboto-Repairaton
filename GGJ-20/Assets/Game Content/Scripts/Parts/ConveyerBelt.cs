@@ -10,6 +10,7 @@ public abstract class ConveyerBelt : MonoBehaviour
     [Header("Properties")]
     public float speed = 10f;
     public int direction = 1;
+    public float spawningTime;
 
     protected List<PartInstance> partsOnBelt = new List<PartInstance>();
     protected Transform spawnedPartsTransform;
@@ -19,7 +20,31 @@ public abstract class ConveyerBelt : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        spawningTime = GameManager.Instance.startingSpawnTime;
         spawnedPartsTransform = transform.Find("Spawned Parts");
+
+        StartCoroutine(IESpawnParts());
+    }
+
+    /// <summary>
+    /// Spawns parts by requesting them to the Game Manager.
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator IESpawnParts()
+    {
+        while(true)
+        {
+            if(direction == 0)
+            {
+                yield return null;
+                continue;
+            }
+
+            yield return new WaitForSeconds(spawningTime);
+            Part part = GameManager.Instance.RequestPartToSpawn();
+
+            SpawnPart(part.instance);
+        }
     }
 
     /// <summary>
