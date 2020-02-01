@@ -33,7 +33,7 @@ public class PartInstance : MonoBehaviour
             // Attach to something if inside?
             AssemblyZone assembly = hit.GetComponent<AssemblyZone>();
             transform.parent = assembly.transform;
-            transform.position = assembly.AttachPoint.position;
+            transform.position = assembly.attachPoint.position;
             transform.localRotation = Quaternion.identity;
             assembly.AttachPart(col);
         }

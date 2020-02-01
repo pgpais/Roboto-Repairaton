@@ -17,25 +17,13 @@ public class LinearConveyerBelt : ConveyerBelt
     public override void SpawnPart(PartInstance part)
     {
         Transform targetSpawn = null;
-        switch (direction)
+        if (!invertedDirection)
         {
-            case -1:
-                targetSpawn = rightPoint;
-                break;
-            case 0:
-                int random = Random.Range(0, 2);
-                if (random == 0)
-                {
-                    targetSpawn = rightPoint;
-                }
-                else
-                {
-                    targetSpawn = leftPoint;
-                }
-                break;
-            case 1:
-                targetSpawn = leftPoint;
-                break;
+            targetSpawn = leftPoint;
+        }
+        else
+        {
+            targetSpawn = rightPoint;
         }
 
         PartInstance partInstance = Instantiate(part, targetSpawn.position, Quaternion.identity);
@@ -49,25 +37,30 @@ public class LinearConveyerBelt : ConveyerBelt
     /// </summary>
     public override void MovePart(PartInstance part)
     {
-        switch(direction)
+        if (!invertedDirection)
         {
-            case -1:
-                part.transform.Translate((leftPoint.position - part.transform.position).normalized * speed * Time.deltaTime);
-                if(Vector2.Distance(leftPoint.position, part.transform.position) <= 0.1f)
-                {
-                    DestroyConveyerPart(part);
-                }
-                break;
-            case 0:
-                break;
-            case 1:
-                part.transform.Translate((rightPoint.position - part.transform.position).normalized * speed * Time.deltaTime);
-                if (Vector2.Distance(rightPoint.position, part.transform.position) <= 0.1f)
-                {
-                    DestroyConveyerPart(part);
-                }
-                break;
+            part.transform.Translate((leftPoint.position - part.transform.position).normalized * speed * Time.deltaTime);
+            if (Vector2.Distance(leftPoint.position, part.transform.position) <= 0.1f)
+            {
+                DestroyConveyerPart(part);
+            }
         }
+        else
+        {
+            part.transform.Translate((rightPoint.position - part.transform.position).normalized * speed * Time.deltaTime);
+            if (Vector2.Distance(rightPoint.position, part.transform.position) <= 0.1f)
+            {
+                DestroyConveyerPart(part);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Animates the conveyer belt.
+    /// </summary>
+    public override void AnimateConveyer()
+    {
+        
     }
 
     /// <summary>

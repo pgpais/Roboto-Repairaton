@@ -8,6 +8,8 @@ using WhalesAndGames.Pools;
 /// </summary>
 public class GameManager : SingletonBehaviour<GameManager>
 {
+    [Header("Game State")]
+    public GameState gameState;
     public Reference reference;
 
     [Header("Pool Parts")]
@@ -17,6 +19,8 @@ public class GameManager : SingletonBehaviour<GameManager>
     public float startingSpawnTime;
     public ConveyerBelt[] conveyerBelts;
 
+    [Header("Patterns")]
+    public Pattern targetPattern;
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -49,6 +53,13 @@ public class GameManager : SingletonBehaviour<GameManager>
             PoolVariable variable = new PoolVariable(part, part.poolChance);
             partPool.AddVariable(variable);
         }
+
+        // Starts the conveyer belts.
+        gameState = GameState.Start;
+        foreach(ConveyerBelt belt in conveyerBelts)
+        {
+            belt.StartSpawnParts();
+        }
     }
 
     /// <summary>
@@ -66,4 +77,14 @@ public class GameManager : SingletonBehaviour<GameManager>
         Part pickedPart = Pool.Fetch<Part>(partPool);
         return pickedPart;
     }
+}
+
+/// <summary>
+/// Defines the current state of the game in a reachable enum.
+/// </summary>
+public enum GameState
+{
+    Preparing,
+    Start,
+    GameOver,
 }
