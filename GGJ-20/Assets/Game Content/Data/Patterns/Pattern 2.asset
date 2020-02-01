@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72a56227efbfe57459c5977526f62cb2, type: 3}
-  m_Name: Example Pattern
+  m_Name: Pattern 2
   m_EditorClassIdentifier: 
-  headPart: {fileID: 11400000, guid: 607b905839a1c574794bd4a63e582693, type: 2}
-  bodyPart: {fileID: 11400000, guid: 13d2004c525b99f44909f6f60990dc1c, type: 2}
-  legsPart: {fileID: 11400000, guid: 2c4fc47b685a1fa46816dde5b4c986f3, type: 2}
+  headPart: {fileID: 11400000, guid: 6c337ae991d542a48bdaa28578179b0e, type: 2}
+  bodyPart: {fileID: 11400000, guid: 37fdc66fa2b5ab241964f17a77dc8d9e, type: 2}
+  legsPart: {fileID: 11400000, guid: bd5dbf811aa0efa4aa54989950f4d8ea, type: 2}
+  poolChance: 2

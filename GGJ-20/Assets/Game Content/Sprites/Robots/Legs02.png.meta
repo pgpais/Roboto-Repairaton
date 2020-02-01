@@ -1,16 +1,13 @@
 fileFormatVersion: 2
-guid: eb848fa8498c43f4ab60d3023b4d4fdc
+guid: 7df90edf842d44c4588e2a5311c67236
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7704088833546566585
-    second: PartsTest_0
+      213: -6343490880808092660
+    second: Legs02_0
   - first:
-      213: -4354162317286045023
-    second: PartsTest_1
-  - first:
-      213: -2249462346400924630
-    second: PartsTest_2
+      213: -1411876356155759309
+    second: Legs02_1
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -74,7 +71,7 @@ TextureImporter:
     textureFormat: -1
     textureCompression: 0
     compressionQuality: 50
-    crunchedCompression: 0
+    crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
@@ -86,7 +83,7 @@ TextureImporter:
     textureFormat: -1
     textureCompression: 0
     compressionQuality: 50
-    crunchedCompression: 0
+    crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
@@ -98,7 +95,7 @@ TextureImporter:
     textureFormat: -1
     textureCompression: 0
     compressionQuality: 50
-    crunchedCompression: 0
+    crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
@@ -110,7 +107,7 @@ TextureImporter:
     textureFormat: -1
     textureCompression: 0
     compressionQuality: 50
-    crunchedCompression: 0
+    crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
@@ -119,64 +116,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PartsTest_0
+      name: Legs02_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 250
-        height: 250
+        width: 300
+        height: 300
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9bbb891e9fb6aea60800000000000000
-      internalID: 7704088833546566585
+      spriteID: c0cf08537a467f7a0800000000000000
+      internalID: -6343490880808092660
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PartsTest_1
+      name: Legs02_1
       rect:
         serializedVersion: 2
-        x: 249
+        x: 300
         y: 0
-        width: 250
-        height: 250
+        width: 300
+        height: 300
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1aa06c71178e293c0800000000000000
-      internalID: -4354162317286045023
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PartsTest_2
-      rect:
-        serializedVersion: 2
-        x: 500
-        y: 0
-        width: 250
-        height: 250
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a2cf7230aed48c0e0800000000000000
-      internalID: -2249462346400924630
+      spriteID: 335209c3fe1086ce0800000000000000
+      internalID: -1411876356155759309
       vertices: []
       indices: 
       edges: []

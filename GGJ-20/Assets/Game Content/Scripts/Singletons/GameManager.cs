@@ -12,6 +12,10 @@ public class GameManager : SingletonBehaviour<GameManager>
     public GameState GameState;
     public Reference Reference;
 
+    [Header("Game Values")]
+    public int time;
+    public int score;
+
     [Header("Pool Parts")]
     public PoolTable partPool;
     public PoolTable patternPool;
@@ -21,11 +25,16 @@ public class GameManager : SingletonBehaviour<GameManager>
     public ConveyerBelt[] conveyerBelts;
 
     [Header("Patterns")]
+    public int patternMaxTime = 25;
+    private int patternCurrentTime;
     public Pattern targetPattern;
+    private int patternId = 0;
 
-    // Serice Locator
+    // Service Locator
     [HideInInspector]
     public AssemblyZone AssemblyZone;
+    [HideInInspector]
+    public CanvasManager Canvas;
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -40,6 +49,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         // Clones the reference for future-proofing.
         Reference = Instantiate(Reference);
         AssemblyZone = FindObjectOfType<AssemblyZone>();
+        Canvas = FindObjectOfType<CanvasManager>();
     }
 
     /// <summary>
@@ -74,10 +84,68 @@ public class GameManager : SingletonBehaviour<GameManager>
         }
 
         // Starts the conveyer belts.
-        GameState = GameState.Start;
+        GameState = GameState.Running;
         foreach(ConveyerBelt belt in conveyerBelts)
         {
             belt.StartSpawnParts();
+        }
+
+        Canvas.UpdateGameTime(time);
+
+        StartCoroutine(GameCountdown());
+        GenerateNewPattern();
+    }
+
+    /// <summary>
+    /// Starts the countdown timer until the end of the game.
+    /// </summary>
+    public IEnumerator GameCountdown()
+    {
+        while(time > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            time--;
+
+            Canvas.UpdateGameTime(time);
+        }
+
+        GameState = GameState.GameOver;
+    }
+
+    /// <summary>
+    /// Generates a new pattern.
+    /// </summary>
+    public void GenerateNewPattern()
+    {
+        patternId++;
+        patternCurrentTime = patternMaxTime;
+        Pattern pickedPattern = Pool.Fetch<Pattern>(patternPool);
+        targetPattern = pickedPattern;
+
+        Canvas.UpdateShownPattern(pickedPattern);
+        Canvas.UpdatePatternTime(patternCurrentTime, patternMaxTime);
+
+        StartCoroutine(PatternCountdown(patternId));
+    }
+
+    /// <summary>
+    /// Countsdown the pattern time.
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator PatternCountdown(int patterNumber)
+    {
+        while(patternCurrentTime > 0 && patternId == patterNumber)
+        {
+            yield return new WaitForSeconds(1f);
+            patternCurrentTime--;
+
+            Canvas.UpdatePatternTime(patternCurrentTime, patternMaxTime);
+        }
+
+        if(patternId == patterNumber)
+        {
+            AssemblyZone.RemoveAll();
+            GenerateNewPattern();
         }
     }
 
@@ -96,6 +164,18 @@ public class GameManager : SingletonBehaviour<GameManager>
         Part pickedPart = Pool.Fetch<Part>(partPool);
         return pickedPart;
     }
+
+    /// <summary>
+    /// Increasces the score.
+    /// </summary>
+    public void ConfirmAssembly()
+    {
+        // Score is defined by the pattern time 
+        score += patternCurrentTime * 10;
+
+        AssemblyZone.RemoveAll();
+        GenerateNewPattern();
+    }
 }
 
 /// <summary>
@@ -104,6 +184,6 @@ public class GameManager : SingletonBehaviour<GameManager>
 public enum GameState
 {
     Preparing,
-    Start,
+    Running,
     GameOver,
 }

@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57a72fe5c892c7740b18dd8b939d22ed, type: 3}
-  m_Name: Head Example
+  m_Name: Body 2 Part
   m_EditorClassIdentifier: 
-  sprite: {fileID: 7704088833546566585, guid: eb848fa8498c43f4ab60d3023b4d4fdc, type: 3}
-  instance: {fileID: 7536761524906879020, guid: a308c82e137dd684a8199c6c1d60f0f1,
+  brokenSprite: {fileID: -1693557772885657729, guid: 754da7872cdd4464987e56dd92d473cc,
     type: 3}
-  partType: 2
+  fixedSprite: {fileID: 2032115650949667313, guid: 754da7872cdd4464987e56dd92d473cc,
+    type: 3}
+  instance: {fileID: 199456938661041760, guid: c4847ed706be18c4a82a48e9856133dd, type: 3}
+  partType: 1
   poolChance: 2

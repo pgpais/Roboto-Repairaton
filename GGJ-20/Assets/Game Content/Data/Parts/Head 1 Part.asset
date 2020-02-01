@@ -10,9 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57a72fe5c892c7740b18dd8b939d22ed, type: 3}
-  m_Name: Body Example
+  m_Name: Head 1 Part
   m_EditorClassIdentifier: 
-  sprite: {fileID: -4354162317286045023, guid: eb848fa8498c43f4ab60d3023b4d4fdc, type: 3}
-  instance: {fileID: 199456938661041760, guid: 561ec092d639a00439821233d5d8a643, type: 3}
-  partType: 1
+  brokenSprite: {fileID: 898312161897941424, guid: c2a24d95be183014cb6fd32ef2f421cd,
+    type: 3}
+  fixedSprite: {fileID: -398578929846462193, guid: c2a24d95be183014cb6fd32ef2f421cd,
+    type: 3}
+  instance: {fileID: 7536761524906879020, guid: a308c82e137dd684a8199c6c1d60f0f1,
+    type: 3}
+  partType: 2
   poolChance: 2

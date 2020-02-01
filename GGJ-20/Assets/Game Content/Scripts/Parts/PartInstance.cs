@@ -29,6 +29,11 @@ public class PartInstance : MonoBehaviour
 
     public void OnGrab(Transform claw)
     {
+        if(inAssembly)
+        {
+            return;
+        }
+        
         transform.SetParent(claw);
         transform.localPosition = Vector3.zero;
         
@@ -36,11 +41,6 @@ public class PartInstance : MonoBehaviour
         if(belt != null)
         {
             belt.RemoveConveyerPart(this);
-        }
-
-        if(inAssembly)
-        {
-            GameManager.Instance.AssemblyZone.RemovePart(this);
         }
     }
 
@@ -57,6 +57,7 @@ public class PartInstance : MonoBehaviour
             assembly.AttachPart(this);
 
             inAssembly = true;
+            col.enabled = false;
         }
         else
         {

@@ -7,28 +7,57 @@ using UnityEngine;
 /// </summary>
 public class AssemblyZone : MonoBehaviour
 {
-    public Transform[] attachPoints = new Transform[3];
-    protected List<PartInstance> partsOnAssembly = new List<PartInstance>();
+    [Header("Transform")]
+    public Transform legsTransform;
+    public Transform bodyTransform;
+    public Transform headTransform;
+
+    [Header("Assembled Parts")]
+    public PartInstance legsPart;
+    public PartInstance bodyPart;
+    public PartInstance headPart;
+
+    private GameObject shadow;
+
+    /// <summary>
+    /// Start is called just before any of the Update methods is called the first time.
+    /// </summary>
+    private void Start()
+    {
+        shadow = legsTransform.GetChild(0).gameObject;
+    }
 
     /// <summary>
     /// Attaches a part to the collider.
     /// </summary>
     public void AttachPart(PartInstance part)
     {
-        partsOnAssembly.Add(part);
-        ValidateAssembly();
+        Transform targetTransform = null;
+        if(legsPart == null)
+        {
+            legsPart = part;
+            targetTransform = legsTransform;
+            shadow.SetActive(true);
+        }
+        else if (bodyPart == null)
+        {
+            bodyPart = part;
+            targetTransform = bodyTransform;
+        }
+        else if (headPart == null)
+        {
+            headPart = part;
+            targetTransform = headTransform;
+        }
 
-        Transform attachPoint = attachPoints[partsOnAssembly.Count];
-        part.transform.parent = attachPoint;
-        part.transform.position = attachPoint.position;
+        ValidateAssembly();
+        AttachPartToTransform(part, targetTransform);
     }
 
-    /// <summary>
-    /// Removes a part from assembly.
-    /// </summary>
-    public void RemovePart(PartInstance part)
+    public void AttachPartToTransform(PartInstance part, Transform point)
     {
-        partsOnAssembly.Remove(part);
+        part.transform.parent = point;
+        part.transform.position = point.position;
     }
 
     /// <summary>
@@ -37,22 +66,41 @@ public class AssemblyZone : MonoBehaviour
     public void ValidateAssembly()
     {
         // Checks if the player has done any mistake.
-        if (partsOnAssembly.Count == 1 && partsOnAssembly[0].part.partType != PartType.Legs)
+        if (legsPart != null && legsPart.part.partType != PartType.Legs)
         {
             RemoveAll();
+            return;
         }
 
-        if (partsOnAssembly.Count == 2 && partsOnAssembly[1].part.partType != PartType.Body)
+        if (bodyPart != null && bodyPart.part.partType != PartType.Body)
         {
             RemoveAll();
+            return;
         }
 
-        foreach (PartInstance part in partsOnAssembly)
+        // Validates if the robot is the robot order.
+        if(headPart != null)
         {
-            if(partsOnAssembly.Find(x => x != part && x.part.partType == part.part.partType))
+            Pattern pattern = GameManager.Instance.targetPattern;
+            if (legsPart.part != pattern.legsPart)
             {
                 RemoveAll();
+                return;
             }
+
+            if (bodyPart.part != pattern.bodyPart)
+            {
+                RemoveAll();
+                return;
+            }
+
+            if (headPart.part != pattern.headPart)
+            {
+                RemoveAll();
+                return;
+            }
+
+            GameManager.Instance.ConfirmAssembly();
         }
     }
 
@@ -61,11 +109,29 @@ public class AssemblyZone : MonoBehaviour
     /// </summary>
     public void RemoveAll()
     {
-        foreach(PartInstance partInstance in partsOnAssembly)
+        if (legsPart == null)
         {
-            partInstance.ThrowPiece();
+            return;
         }
 
-        partsOnAssembly.Clear();
+        shadow.SetActive(false);
+        legsPart.ThrowPiece();
+        legsPart = null;
+
+        if (bodyPart == null)
+        {
+            return;
+        }
+
+        bodyPart.ThrowPiece();
+        bodyPart = null;
+
+        if (headPart == null)
+        {
+            return;
+        }
+
+        headPart.ThrowPiece();
+        headPart = null;
     }
 }

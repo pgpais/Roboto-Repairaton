@@ -43,8 +43,14 @@ public abstract class ConveyerBelt : MonoBehaviour
             return;
         }
 
-        foreach (PartInstance part in partsOnBelt)
+        for (int i = 0; i < partsOnBelt.Count; i++)
         {
+            PartInstance part = partsOnBelt[i];
+            if(part == null)
+            {
+                continue;
+            }
+
             if (part.beingGrabbed)
             {
                 continue;

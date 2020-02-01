@@ -11,7 +11,8 @@ public class Part : ScriptableObject
 {
     [Header("Definition")]
     [AssetIcon]
-    public Sprite sprite;
+    public Sprite brokenSprite;
+    public Sprite fixedSprite;
     public PartInstance instance;
     public PartType partType;
 

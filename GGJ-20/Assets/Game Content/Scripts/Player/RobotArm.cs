@@ -62,6 +62,11 @@ public class RobotArm : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.Instance.GameState != GameState.Running)
+        {
+            return;
+        }
+
         GetInput();
     }
 
