@@ -9,7 +9,7 @@ using WhalesAndGames.Pools;
 public class PartSpawner : MonoBehaviour
 {
     [Header("Pool Parts")]
-    public PoolStandalone partPool;
+    public PoolTable partPool;
 
     /// <summary>
     /// Start is called just before any of the Update methods is called the first time.
@@ -17,11 +17,19 @@ public class PartSpawner : MonoBehaviour
     private void Start()
     {
         List<Part> parts = GameManager.Instance.reference.parts;
+        if (parts.Count == 0)
+        {
+            Debug.LogError("No Parts Exist in the Reference!");
+            return;
+        }
+
         foreach (Part part in parts)
         {
             PoolVariable variable = new PoolVariable(part, part.poolChance);
-            partPool.poolTable.AddVariable(variable);
+            partPool.AddVariable(variable);
         }
+
+        StartCoroutine(IESpawnParts());
     }
 
     /// <summary>
@@ -29,6 +37,18 @@ public class PartSpawner : MonoBehaviour
     /// </summary>
     public IEnumerator IESpawnParts()
     {
-        yield return new WaitForSeconds(1f);
+        if(partPool.poolVariables.Count == 0)
+        {
+            Debug.LogError("No Parts Exist in the Part Pool! Please double check!");
+            yield break;
+        }
+
+        while(true)
+        {
+            yield return new WaitForSeconds(1f);
+
+            Part pickedPart = Pool.Fetch<Part>(partPool);
+            Debug.Log("<b>Picked Part:</b> " + pickedPart.name);
+        }
     }
 }
