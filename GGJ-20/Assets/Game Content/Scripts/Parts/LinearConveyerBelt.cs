@@ -12,26 +12,8 @@ public class LinearConveyerBelt : ConveyerBelt
     public Transform rightPoint;
 
     /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// Spawns the instance of a part so that the conveyer can move it on it's own accord.
     /// </summary>
-    private void Update()
-    {
-        if(partsOnBelt.Count == 0)
-        {
-            return;
-        }
-
-        foreach(PartInstance part in partsOnBelt)
-        {
-            if(part.beingGrabbed)
-            {
-                continue;
-            }
-
-            MovePart(part);
-        }
-    }
-
     public override void SpawnPart(PartInstance part)
     {
         Transform targetSpawn = null;
@@ -63,15 +45,15 @@ public class LinearConveyerBelt : ConveyerBelt
     }
 
     /// <summary>
-    /// Moves the part along the belt.
+    /// Moves a part along the belt.
     /// </summary>
-    public void MovePart(PartInstance part)
+    public override void MovePart(PartInstance part)
     {
         switch(direction)
         {
             case -1:
                 part.transform.Translate((leftPoint.position - part.transform.position).normalized * speed * Time.deltaTime);
-                if(Vector3.Distance(leftPoint.position, part.transform.position) <= 0.1f)
+                if(Vector2.Distance(leftPoint.position, part.transform.position) <= 0.1f)
                 {
                     DestroyConveyorPart(part);
                 }
@@ -80,7 +62,7 @@ public class LinearConveyerBelt : ConveyerBelt
                 break;
             case 1:
                 part.transform.Translate((rightPoint.position - part.transform.position).normalized * speed * Time.deltaTime);
-                if (Vector3.Distance(rightPoint.position, part.transform.position) <= 0.1f)
+                if (Vector2.Distance(rightPoint.position, part.transform.position) <= 0.1f)
                 {
                     DestroyConveyorPart(part);
                 }

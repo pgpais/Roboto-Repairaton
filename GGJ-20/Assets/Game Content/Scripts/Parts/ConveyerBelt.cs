@@ -27,6 +27,32 @@ public abstract class ConveyerBelt : MonoBehaviour
     }
 
     /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    private void Update()
+    {
+        if (partsOnBelt.Count == 0)
+        {
+            return;
+        }
+
+        foreach (PartInstance part in partsOnBelt)
+        {
+            if (part.beingGrabbed)
+            {
+                continue;
+            }
+
+            MovePart(part);
+        }
+    }
+
+    /// <summary>
+    /// Moves a part along the belt.
+    /// </summary>
+    public abstract void MovePart(PartInstance part);
+
+    /// <summary>
     /// Spawns parts by requesting them to the Game Manager.
     /// </summary>
     /// <returns></returns>
@@ -63,9 +89,9 @@ public abstract class ConveyerBelt : MonoBehaviour
     /// <summary>
     /// Destroys a part from the conveyer belt.
     /// </summary>
-    public void DestroyConveyorPart(PartInstance partInstance)
+    public virtual void DestroyConveyorPart(PartInstance part)
     {
-        partsOnBelt.Remove(partInstance);
-        Destroy(partInstance.gameObject);
+        partsOnBelt.Remove(part);
+        Destroy(part.gameObject);
     }
 }
