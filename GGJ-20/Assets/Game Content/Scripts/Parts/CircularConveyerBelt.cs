@@ -11,7 +11,22 @@ public class CircularConveyerBelt : ConveyerBelt
     public float radius;
     public bool inverted;
 
+    private SpriteRenderer sushiBelt;
     private Dictionary<GameObject, float> angleDictionary = new Dictionary<GameObject, float>();
+
+    /// <summary>
+    /// Start is called just before any of the Update methods is called the first time.
+    /// </summary>
+    protected override void Start()
+    {
+        base.Start();
+        sushiBelt = transform.Find("Sushi Belt").GetComponent<SpriteRenderer>();
+
+        if(inverted)
+        {
+            sushiBelt.flipX = true;
+        }
+    }
 
     /// <summary>
     /// Spawns the instance of a part so that the conveyer can move it on it's own accord.
@@ -36,30 +51,68 @@ public class CircularConveyerBelt : ConveyerBelt
 
         if(!inverted)
         {
-            switch(direction)
+            if(!invertedDirection)
             {
-                case 1:
-                    angleDictionary[partInstance.gameObject] = -1.2f;
-                    break;
-                case -1:
-                    angleDictionary[partInstance.gameObject] = 4.4f;
-                    break;
+                angleDictionary[partInstance.gameObject] = -1.2f;
+            }
+            else
+            {
+                angleDictionary[partInstance.gameObject] = 4.4f;
+            }
+        }
+        else
+        {
+            if (!invertedDirection)
+            {
+                angleDictionary[partInstance.gameObject] = 1.2f;
+            }
+            else
+            {
+                angleDictionary[partInstance.gameObject] = -4.4f;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Animates the conveyer belt.
+    /// </summary>
+    public override void AnimateConveyer()
+    {
+        if(!invertedDirection)
+        {
+            if(sushiBelt.flipY)
+            {
+                sushiBelt.flipY = false;
+            }
+
+            if(!inverted)
+            {
+                sushiBelt.transform.Rotate(0, 0, -speed * 60 * Time.deltaTime);
+            }
+            else
+            {
+                sushiBelt.transform.Rotate(0, 0, speed * 60 * Time.deltaTime);
             }
 
         }
         else
         {
-            switch (direction)
+            if (!sushiBelt.flipY)
             {
-                case 1:
-                    angleDictionary[partInstance.gameObject] = 1.2f;
-                    break;
-                case -1:
-                    angleDictionary[partInstance.gameObject] = -4.4f;
-                    break;
+                sushiBelt.flipY = true;
+            }
+
+            if (!inverted)
+            {
+                sushiBelt.transform.Rotate(0, 0, speed * 60 * Time.deltaTime);
+            }
+            else
+            {
+                sushiBelt.transform.Rotate(0, 0, -speed * 60 * Time.deltaTime);
             }
         }
     }
+
 
     /// <summary>
     /// Moves a part along the belt.
@@ -68,9 +121,8 @@ public class CircularConveyerBelt : ConveyerBelt
     {
         Vector2 offset = Vector2.zero;
 
-        switch (direction)
+        if (invertedDirection)
         {
-            case -1:
             if (!inverted)
             {
                 angleDictionary[part.gameObject] -= speed * Time.deltaTime;
@@ -92,12 +144,10 @@ public class CircularConveyerBelt : ConveyerBelt
                 {
                     DestroyConveyerPart(part);
                 }
-                break;
             }
-            break;
-            case 0:
-                break;
-            case 1:
+        }
+        else
+        {
             if (!inverted)
             {
                 angleDictionary[part.gameObject] += speed * Time.deltaTime;
@@ -119,10 +169,7 @@ public class CircularConveyerBelt : ConveyerBelt
                 {
                     DestroyConveyerPart(part);
                 }
-                break;
             }
-            break;
-
         }
     }
 

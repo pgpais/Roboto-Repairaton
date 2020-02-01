@@ -9,7 +9,8 @@ public abstract class ConveyerBelt : MonoBehaviour
 {
     [Header("Properties")]
     public float speed = 10f;
-    public int direction = 1;
+    public bool stopped;
+    public bool invertedDirection;
     public float spawningTime;
 
     protected List<PartInstance> partsOnBelt = new List<PartInstance>();
@@ -18,11 +19,17 @@ public abstract class ConveyerBelt : MonoBehaviour
     /// <summary>
     /// Start is called just before any of the Update methods is called the first time.
     /// </summary>
-    private void Start()
+    protected virtual void Start()
     {
         spawningTime = GameManager.Instance.startingSpawnTime;
         spawnedPartsTransform = transform.Find("Spawned Parts");
+    }
 
+    /// <summary>
+    /// Starts a belt into spawning parts. Can be used to give a small delay so we can show something when starting the game.
+    /// </summary>
+    public void StartSpawnParts()
+    {
         StartCoroutine(IESpawnParts());
     }
 
@@ -45,12 +52,19 @@ public abstract class ConveyerBelt : MonoBehaviour
 
             MovePart(part);
         }
+
+        AnimateConveyer();
     }
 
     /// <summary>
     /// Moves a part along the belt.
     /// </summary>
     public abstract void MovePart(PartInstance part);
+
+    /// <summary>
+    /// Animates the conveyer belt.
+    /// </summary>
+    public abstract void AnimateConveyer();
 
     /// <summary>
     /// Spawns parts by requesting them to the Game Manager.
@@ -60,7 +74,7 @@ public abstract class ConveyerBelt : MonoBehaviour
     {
         while(true)
         {
-            if(direction == 0)
+            if(stopped == true)
             {
                 yield return null;
                 continue;

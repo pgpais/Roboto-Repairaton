@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Zone where robots and where the validation of patterns happens.
+/// </summary>
 public class AssemblyZone : MonoBehaviour
 {
     [SerializeField]
-    private Transform attachPoint;
+    public Transform attachPoint = null;
 
-    public Transform AttachPoint => attachPoint;
+
     // Start is called before the first frame update
     void Start()
     {
