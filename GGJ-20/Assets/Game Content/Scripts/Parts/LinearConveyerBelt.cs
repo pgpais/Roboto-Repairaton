@@ -55,7 +55,7 @@ public class LinearConveyerBelt : ConveyerBelt
                 part.transform.Translate((leftPoint.position - part.transform.position).normalized * speed * Time.deltaTime);
                 if(Vector2.Distance(leftPoint.position, part.transform.position) <= 0.1f)
                 {
-                    DestroyConveyorPart(part);
+                    DestroyConveyerPart(part);
                 }
                 break;
             case 0:
@@ -64,7 +64,7 @@ public class LinearConveyerBelt : ConveyerBelt
                 part.transform.Translate((rightPoint.position - part.transform.position).normalized * speed * Time.deltaTime);
                 if (Vector2.Distance(rightPoint.position, part.transform.position) <= 0.1f)
                 {
-                    DestroyConveyorPart(part);
+                    DestroyConveyerPart(part);
                 }
                 break;
         }

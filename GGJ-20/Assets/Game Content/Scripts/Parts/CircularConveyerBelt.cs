@@ -19,25 +19,13 @@ public class CircularConveyerBelt : ConveyerBelt
     public override void SpawnPart(PartInstance part)
     {
         Vector2 targetStartingPoint = transform.position;
-        switch (direction)
+        if (!inverted)
         {
-            case -1:
-                targetStartingPoint = new Vector2(transform.position.x, transform.position.y - radius);
-                break;
-            case 0:
-                int random = Random.Range(0, 2);
-                if (random == 0)
-                {
-                    targetStartingPoint = new Vector2(transform.position.x, transform.position.y - radius);
-                }
-                else
-                {
-                    targetStartingPoint = new Vector2(transform.position.x, transform.position.y + radius);
-                }
-                break;
-            case 1:
-                targetStartingPoint = new Vector2(transform.position.x, transform.position.y + radius);
-                break;
+            targetStartingPoint = new Vector2(transform.position.x - radius, transform.position.y);
+        }
+        else
+        {
+            targetStartingPoint = new Vector2(transform.position.x + radius, transform.position.y);
         }
 
         PartInstance partInstance = Instantiate(part, targetStartingPoint, Quaternion.identity);
@@ -45,6 +33,32 @@ public class CircularConveyerBelt : ConveyerBelt
 
         partsOnBelt.Add(partInstance);
         angleDictionary.Add(partInstance.gameObject, 0);
+
+        if(!inverted)
+        {
+            switch(direction)
+            {
+                case 1:
+                    angleDictionary[partInstance.gameObject] = -1.2f;
+                    break;
+                case -1:
+                    angleDictionary[partInstance.gameObject] = 4.4f;
+                    break;
+            }
+
+        }
+        else
+        {
+            switch (direction)
+            {
+                case 1:
+                    angleDictionary[partInstance.gameObject] = 1.2f;
+                    break;
+                case -1:
+                    angleDictionary[partInstance.gameObject] = -4.4f;
+                    break;
+            }
+        }
     }
 
     /// <summary>
@@ -53,72 +67,80 @@ public class CircularConveyerBelt : ConveyerBelt
     public override void MovePart(PartInstance part)
     {
         Vector2 offset = Vector2.zero;
- 
-            switch (direction)
+
+        switch (direction)
+        {
+            case -1:
+            if (!inverted)
             {
-                case -1:
-                if (!inverted)
+                angleDictionary[part.gameObject] -= speed * Time.deltaTime;
+
+                offset = new Vector2(Mathf.Sin(angleDictionary[part.gameObject]), Mathf.Cos(angleDictionary[part.gameObject])) * radius;
+                part.gameObject.transform.position = (Vector2)transform.position + offset;
+                if (Vector2.Distance(new Vector2(transform.position.x - radius, transform.position.y), part.transform.position) <= 0.1f)
                 {
-                    angleDictionary[part.gameObject] -= speed * Time.deltaTime;
-
-                    offset = new Vector2(Mathf.Sin(angleDictionary[part.gameObject]), Mathf.Cos(angleDictionary[part.gameObject])) * radius;
-                    part.gameObject.transform.position = (Vector2)transform.position + offset;
-                    if (Vector2.Distance(new Vector2(transform.position.x, transform.position.y + radius), part.transform.position) <= 0.1f)
-                    {
-                        DestroyConveyorPart(part);
-                    }
+                    DestroyConveyerPart(part);
                 }
-                else
-                {
-                    angleDictionary[part.gameObject] += speed * Time.deltaTime;
-
-                    offset = new Vector2(Mathf.Sin(angleDictionary[part.gameObject]), Mathf.Cos(angleDictionary[part.gameObject])) * radius;
-                    part.gameObject.transform.position = (Vector2)transform.position + offset;
-                    if (Vector2.Distance(new Vector2(transform.position.x, transform.position.y + radius), part.transform.position) <= 0.1f)
-                    {
-                        DestroyConveyorPart(part);
-                    }
-                    break;
-                }
-                break;
-                case 0:
-                    break;
-                case 1:
-                if (!inverted)
-                {
-                    angleDictionary[part.gameObject] += speed * Time.deltaTime;
-
-                    offset = new Vector2(Mathf.Sin(angleDictionary[part.gameObject]), Mathf.Cos(angleDictionary[part.gameObject])) * radius;
-                    part.gameObject.transform.position = (Vector2)transform.position + offset;
-                    if (Vector2.Distance(new Vector2(transform.position.x, transform.position.y - radius), part.transform.position) <= 0.1f)
-                    {
-                        DestroyConveyorPart(part);
-                    }
-                }
-                else
-                {
-                    angleDictionary[part.gameObject] -= speed * Time.deltaTime;
-
-                    offset = new Vector2(Mathf.Sin(angleDictionary[part.gameObject]), Mathf.Cos(angleDictionary[part.gameObject])) * radius;
-                    part.gameObject.transform.position = (Vector2)transform.position + offset;
-                    if (Vector2.Distance(new Vector2(transform.position.x, transform.position.y - radius), part.transform.position) <= 0.1f)
-                    {
-                        DestroyConveyorPart(part);
-                    }
-                    break;
-                }
-                break;
-
             }
+            else
+            {
+                angleDictionary[part.gameObject] += speed * Time.deltaTime;
+
+                offset = new Vector2(Mathf.Sin(angleDictionary[part.gameObject]), Mathf.Cos(angleDictionary[part.gameObject])) * radius;
+                part.gameObject.transform.position = (Vector2)transform.position + offset;
+                if (Vector2.Distance(new Vector2(transform.position.x + radius, transform.position.y), part.transform.position) <= 0.1f)
+                {
+                    DestroyConveyerPart(part);
+                }
+                break;
+            }
+            break;
+            case 0:
+                break;
+            case 1:
+            if (!inverted)
+            {
+                angleDictionary[part.gameObject] += speed * Time.deltaTime;
+
+                offset = new Vector2(Mathf.Sin(angleDictionary[part.gameObject]), Mathf.Cos(angleDictionary[part.gameObject])) * radius;
+                part.gameObject.transform.position = (Vector2)transform.position + offset;
+                if (Vector2.Distance(new Vector2(transform.position.x - radius, transform.position.y), part.transform.position) <= 0.1f)
+                {
+                    DestroyConveyerPart(part);
+                }
+            }
+            else
+            {
+                angleDictionary[part.gameObject] -= speed * Time.deltaTime;
+
+                offset = new Vector2(Mathf.Sin(angleDictionary[part.gameObject]), Mathf.Cos(angleDictionary[part.gameObject])) * radius;
+                part.gameObject.transform.position = (Vector2)transform.position + offset;
+                if (Vector2.Distance(new Vector2(transform.position.x + radius, transform.position.y), part.transform.position) <= 0.1f)
+                {
+                    DestroyConveyerPart(part);
+                }
+                break;
+            }
+            break;
+
+        }
+    }
+
+    /// <summary>
+    /// Removes a part from the conveyer belt.
+    /// </summary>
+    public override void RemoveConveyerPart(PartInstance part)
+    {
+        partsOnBelt.Remove(part);
+        angleDictionary.Remove(part.gameObject);
     }
 
     /// <summary>
     /// Destroys a part from the conveyer belt. In the circular conveyer belt, also removes it from angle calculations.
     /// </summary>
-    public override void DestroyConveyorPart(PartInstance part)
+    public override void DestroyConveyerPart(PartInstance part)
     {
-        base.DestroyConveyorPart(part);
-        angleDictionary.Remove(part.gameObject);
+        base.DestroyConveyerPart(part);
     }
 
     /// <summary>
@@ -128,8 +150,16 @@ public class CircularConveyerBelt : ConveyerBelt
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, radius);
-        Gizmos.DrawSphere(new Vector2(transform.position.x, transform.position.y + radius), 0.2f);
-        Gizmos.DrawSphere(new Vector2(transform.position.x, transform.position.y - radius), 0.2f);
+
+        if(!inverted)
+        {
+            Gizmos.DrawSphere(new Vector2(transform.position.x - radius, transform.position.y), 0.2f);
+        }
+        else
+        {
+            Gizmos.DrawSphere(new Vector2(transform.position.x + radius, transform.position.y), 0.2f);
+        }
+
     }
 
 

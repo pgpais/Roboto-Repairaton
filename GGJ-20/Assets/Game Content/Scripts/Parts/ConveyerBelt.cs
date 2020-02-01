@@ -87,11 +87,19 @@ public abstract class ConveyerBelt : MonoBehaviour
     }
 
     /// <summary>
-    /// Destroys a part from the conveyer belt.
+    /// Removes a part from the conveyer belt.
     /// </summary>
-    public virtual void DestroyConveyorPart(PartInstance part)
+    public virtual void RemoveConveyerPart(PartInstance part)
     {
         partsOnBelt.Remove(part);
+    }
+
+    /// <summary>
+    /// Destroys a part from the conveyer belt.
+    /// </summary>
+    public virtual void DestroyConveyerPart(PartInstance part)
+    {
+        RemoveConveyerPart(part);
         Destroy(part.gameObject);
     }
 }
