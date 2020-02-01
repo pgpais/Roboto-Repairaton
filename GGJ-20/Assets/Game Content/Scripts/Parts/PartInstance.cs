@@ -9,6 +9,7 @@ public class PartInstance : MonoBehaviour
 {
     public ConveyerBelt belt;
     public bool beingGrabbed;
+    public BoxCollider2D col;
 
     [SerializeField]
     private LayerMask mask;
@@ -26,14 +27,15 @@ public class PartInstance : MonoBehaviour
     {
         transform.parent = null;
 
-        Collider2D hit = Physics2D.OverlapBox(transform.position, GetComponent<BoxCollider2D>().size, transform.rotation.eulerAngles.z, mask);
+        Collider2D hit = Physics2D.OverlapBox(transform.position, col.size, transform.rotation.eulerAngles.z, mask);
         if (hit)
         {
-            Debug.Log(hit.name);
             // Attach to something if inside?
-            transform.parent = hit.GetComponent<AssemblyZone>().AttachPoint;
-            transform.localPosition = Vector3.zero;
+            AssemblyZone assembly = hit.GetComponent<AssemblyZone>();
+            transform.parent = assembly.transform;
+            transform.position = assembly.AttachPoint.position;
             transform.localRotation = Quaternion.identity;
+            assembly.AttachPart(col);
         }
         else
         {

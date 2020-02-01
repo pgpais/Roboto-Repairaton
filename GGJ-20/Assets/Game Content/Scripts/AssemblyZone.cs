@@ -19,4 +19,9 @@ public class AssemblyZone : MonoBehaviour
     {
         
     }
+
+    public void AttachPart(BoxCollider2D partCol)
+    {
+        attachPoint.Translate(0, partCol.size.y, 0);
+    }
 }
