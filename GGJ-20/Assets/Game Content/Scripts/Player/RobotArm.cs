@@ -107,6 +107,8 @@ public class RobotArm : MonoBehaviour
             {
                 // Stop Grabbing
                 grabbedPart.OnRelease();
+                grabbedPart = null;
+                isGrabbing = false;
             }
         }
     }

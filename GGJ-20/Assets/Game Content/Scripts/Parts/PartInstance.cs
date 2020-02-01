@@ -8,8 +8,10 @@ using UnityEngine;
 public class PartInstance : MonoBehaviour
 {
     public ConveyerBelt belt;
-    
     public bool beingGrabbed;
+
+    [SerializeField]
+    private LayerMask mask;
 
     public void OnGrab(Transform claw)
     {
@@ -23,9 +25,22 @@ public class PartInstance : MonoBehaviour
     public void OnRelease()
     {
         transform.parent = null;
+
+        Collider2D hit = Physics2D.OverlapBox(transform.position, GetComponent<BoxCollider2D>().size, transform.rotation.eulerAngles.z, mask);
+        if (hit)
+        {
+            Debug.Log(hit.name);
+            // Attach to something if inside?
+            transform.parent = hit.GetComponent<AssemblyZone>().AttachPoint;
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = Quaternion.identity;
+        }
+        else
+        {
+            // Destroy if outside of building zone  
+            Destroy(gameObject);
+        }
+
         
-        // Destroy if outside of building zone
-        
-        // Attach to something if inside?
     }
 }
