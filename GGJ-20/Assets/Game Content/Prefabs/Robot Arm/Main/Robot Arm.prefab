@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1700249174}
   - component: {fileID: 1418964592}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Claw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1972142921}
   - component: {fileID: 1972142922}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ClawHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,8 +154,8 @@ GameObject:
   - component: {fileID: 7827837414083279845}
   - component: {fileID: 885196684}
   - component: {fileID: 885196683}
-  - component: {fileID: 885196681}
-  m_Layer: 0
+  - component: {fileID: 56105962}
+  m_Layer: 8
   m_Name: Robot Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1011617885458046451}
+  - {fileID: 6715559570945146155}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -190,9 +190,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerId: 0
-  armExtendSpeed: 5
-  armRotationSpeed: 90
+  armExtendSpeed: 10
+  armRotationSpeed: 120
   armClampedSize: {x: 1, y: 14}
+  mask:
+    serializedVersion: 2
+    m_Bits: 55
 --- !u!50 &885196684
 Rigidbody2D:
   serializedVersion: 4
@@ -201,7 +204,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2093243404672128448}
-  m_BodyType: 2
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -228,43 +231,15 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 245589901}
-    m_ColliderPaths:
-    - - X: 9999707
-        Y: -1500000
-      - X: 9999707
-        Y: 1500000
-      - X: 0
-        Y: 1499707
-      - X: 293
-        Y: -1500000
-  - m_Collider: {fileID: 1418964592}
-    m_ColliderPaths:
-    - - X: 36349707
-        Y: -12500000
-      - X: 36349707
-        Y: 12500000
-      - X: 11350000
-        Y: 12499707
-      - X: 11350293
-        Y: -12500000
+  m_ColliderPaths: []
   m_CompositePaths:
-    m_Paths:
-    - - {x: 3.6349416, y: -1.25}
-      - {x: 3.6349416, y: 1.25}
-      - {x: 1.135, y: 1.2499415}
-      - {x: 1.1350586, y: -1.25}
-    - - {x: 0.9999414, y: -0.15}
-      - {x: 0.9999414, y: 0.15}
-      - {x: 0, y: 0.1499414}
-      - {x: 0.000058600002, y: -0.15}
+    m_Paths: []
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
---- !u!210 &885196681
+--- !u!210 &56105962
 SortingGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -286,7 +261,7 @@ GameObject:
   - component: {fileID: 1011617885458046451}
   - component: {fileID: 3730392731055640010}
   - component: {fileID: 245589901}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,10 +280,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1700249174}
-  - {fileID: 6715559570945146155}
-  m_Father: {fileID: 2777934405189045500}
+  m_Father: {fileID: 6715559570945146155}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
 --- !u!212 &3730392731055640010
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -395,7 +369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3656304064178016864}
   - component: {fileID: 4925606858704689837}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ClawGear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,13 +383,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5789246080398163639}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7158937, w: 0.6982092}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1972142921}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 91.43301}
 --- !u!212 &4925606858704689837
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -476,7 +450,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7693469755662347568}
   - component: {fileID: 5878840212290762728}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ClawSolo L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -557,7 +531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4396116508863460563}
   - component: {fileID: 6047438458875096209}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ClawSolo R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -638,7 +612,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6715559570945146155}
   - component: {fileID: 5657057009766467099}
-  m_Layer: 0
+  - component: {fileID: 1834100100}
+  - component: {fileID: 1834100099}
+  - component: {fileID: 7509848448017950120}
+  m_Layer: 8
   m_Name: ClawBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -652,12 +629,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7095807251575042442}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1011617885458046451}
-  m_RootOrder: 1
+  m_Children:
+  - {fileID: 1011617885458046451}
+  m_Father: {fileID: 2777934405189045500}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5657057009766467099
 SpriteRenderer:
@@ -709,3 +687,64 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &1834100100
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7095807251575042442}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!233 &1834100099
+HingeJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7095807251575042442}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_UseMotor: 0
+  m_Motor:
+    m_MotorSpeed: 0
+    m_MaximumMotorForce: 10000
+  m_UseLimits: 0
+  m_AngleLimits:
+    m_LowerAngle: 0
+    m_UpperAngle: 359
+--- !u!58 &7509848448017950120
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7095807251575042442}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.58

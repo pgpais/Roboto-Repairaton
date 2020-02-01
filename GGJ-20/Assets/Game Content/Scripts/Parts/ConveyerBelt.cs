@@ -69,6 +69,7 @@ public abstract class ConveyerBelt : MonoBehaviour
             yield return new WaitForSeconds(spawningTime);
             Part part = GameManager.Instance.RequestPartToSpawn();
 
+            part.instance.belt = this; // Links the part to the belt (so it knows where to trigger the remove from)
             SpawnPart(part.instance);
         }
     }
