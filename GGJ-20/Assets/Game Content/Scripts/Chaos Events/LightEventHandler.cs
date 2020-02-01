@@ -6,11 +6,9 @@ using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using Random = UnityEngine.Random;
 
-public class LightEventHandler : MonoBehaviour
+public class LightEventHandler : ChaosEventHandler
 {
-    [Header("Event Properties")] 
-    [Range(0f, 1f)]
-    public float eventAcceptChance;
+    [Header("Event Properties")]
     public float offMinTime = 0.1f;
     public float offMaxTime = 0.5f;
     public float onMinTime = 0.1f;
@@ -22,11 +20,13 @@ public class LightEventHandler : MonoBehaviour
     
     private void Start()
     {
-        ChaosManager.LightFlicker.AddListener(TriggerLightFlicker);
+        ChaosManager.EventTrigger.AddListener(AcceptEvent);
         light = GetComponent<Light2D>();
     }
 
-    public void TriggerLightFlicker()
+    
+
+    public void AcceptEvent()
     {
         if((Random.Range(0f, 1f) <= eventAcceptChance))
             StartCoroutine("LightFlicker");
