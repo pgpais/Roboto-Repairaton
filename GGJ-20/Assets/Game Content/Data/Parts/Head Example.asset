@@ -15,3 +15,4 @@ MonoBehaviour:
   sprite: {fileID: 0}
   instance: {fileID: 0}
   partType: 2
+  poolChance: 2
