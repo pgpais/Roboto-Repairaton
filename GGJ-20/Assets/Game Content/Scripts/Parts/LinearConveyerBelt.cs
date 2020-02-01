@@ -11,6 +11,14 @@ public class LinearConveyerBelt : ConveyerBelt
     public Transform leftPoint;
     public Transform rightPoint;
 
+    private Transform conveyerBelt;
+
+    protected override void Start()
+    {
+        base.Start();
+        conveyerBelt = transform.Find("Conveyer Belt");
+    }
+
     /// <summary>
     /// Spawns the instance of a part so that the conveyer can move it on it's own accord.
     /// </summary>
@@ -39,16 +47,16 @@ public class LinearConveyerBelt : ConveyerBelt
     {
         if (!invertedDirection)
         {
-            part.transform.Translate((leftPoint.position - part.transform.position).normalized * speed * Time.deltaTime);
-            if (Vector2.Distance(leftPoint.position, part.transform.position) <= 0.1f)
+            part.transform.Translate(new Vector2(speed * Time.deltaTime, 0));
+            if (Vector2.Distance(rightPoint.position, part.transform.position) <= 0.2f)
             {
                 DestroyConveyerPart(part);
             }
         }
         else
         {
-            part.transform.Translate((rightPoint.position - part.transform.position).normalized * speed * Time.deltaTime);
-            if (Vector2.Distance(rightPoint.position, part.transform.position) <= 0.1f)
+            part.transform.Translate(new Vector2(-speed * Time.deltaTime, 0));
+            if (Vector2.Distance(leftPoint.position, part.transform.position) <= 0.2f)
             {
                 DestroyConveyerPart(part);
             }
@@ -60,7 +68,42 @@ public class LinearConveyerBelt : ConveyerBelt
     /// </summary>
     public override void AnimateConveyer()
     {
-        
+        if (!invertedDirection)
+        {
+            conveyerBelt.Translate(new Vector2(speed * Time.deltaTime, 0));
+            if(conveyerBelt.position.x >= 2.38f)
+            {
+                Vector2 pos = conveyerBelt.position;
+                pos.x = 0;
+                conveyerBelt.position = pos;
+            }
+
+            if(conveyerBelt.GetChild(0).GetComponent<SpriteRenderer>().flipX)
+            {
+                foreach(Transform childSprite in conveyerBelt)
+                {
+                    childSprite.GetComponent<SpriteRenderer>().flipX = false;
+                }
+            }
+        }
+        else
+        {
+            conveyerBelt.transform.Translate(new Vector2(-speed * Time.deltaTime, 0));
+            if (conveyerBelt.position.x <= -2.38f)
+            {
+                Vector2 pos = conveyerBelt.position;
+                pos.x = 0;
+                conveyerBelt.position = pos;
+            }
+
+            if (!conveyerBelt.GetChild(0).GetComponent<SpriteRenderer>().flipX)
+            {
+                foreach (Transform childSprite in conveyerBelt)
+                {
+                    childSprite.GetComponent<SpriteRenderer>().flipX = true;
+                }
+            }
+        }
     }
 
     /// <summary>

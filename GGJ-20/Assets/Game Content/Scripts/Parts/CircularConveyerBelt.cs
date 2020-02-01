@@ -85,7 +85,15 @@ public class CircularConveyerBelt : ConveyerBelt
                 sushiBelt.flipY = false;
             }
 
-            sushiBelt.transform.Rotate(0, 0, speed * Time.deltaTime);
+            if(!inverted)
+            {
+                sushiBelt.transform.Rotate(0, 0, -speed * 60 * Time.deltaTime);
+            }
+            else
+            {
+                sushiBelt.transform.Rotate(0, 0, speed * 60 * Time.deltaTime);
+            }
+
         }
         else
         {
@@ -94,7 +102,14 @@ public class CircularConveyerBelt : ConveyerBelt
                 sushiBelt.flipY = true;
             }
 
-            sushiBelt.transform.Rotate(0, 0, -speed * Time.deltaTime);
+            if (!inverted)
+            {
+                sushiBelt.transform.Rotate(0, 0, speed * 60 * Time.deltaTime);
+            }
+            else
+            {
+                sushiBelt.transform.Rotate(0, 0, -speed * 60 * Time.deltaTime);
+            }
         }
     }
 
