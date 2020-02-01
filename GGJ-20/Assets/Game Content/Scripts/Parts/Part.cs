@@ -12,7 +12,7 @@ public class Part : ScriptableObject
     [Header("Definition")]
     [AssetIcon]
     public Sprite sprite;
-    public GameObject instance;
+    public PartInstance instance;
     public PartType partType;
 
     [Header("Probability")]

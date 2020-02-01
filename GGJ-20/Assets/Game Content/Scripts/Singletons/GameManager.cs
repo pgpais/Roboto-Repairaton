@@ -19,7 +19,7 @@ public class GameManager : SingletonBehaviour<GameManager>
             Destroy(gameObject);
         }
 
-        // Clones the reference for future.
+        // Clones the reference for future-proofing.
         reference = Instantiate(reference);
     }
 }

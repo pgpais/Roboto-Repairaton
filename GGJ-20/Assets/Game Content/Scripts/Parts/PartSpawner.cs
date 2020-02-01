@@ -11,6 +11,9 @@ public class PartSpawner : MonoBehaviour
     [Header("Pool Parts")]
     public PoolTable partPool;
 
+    [Header("Conveyers")]
+    public ConveyerBelt[] conveyerBelts;
+
     /// <summary>
     /// Start is called just before any of the Update methods is called the first time.
     /// </summary>
@@ -46,9 +49,11 @@ public class PartSpawner : MonoBehaviour
         while(true)
         {
             yield return new WaitForSeconds(1f);
-
-            Part pickedPart = Pool.Fetch<Part>(partPool);
-            Debug.Log("<b>Picked Part:</b> " + pickedPart.name);
+            foreach(ConveyerBelt belt in conveyerBelts)
+            {
+                Part pickedPart = Pool.Fetch<Part>(partPool);
+                belt.SpawnPart(pickedPart.instance);
+            }
         }
     }
 }

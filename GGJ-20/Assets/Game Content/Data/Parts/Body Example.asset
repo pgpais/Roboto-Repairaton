@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Body Example
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
-  instance: {fileID: 0}
+  instance: {fileID: 199456938661041760, guid: 561ec092d639a00439821233d5d8a643, type: 3}
   partType: 1
   poolChance: 2

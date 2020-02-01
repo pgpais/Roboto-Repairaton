@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Legs Example
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
-  instance: {fileID: 0}
+  instance: {fileID: 8079061271835679219, guid: 0a3a51b7064c7794db1d624e5876db41,
+    type: 3}
   partType: 0
   poolChance: 2
