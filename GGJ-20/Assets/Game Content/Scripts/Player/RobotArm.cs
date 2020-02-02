@@ -55,7 +55,7 @@ public class RobotArm : MonoBehaviour
 
         armRender = arm.GetComponent<SpriteRenderer>();
         armCollider = arm.GetComponent<BoxCollider2D>();
-        rb = clawBase.GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -127,6 +127,7 @@ public class RobotArm : MonoBehaviour
             }
         }
     }
+
 
     private void FixedUpdate()
     {
