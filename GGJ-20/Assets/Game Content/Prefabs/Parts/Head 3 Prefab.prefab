@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 7536761524906879020}
   - component: {fileID: 5145942237148407341}
   - component: {fileID: -7570429008311246476}
+  - component: {fileID: -7613256111219817187}
   m_Layer: 0
   m_Name: Head 3 Prefab
   m_TagString: Part
@@ -181,6 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   part: {fileID: 11400000, guid: 57bc762ca31532642b501c2622d7afe0, type: 2}
+  playerId: 0
   belt: {fileID: 0}
   beingGrabbed: 0
   col: {fileID: 5145942237148407341}
@@ -234,3 +236,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &-7613256111219817187
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7393428548084436018}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: aac6d370c0f1c9142861632416956dbd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

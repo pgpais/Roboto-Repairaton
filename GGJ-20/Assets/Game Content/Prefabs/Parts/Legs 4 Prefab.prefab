@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8079061271835679219}
   - component: {fileID: 6890467486435768501}
   - component: {fileID: 2633309127191152643}
+  - component: {fileID: -405965176885757319}
   m_Layer: 0
   m_Name: Legs 4 Prefab
   m_TagString: Part
@@ -98,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   part: {fileID: 11400000, guid: 41c792ec64960de4380378e93aae1fdb, type: 2}
+  playerId: 0
   belt: {fileID: 0}
   beingGrabbed: 0
   col: {fileID: 6890467486435768501}
@@ -151,3 +153,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &-405965176885757319
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9084850989093649901}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: aac6d370c0f1c9142861632416956dbd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
