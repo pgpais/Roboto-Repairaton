@@ -62,14 +62,14 @@ public class GameManager : SingletonBehaviour<GameManager>
     /// <summary>
     /// Start is called just before any of the Update methods is called the first time.
     /// </summary>
-    private void Start()
+    private IEnumerator Start()
     {
         RefreshPartPool();
         List<Pattern> patterns = Reference.patterns;
         if (patterns.Count == 0)
         {
             Debug.LogError("No Patterns Exist in the Reference!");
-            return;
+            yield break;
         }
 
         foreach (Pattern pattern in patterns)
@@ -78,14 +78,18 @@ public class GameManager : SingletonBehaviour<GameManager>
             patternPool.AddVariable(variable);
         }
 
+        // Fades-Out.
+        GlobalManager.Instance.ProcessFade(true, 10);
+        Canvas.UpdateGameTime(time);
+
+        yield return new WaitForSeconds(3f);
+
         // Starts the conveyer belts.
         GameState = GameState.Running;
         foreach(ConveyerBelt belt in conveyerBelts)
         {
             belt.StartSpawnParts();
         }
-
-        Canvas.UpdateGameTime(time);
 
         StartCoroutine(GameCountdown());
         GenerateNewPattern();

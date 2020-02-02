@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// Handles the Game Over Canvas.
@@ -10,17 +11,21 @@ public class GameOverCanvas : MonoBehaviour
 {
     [Header("Game Over Canvas")]
     [SerializeField]
-    private GameObject gameOverDialog;
+    private GameObject gameOverDialog = null;
 
     [Header("Game Over Elements")]
     [SerializeField]
-    private GameObject repairedRobots;
+    private GameObject repairedRobots = null;
     [SerializeField]
-    private GameObject partsDropped;
+    private GameObject partsDropped = null;
     [SerializeField]
-    private GameObject finalScore;
+    private GameObject finalScore = null;
     [SerializeField]
-    private GameObject playerContribution;
+    private GameObject playerContribution = null;
+
+    [Header("Buttons")]
+    [SerializeField]
+    private GameObject retryButton = null;
 
     /// <summary>
     /// Shows the game over screen.
@@ -35,5 +40,23 @@ public class GameOverCanvas : MonoBehaviour
 
         playerContribution.transform.Find("Player1Text").GetComponent<TextMeshProUGUI>().text = string.Format("{0:n0}", GameManager.Instance.player1Contribution);
         playerContribution.transform.Find("Player2Text").GetComponent<TextMeshProUGUI>().text = string.Format("{0:n0}", GameManager.Instance.player2Contribution);
+
+        EventSystem.current.SetSelectedGameObject(retryButton);
+    }
+
+    /// <summary>
+    /// Resets the Game.
+    /// </summary>
+    public void ResetGame()
+    {
+        GlobalManager.Instance.ChangeScene(2, 10);
+    }
+
+    /// <summary>
+    /// Quits to the Menu.
+    /// </summary>
+    public void QuitToMenu()
+    {
+        GlobalManager.Instance.ChangeScene(1, 10);
     }
 }

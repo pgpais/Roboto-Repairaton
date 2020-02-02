@@ -34,7 +34,7 @@ public class PartInstance : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (transform.position.y < -11f && !markedToDestory)
+        if (transform.position.y < -16f && !markedToDestory)
         {
             markedToDestory = true;
             Destroy(gameObject);
