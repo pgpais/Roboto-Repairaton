@@ -22,6 +22,7 @@ namespace Game_Content.Scripts.Chaos_Events
             if (Time.time >= nextEventTime)
             {
                 EventTrigger.Invoke();
+                Debug.Log("Event Fired");
                 nextEventTime = Time.time + eventInterval;
             }
         }

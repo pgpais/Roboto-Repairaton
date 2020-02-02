@@ -13,9 +13,9 @@ namespace Game_Content.Scripts.Chaos_Events
         public float invertChance = 0.35f;
         public float stopChance = 0.2f;
         public float invertSpeedIncreaseChance = 0.1f;
+        public float speedMultiplier = 2f;
 
         private ConveyerBelt belt;
-        private float speedMultiplier = 5f;
 
         private void Start()
         {
@@ -33,21 +33,27 @@ namespace Game_Content.Scripts.Chaos_Events
         {
             float localDur = duration;
             float defaultSpeed = belt.speed;
+            float defaultSpawnRate = belt.spawningTime;
             float rand = Random.Range(0f, 1f);
             if (rand <= stopChance)
                 belt.stopped = true;
             else if (rand <= stopChance + speedIncreaseChance)
-                belt.speed *= speedMultiplier;
+            {
+                belt.speed = defaultSpeed * speedMultiplier;
+                belt.spawningTime = defaultSpawnRate / speedMultiplier;
+            }
             else if (rand <= stopChance + speedIncreaseChance + invertChance)
                 belt.invertedDirection = true;
             else
             {
-                belt.speed *= speedMultiplier;
+                belt.speed = defaultSpeed * speedMultiplier;
+                belt.spawningTime = defaultSpawnRate / speedMultiplier;
                 belt.invertedDirection = true;
             }
             yield return new WaitForSeconds(duration);
             
             belt.speed = defaultSpeed;
+            belt.spawningTime = defaultSpawnRate;
             belt.stopped = false;
             belt.invertedDirection = false;
         }

@@ -25,6 +25,10 @@ public class RobotArm : MonoBehaviour
     public bool stretchInverted;
     public bool rotationInverted;
 
+    [Header("Camera Shake")]
+    public float shakeDuration = 0.5f;
+    public float shakeMagnitude = 0.1f;
+    
     private Transform clawBase;
     private Transform arm;
     private Transform claw;
@@ -36,6 +40,7 @@ public class RobotArm : MonoBehaviour
     private SpriteRenderer armRender;
     private BoxCollider2D armCollider;
     private Rigidbody2D rb;
+    private CameraController cameraController;
 
     private HingeJoint2D hinge; // TODO: this might not work, if something breaks, prolly this
     
@@ -57,6 +62,8 @@ public class RobotArm : MonoBehaviour
         clawAnimator = claw.Find("ClawHead/ClawMagnet").GetComponentInChildren<Animator>();
         grabArea = claw.Find("ClawHead/ClawMagnet/Grab Area");
         grabPoint = grabArea.transform.GetChild(0);
+
+        cameraController = GameObject.Find("Main Camera").GetComponent<CameraController>();
 
         armRender = arm.GetComponent<SpriteRenderer>();
         armCollider = arm.GetComponent<BoxCollider2D>();
@@ -138,6 +145,7 @@ public class RobotArm : MonoBehaviour
     public void SpawnCollisionParticles(Vector3 spawnPos)
     {
         Instantiate(sparks, spawnPos, Quaternion.identity).Play();
+        cameraController.ShakeCamera(shakeDuration, shakeMagnitude);
     }
 
 

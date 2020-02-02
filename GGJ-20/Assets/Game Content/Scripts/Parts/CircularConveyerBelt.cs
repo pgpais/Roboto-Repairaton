@@ -130,7 +130,7 @@ public class CircularConveyerBelt : ConveyerBelt
 
                 offset = new Vector2(Mathf.Sin(angleDictionary[part.gameObject]), Mathf.Cos(angleDictionary[part.gameObject])) * radius;
                 part.gameObject.transform.position = (Vector2)transform.position + offset;
-                if (Vector2.Distance(new Vector2(transform.position.x + radius, transform.position.y), part.transform.position) <= 0.1f)
+                if (Vector2.Distance(new Vector2(transform.position.x + radius, transform.position.y), part.transform.position) <= 0.2f)
                 {
                     DestroyConveyerPart(part);
                 }
