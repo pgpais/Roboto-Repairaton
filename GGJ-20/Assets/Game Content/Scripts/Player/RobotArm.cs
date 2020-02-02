@@ -9,6 +9,9 @@ public class RobotArm : MonoBehaviour
 {
     [Header("Rewired Info")]
     public int playerId = 0; //set at Awake
+
+    [Header("Particles")]
+    public ParticleSystem sparks;
     
     [Header("Input")]
     public float armExtendSpeed = 5;
@@ -21,7 +24,7 @@ public class RobotArm : MonoBehaviour
     [Header("CHAOS")] 
     public bool stretchInverted;
     public bool rotationInverted;
-    
+
     private Transform clawBase;
     private Transform arm;
     private Transform claw;
@@ -57,7 +60,7 @@ public class RobotArm : MonoBehaviour
 
         armRender = arm.GetComponent<SpriteRenderer>();
         armCollider = arm.GetComponent<BoxCollider2D>();
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponentInChildren<Rigidbody2D>();
         hinge = GetComponentInChildren<HingeJoint2D>();
     }
 
@@ -131,6 +134,11 @@ public class RobotArm : MonoBehaviour
         }
     }
 
+    public void SpawnCollisionParticles(Vector3 spawnPos)
+    {
+        Instantiate(sparks, spawnPos, Quaternion.identity).Play();
+    }
+
 
     private void FixedUpdate()
     {
@@ -146,5 +154,4 @@ public class RobotArm : MonoBehaviour
         //rot += (rotationInverted? -h : h) * armRotationSpeed * Time.deltaTime;
         //rb.rotation = rot;
     }
-    
 }
