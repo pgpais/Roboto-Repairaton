@@ -45,10 +45,13 @@ namespace Game_Content.Scripts.Chaos_Events
                 controls.stretchInverted = true;
                 controls.rotationInverted = true;
             }
+            controls.InvertControls(true);
             yield return new WaitForSeconds(duration);
 
             controls.stretchInverted = false;
             controls.rotationInverted = false;
+            controls.InvertControls(false);
+
         }
     }
 }

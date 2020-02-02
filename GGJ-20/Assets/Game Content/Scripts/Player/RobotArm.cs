@@ -41,6 +41,8 @@ public class RobotArm : MonoBehaviour
     private BoxCollider2D armCollider;
     private Rigidbody2D rb;
     private CameraController cameraController;
+    private AudioSource audioSource;
+    private GameObject invertedStatus;
 
     private HingeJoint2D hinge; // TODO: this might not work, if something breaks, prolly this
     
@@ -62,9 +64,10 @@ public class RobotArm : MonoBehaviour
         clawAnimator = claw.Find("ClawHead/ClawMagnet").GetComponentInChildren<Animator>();
         grabArea = claw.Find("ClawHead/ClawMagnet/Grab Area");
         grabPoint = grabArea.transform.GetChild(0);
+        invertedStatus = claw.Find("ClawHead/Inverted Status").gameObject;
 
         cameraController = GameObject.Find("Main Camera").GetComponent<CameraController>();
-
+        audioSource = GetComponent<AudioSource>();
         armRender = arm.GetComponent<SpriteRenderer>();
         armCollider = arm.GetComponent<BoxCollider2D>();
         rb = GetComponentInChildren<Rigidbody2D>();
@@ -109,6 +112,8 @@ public class RobotArm : MonoBehaviour
             if (player.GetButtonUp("Grab"))
             {
                 // Stop Grabbing
+                // TODO: Play POP Audio
+                audioSource.Play();
                 clawAnimator.SetBool("Attracting", false);
                 grabbedPart.OnRelease();
                 grabbedPart = null;
@@ -133,6 +138,8 @@ public class RobotArm : MonoBehaviour
             {
                 if (other.tag.Equals("Part"))
                 {
+                    // TODO: Play POP Audio
+                    audioSource.Play();
                     clawAnimator.SetBool("Attracting", true);
                     grabbedPart = other.GetComponent<PartInstance>();
                     grabbedPart.OnGrab(grabPoint);
@@ -162,5 +169,10 @@ public class RobotArm : MonoBehaviour
         hinge.motor = jointMotor2D;
         //rot += (rotationInverted? -h : h) * armRotationSpeed * Time.deltaTime;
         //rb.rotation = rot;
+    }
+
+    public void InvertControls(bool isInverted)
+    {
+        invertedStatus.SetActive(isInverted);
     }
 }
