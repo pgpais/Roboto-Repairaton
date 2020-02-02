@@ -68,7 +68,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1182876195
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: ff2572cba5507b24993883a0e672c3e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -149,7 +149,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1182876195
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: ff2572cba5507b24993883a0e672c3e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -230,7 +230,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1182876195
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: ff2572cba5507b24993883a0e672c3e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -311,7 +311,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1182876195
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: ff2572cba5507b24993883a0e672c3e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -392,7 +392,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1182876195
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: ff2572cba5507b24993883a0e672c3e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -454,8 +454,8 @@ SortingGroup:
   m_GameObject: {fileID: 2834717642475638909}
   m_Enabled: 1
   m_SortingLayerID: 1182876195
-  m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingLayer: -2
+  m_SortingOrder: -1
 --- !u!1 &2834717642753174371
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,7 +524,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1182876195
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: ff2572cba5507b24993883a0e672c3e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -605,7 +605,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1182876195
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: ff2572cba5507b24993883a0e672c3e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -686,7 +686,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1182876195
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: ff2572cba5507b24993883a0e672c3e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -767,7 +767,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1182876195
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: ff2572cba5507b24993883a0e672c3e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -820,7 +820,7 @@ SortingGroup:
   m_GameObject: {fileID: 5307630202734013159}
   m_Enabled: 1
   m_SortingLayerID: 1182876195
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
 --- !u!1 &5539844922323178323
 GameObject:
@@ -832,6 +832,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5539844922323178317}
   - component: {fileID: 5539844922323178316}
+  - component: {fileID: 1738035317}
   m_Layer: 0
   m_Name: Top Conveyer Belt
   m_TagString: Untagged
@@ -875,6 +876,25 @@ MonoBehaviour:
   spawningTime: 0
   leftPoint: {fileID: 5539844923563811390}
   rightPoint: {fileID: 5539844923514772741}
+--- !u!114 &1738035317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5539844922323178323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21668e1563c745b4584e8b7810b97ed1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventAcceptChance: 0.1
+  acceptanceIncrease: 0.01
+  duration: 2
+  speedIncreaseChance: 0.35
+  invertChance: 0.35
+  stopChance: 0.2
+  invertSpeedIncreaseChance: 0.1
 --- !u!1 &5539844923514772740
 GameObject:
   m_ObjectHideFlags: 0

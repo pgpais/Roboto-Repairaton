@@ -7,13 +7,23 @@ namespace Game_Content.Scripts.Chaos_Events
     public class ChaosManager : MonoBehaviour
     {
         public static UnityEvent EventTrigger = new UnityEvent();
-        public bool startEvent = false;
+
+        public float eventInterval = 2f;
+
+        private float nextEventTime;
+
+        private void Start()
+        {
+            nextEventTime = Time.time + eventInterval;
+        }
 
         private void Update()
         {
-            if(startEvent)
+            if (Time.time >= nextEventTime)
+            {
                 EventTrigger.Invoke();
-            startEvent = false;
+                nextEventTime = Time.time + eventInterval;
+            }
         }
     }
 }
