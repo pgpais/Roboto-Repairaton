@@ -15,6 +15,8 @@ public class GameManager : SingletonBehaviour<GameManager>
     [Header("Game Values")]
     public int time;
     public int score;
+    public int repairedRobots;
+    public int partsDropped;
     private int scorePenalty = 50;
 
     [Header("Pool Parts")]
@@ -108,6 +110,8 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
         Time.timeScale = 0;
         GameState = GameState.GameOver;
+
+        Canvas.ShowGameOverScreen();
     }
 
     /// <summary>
@@ -215,6 +219,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
         // Score is defined by the pattern time 
         score += patternCurrentTime * 10;
+        repairedRobots += 1;
 
         Canvas.RecoverClock();
         Canvas.ShakeScoreAdd();

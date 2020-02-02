@@ -138,7 +138,7 @@ public class AssemblyZone : MonoBehaviour
         legsPart.ChangeSpritesToFixed();
 
         GameManager.Instance.ConfirmAssembly();
-        yield return new WaitForSeconds(1.7f);
+        yield return new WaitForSeconds(1.5f);
 
         Destroy(legsPart.gameObject);
         legsPart = null;
@@ -158,6 +158,8 @@ public class AssemblyZone : MonoBehaviour
     /// </summary>
     public void ThrowAll()
     {
+        GameManager.Instance.FailAssembly();
+
         assemblyAnimator.SetTrigger("Refuse");
         if (legsPart == null)
         {

@@ -162,4 +162,12 @@ public class CanvasManager : MonoBehaviour
     {
         scoreAnimator.SetTrigger("Remove");
     }
+
+    /// <summary>
+    /// Shows the Game Over Screen.
+    /// </summary>
+    public void ShowGameOverScreen()
+    {
+        FindObjectOfType<GameOverCanvas>().ShowGameOverScreen();
+    }
 }

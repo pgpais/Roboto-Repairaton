@@ -27,6 +27,18 @@ public class PartInstance : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    private void Update()
+    {
+        if (transform.position.y < -11f)
+        {
+            Destroy(gameObject);
+            GameManager.Instance.partsDropped++;
+        }
+    }
+
     public void OnGrab(Transform claw)
     {
         if(inAssembly)
@@ -78,7 +90,6 @@ public class PartInstance : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.gravityScale = 2;
         rb.AddForce(new Vector2(Random.Range(-400, 400), Random.Range(200, 400)));
-        Destroy(gameObject, 4);
     }
 
     /// <summary>

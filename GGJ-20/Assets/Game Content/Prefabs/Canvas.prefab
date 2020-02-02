@@ -219,7 +219,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Total Repairs
+  m_text: Repaired Robots
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a4c8cb82db15f964bb9bc6dc280fe8af, type: 2}
   m_sharedMaterial: {fileID: -6122262247962574382, guid: a4c8cb82db15f964bb9bc6dc280fe8af,
@@ -289,7 +289,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 132132846}
-    characterCount: 13
+    characterCount: 15
     spriteCount: 0
     spaceCount: 1
     wordCount: 2
@@ -398,7 +398,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 78fbf53b4d4b45a4a9f6bbeb6a34f61c, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -803,7 +803,7 @@ GameObject:
   - component: {fileID: 643101115}
   - component: {fileID: 643101114}
   m_Layer: 5
-  m_Name: Total Repairs
+  m_Name: Repaired Robots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1338,14 +1338,13 @@ GameObject:
   - component: {fileID: 1489092618}
   - component: {fileID: 1489092620}
   - component: {fileID: 1489092619}
-  - component: {fileID: 1489092621}
   m_Layer: 5
-  m_Name: Game Over
+  m_Name: Game Over Dialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1489092618
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1353,7 +1352,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489092617}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1363,13 +1362,13 @@ RectTransform:
   - {fileID: 643101113}
   - {fileID: 2046306957}
   - {fileID: 1455001705}
-  m_Father: {fileID: 6081107294974612732}
-  m_RootOrder: 5
+  m_Father: {fileID: 4060594974272238601}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 1200}
+  m_SizeDelta: {x: 2460, y: 1200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1489092620
 CanvasRenderer:
@@ -1407,21 +1406,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1489092621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1489092617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c44dd630260a3094f87fed693fc7ca69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  totalRepairs: {fileID: 0}
-  piecesDropped: {fileID: 0}
-  finalScore: {fileID: 0}
 --- !u!1 &1537010726
 GameObject:
   m_ObjectHideFlags: 0
@@ -2058,7 +2042,7 @@ GameObject:
   - component: {fileID: 2046306959}
   - component: {fileID: 2046306958}
   m_Layer: 5
-  m_Name: Dropped Pieces
+  m_Name: Parts Dropped
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2289,6 +2273,59 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!1 &4245782806794935603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4060594974272238601}
+  - component: {fileID: 2335824551613203894}
+  m_Layer: 5
+  m_Name: Game Over
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4060594974272238601
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4245782806794935603}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1489092618}
+  m_Father: {fileID: 6081107294974612732}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2335824551613203894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4245782806794935603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c44dd630260a3094f87fed693fc7ca69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverDialog: {fileID: 1489092617}
+  repairedRobots: {fileID: 643101112}
+  partsDropped: {fileID: 2046306956}
+  finalScore: {fileID: 1455001704}
 --- !u!1 &4696986906733402841
 GameObject:
   m_ObjectHideFlags: 0
@@ -3360,7 +3397,7 @@ RectTransform:
   - {fileID: 6081107295350699590}
   - {fileID: 535919625}
   - {fileID: 1456591600}
-  - {fileID: 1489092618}
+  - {fileID: 4060594974272238601}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
