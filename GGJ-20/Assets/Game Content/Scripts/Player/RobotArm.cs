@@ -136,6 +136,7 @@ public class RobotArm : MonoBehaviour
                     clawAnimator.SetBool("Attracting", true);
                     grabbedPart = other.GetComponent<PartInstance>();
                     grabbedPart.OnGrab(grabPoint);
+                    grabbedPart.playerId = playerId;
                 }
             }
         }

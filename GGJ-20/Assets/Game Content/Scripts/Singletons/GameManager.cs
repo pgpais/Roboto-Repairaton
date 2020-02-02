@@ -19,6 +19,10 @@ public class GameManager : SingletonBehaviour<GameManager>
     public int partsDropped;
     private int scorePenalty = 50;
 
+    [Header("Contribution")]
+    public int player1Contribution;
+    public int player2Contribution;
+
     [Header("Pool Parts")]
     public PoolTable partPool;
     public PoolTable patternPool;

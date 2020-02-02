@@ -10,6 +10,7 @@ public class PartInstance : MonoBehaviour
 {
     [Header("Part")]
     public Part part;
+    public int playerId;
 
     [ReadOnly]
     public ConveyerBelt belt;
@@ -21,6 +22,7 @@ public class PartInstance : MonoBehaviour
     [SerializeField]
     private LayerMask mask;
     private bool inAssembly;
+    private bool markedToDestory = false;
 
     private void Start()
     {
@@ -32,8 +34,9 @@ public class PartInstance : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (transform.position.y < -11f)
+        if (transform.position.y < -11f && !markedToDestory)
         {
+            markedToDestory = true;
             Destroy(gameObject);
             GameManager.Instance.partsDropped++;
         }

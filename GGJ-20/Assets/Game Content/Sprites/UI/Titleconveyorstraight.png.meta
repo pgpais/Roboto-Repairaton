@@ -1,16 +1,7 @@
 fileFormatVersion: 2
-guid: e80ab38fce09b6943aff7f6b2af530de
+guid: 624f1261897ceb84d8f8d9515a443d16
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -9105180845652059997
-    second: ButtonsBlackscreen_0
-  - first:
-      213: 8615064496711289630
-    second: ButtonsBlackscreen_1
-  - first:
-      213: -5141521068090039678
-    second: ButtonsBlackscreen_2
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -49,7 +40,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 0
   alignment: 0
@@ -117,70 +108,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: ButtonsBlackscreen_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 220
-        height: 202
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 70, y: 75, z: 70, w: 75}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3a8d73f1346e3a180800000000000000
-      internalID: -9105180845652059997
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ButtonsBlackscreen_1
-      rect:
-        serializedVersion: 2
-        x: 220
-        y: 0
-        width: 220
-        height: 202
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 70, y: 75, z: 70, w: 75}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e1b4e83e38bde8770800000000000000
-      internalID: 8615064496711289630
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ButtonsBlackscreen_2
-      rect:
-        serializedVersion: 2
-        x: 440
-        y: 0
-        width: 220
-        height: 202
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 70, y: 75, z: 70, w: 75}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2826e4b54d5a5a8b0800000000000000
-      internalID: -5141521068090039678
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []

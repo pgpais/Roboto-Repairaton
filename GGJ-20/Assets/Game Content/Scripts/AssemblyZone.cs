@@ -137,6 +137,37 @@ public class AssemblyZone : MonoBehaviour
         bodyPart.ChangeSpritesToFixed();
         legsPart.ChangeSpritesToFixed();
 
+        // Scores
+        switch(headPart.playerId)
+        {
+            case 0:
+                GameManager.Instance.player1Contribution++;
+                break;
+            case 1:
+                GameManager.Instance.player2Contribution++;
+                break;
+        }
+
+        switch (bodyPart.playerId)
+        {
+            case 0:
+                GameManager.Instance.player1Contribution++;
+                break;
+            case 1:
+                GameManager.Instance.player2Contribution++;
+                break;
+        }
+
+        switch (legsPart.playerId)
+        {
+            case 0:
+                GameManager.Instance.player1Contribution++;
+                break;
+            case 1:
+                GameManager.Instance.player2Contribution++;
+                break;
+        }
+
         GameManager.Instance.ConfirmAssembly();
         yield return new WaitForSeconds(1.5f);
 

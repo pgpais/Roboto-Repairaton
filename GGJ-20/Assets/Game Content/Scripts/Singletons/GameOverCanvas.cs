@@ -11,6 +11,7 @@ public class GameOverCanvas : MonoBehaviour
     [Header("Game Over Canvas")]
     [SerializeField]
     private GameObject gameOverDialog;
+
     [Header("Game Over Elements")]
     [SerializeField]
     private GameObject repairedRobots;
@@ -18,6 +19,8 @@ public class GameOverCanvas : MonoBehaviour
     private GameObject partsDropped;
     [SerializeField]
     private GameObject finalScore;
+    [SerializeField]
+    private GameObject playerContribution;
 
     /// <summary>
     /// Shows the game over screen.
@@ -29,5 +32,8 @@ public class GameOverCanvas : MonoBehaviour
         partsDropped.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = string.Format("{0:n0}", GameManager.Instance.partsDropped);
         repairedRobots.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = string.Format("{0:n0}", GameManager.Instance.repairedRobots);
         finalScore.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = string.Format("{0:n0}", GameManager.Instance.score);
+
+        playerContribution.transform.Find("Player1Text").GetComponent<TextMeshProUGUI>().text = string.Format("{0:n0}", GameManager.Instance.player1Contribution);
+        playerContribution.transform.Find("Player2Text").GetComponent<TextMeshProUGUI>().text = string.Format("{0:n0}", GameManager.Instance.player2Contribution);
     }
 }
