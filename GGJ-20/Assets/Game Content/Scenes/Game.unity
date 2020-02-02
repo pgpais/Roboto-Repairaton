@@ -2073,13 +2073,14 @@ GameObject:
   - component: {fileID: 1489092618}
   - component: {fileID: 1489092620}
   - component: {fileID: 1489092619}
+  - component: {fileID: 1489092621}
   m_Layer: 5
   m_Name: Game Over
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1489092618
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2141,6 +2142,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489092617}
   m_CullTransparentMesh: 0
+--- !u!114 &1489092621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489092617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c44dd630260a3094f87fed693fc7ca69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalRepairs: {fileID: 0}
+  piecesDropped: {fileID: 0}
+  finalScore: {fileID: 0}
 --- !u!1 &1537010726
 GameObject:
   m_ObjectHideFlags: 0
