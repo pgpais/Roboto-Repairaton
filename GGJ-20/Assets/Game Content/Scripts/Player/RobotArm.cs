@@ -26,17 +26,16 @@ public class RobotArm : MonoBehaviour
     private Transform arm;
     private Transform claw;
     private Transform grabArea;
+    private Transform grabPoint;
     
     private Player player;
     private Animator clawAnimator;
     private SpriteRenderer armRender;
     private BoxCollider2D armCollider;
-    private BoxCollider2D grabCollider;
     private Rigidbody2D rb;
     
     // Input vars TODO: are these necessary? Can the input work on FixedUpdate?
     private float h, v;
-    private bool isGrabbing;
     private PartInstance grabbedPart;
 
     private void Awake()
@@ -52,10 +51,10 @@ public class RobotArm : MonoBehaviour
         claw = arm.Find("Claw");
         clawAnimator = claw.Find("ClawHead/ClawMagnet").GetComponentInChildren<Animator>();
         grabArea = claw.Find("ClawHead/ClawMagnet/Grab Area");
+        grabPoint = grabArea.transform.GetChild(0);
 
         armRender = arm.GetComponent<SpriteRenderer>();
         armCollider = arm.GetComponent<BoxCollider2D>();
-        grabCollider = grabArea.GetComponent<BoxCollider2D>();
         rb = clawBase.GetComponent<Rigidbody2D>();
     }
 
@@ -92,25 +91,7 @@ public class RobotArm : MonoBehaviour
         armCollider.size = spriteSize;
         armCollider.offset = new Vector2(0, spriteSize.y / 2);
 
-        // Grab part
-        if (player.GetButtonDown("Grab"))
-        {
-            // Try to Grab 
-            Collider2D hit = Physics2D.OverlapBox((Vector2)grabArea.transform.position + new Vector2(grabCollider.size.y / 2, 0), new Vector2(grabCollider.size.y, grabCollider.size.x), grabArea.rotation.eulerAngles.z, mask);
-            if (hit)
-            {
-                if(hit.tag.Equals("Part"))
-                {
-                    clawAnimator.SetBool("Attracting", true);
-                    grabbedPart = hit.GetComponent<PartInstance>();
-                    grabbedPart.OnGrab(grabArea);
-                    
-                    isGrabbing = true;
-                }
-            }
-        }
-
-        if (isGrabbing)
+        if (grabbedPart != null)
         {
             if (player.GetButtonUp("Grab"))
             {
@@ -118,7 +99,31 @@ public class RobotArm : MonoBehaviour
                 clawAnimator.SetBool("Attracting", false);
                 grabbedPart.OnRelease();
                 grabbedPart = null;
-                isGrabbing = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Allows the player to pick stuff up using the Grab Area Collider.
+    /// </summary>
+    public void ColliderDetected(GameObject other)
+    {
+        if(grabbedPart != null)
+        {
+            return;
+        }
+
+        // Grab part
+        if (player.GetButtonDown("Grab"))
+        {
+            // Try to Grab 
+            {
+                if (other.tag.Equals("Part"))
+                {
+                    clawAnimator.SetBool("Attracting", true);
+                    grabbedPart = other.GetComponent<PartInstance>();
+                    grabbedPart.OnGrab(grabPoint);
+                }
             }
         }
     }
@@ -133,20 +138,5 @@ public class RobotArm : MonoBehaviour
         float rot = rb.rotation;
         rot += (rotationInverted? -h : h) * armRotationSpeed * Time.deltaTime;
         rb.rotation = rot;
-    }
-
-    /// <summary>
-    /// Implement this OnDrawGizmos if you want to draw gizmos that are also pickable and always drawn.
-    /// </summary>
-    private void OnDrawGizmosSelected()
-    {
-        Transform clawBase = transform.Find("ClawBase");
-        Transform arm = clawBase.Find("Arm");
-        Transform claw = arm.Find("Claw");
-        Transform grabArea = claw.Find("ClawHead/ClawMagnet/Grab Area");
-        BoxCollider2D grabCollider = grabArea.GetComponent<BoxCollider2D>();
-
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireCube((Vector2)grabArea.transform.position + new Vector2(grabCollider.size.y / 2, 0), new Vector2(grabCollider.size.y, grabCollider.size.x));
     }
 }
