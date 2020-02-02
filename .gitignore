@@ -10,9 +10,6 @@ UnityGenerated/
 [Ee]xamples/
 [Dd]ocumentation/
 
-# Unity shitty meta files
-*.meta
-
 # Visual Studio Files
 *.vs
 *.csproj

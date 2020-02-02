@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2417276153425680818}
   - component: {fileID: 2417276153425680829}
-  - component: {fileID: 1375239652}
+  - component: {fileID: 117903203}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameState: 0
   Reference: {fileID: 11400000, guid: 9f4ab3464ceaf0d44adcfb4253bcb142, type: 2}
+  time: 150
+  score: 0
   partPool:
     poolVariables: []
   patternPool:
@@ -55,9 +57,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  patternMaxTime: 30
   targetPattern: {fileID: 11400000, guid: c70c5ae82d704144fb72a46570f5a4b6, type: 2}
   AssemblyZone: {fileID: 0}
---- !u!114 &1375239652
+  Canvas: {fileID: 0}
+--- !u!114 &117903203
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,7 +70,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2417276153425680828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f5c20710b1d48ad8ff933ed08cea833, type: 3}
+  m_Script: {fileID: 11500000, guid: e142306d5a4a1d0469ecc47bfe5c06a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startEvent: 0

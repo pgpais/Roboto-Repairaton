@@ -15,6 +15,9 @@ public class GameOverCanvas : MonoBehaviour
     [SerializeField]
     private GameObject finalScore;
 
+    /// <summary>
+    /// Shows the game over screen.
+    /// </summary>
     public void ShowGameOverScreen()
     {
 
