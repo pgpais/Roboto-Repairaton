@@ -57,6 +57,7 @@ public class GameOverCanvas : MonoBehaviour
     /// </summary>
     public void QuitToMenu()
     {
+        Time.timeScale = 1f;
         GlobalManager.Instance.ChangeScene("Title", 10);
     }
 }

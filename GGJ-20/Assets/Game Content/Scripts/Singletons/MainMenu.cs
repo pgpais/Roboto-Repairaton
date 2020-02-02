@@ -16,6 +16,8 @@ public class MainMenu : MonoBehaviour
     // Start is called just before any of the Update methods is called the first time
     private void Start()
     {
+        GlobalManager.Instance.ProcessFade(true, 10);
+
         // Fades-Out.
         GlobalManager.Instance.ProcessFade(true, 10);
     }

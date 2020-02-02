@@ -157,7 +157,7 @@ public class GameManager : SingletonBehaviour<GameManager>
             int poolChance = part.poolChance;
             if(part == targetPattern.headPart || part == targetPattern.bodyPart || part == targetPattern.legsPart)
             {
-                poolChance = (int)Mathf.Round(poolChance * 4f);
+                poolChance = 12;
             }
 
             PoolVariable variable = new PoolVariable(part, poolChance);

@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_Sprite: {fileID: 7823272499720027286, guid: 74a010f1848530e46b2abc780ec73f08,
     type: 3}
-  m_Color: {r: 1, g: 0.665236, b: 0.3160377, a: 1}
+  m_Color: {r: 1, g: 0.665, b: 0.316, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   part: {fileID: 11400000, guid: 6c337ae991d542a48bdaa28578179b0e, type: 2}
+  playerId: 0
   belt: {fileID: 0}
   beingGrabbed: 0
   col: {fileID: 5145942237148407341}

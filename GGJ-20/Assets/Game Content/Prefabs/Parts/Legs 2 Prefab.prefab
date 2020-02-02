@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6890467486435768501}
   - component: {fileID: 2633309127191152643}
   m_Layer: 0
-  m_Name: Legs 2 Part
+  m_Name: Legs 2 Prefab
   m_TagString: Part
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   part: {fileID: 11400000, guid: bd5dbf811aa0efa4aa54989950f4d8ea, type: 2}
+  playerId: 0
   belt: {fileID: 0}
   beingGrabbed: 0
   col: {fileID: 6890467486435768501}

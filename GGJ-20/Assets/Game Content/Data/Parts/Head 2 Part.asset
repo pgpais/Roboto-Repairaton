@@ -19,4 +19,4 @@ MonoBehaviour:
   instance: {fileID: 7536761524906879020, guid: 8a728f66da6f1144f8d4b34e18435c2d,
     type: 3}
   partType: 2
-  poolChance: 2
+  poolChance: 4

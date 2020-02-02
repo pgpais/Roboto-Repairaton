@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57a72fe5c892c7740b18dd8b939d22ed, type: 3}
+  m_Name: Head 5 Part
+  m_EditorClassIdentifier: 
+  brokenSprite: {fileID: 7226279561521850047, guid: 890b6c9c467db9049946f4812e362729,
+    type: 3}
+  fixedSprite: {fileID: 4429345685008756837, guid: 890b6c9c467db9049946f4812e362729,
+    type: 3}
+  instance: {fileID: 7536761524906879020, guid: ffcef78eececdd645a403d2500c6e47a,
+    type: 3}
+  partType: 2
+  poolChance: 2
