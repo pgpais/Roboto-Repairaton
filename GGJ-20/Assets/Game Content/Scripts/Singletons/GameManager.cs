@@ -15,6 +15,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     [Header("Game Values")]
     public int time;
     public int score;
+    private int scorePenalty = 50;
 
     [Header("Pool Parts")]
     public PoolTable partPool;
@@ -57,21 +58,9 @@ public class GameManager : SingletonBehaviour<GameManager>
     /// </summary>
     private void Start()
     {
-        List<Part> parts = Reference.parts;
-        if (parts.Count == 0)
-        {
-            Debug.LogError("No Parts Exist in the Reference!");
-            return;
-        }
-
-        foreach (Part part in parts)
-        {
-            PoolVariable variable = new PoolVariable(part, part.poolChance);
-            partPool.AddVariable(variable);
-        }
-
+        RefreshPartPool();
         List<Pattern> patterns = Reference.patterns;
-        if (parts.Count == 0)
+        if (patterns.Count == 0)
         {
             Debug.LogError("No Patterns Exist in the Reference!");
             return;
@@ -101,7 +90,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     /// </summary>
     public IEnumerator GameCountdown()
     {
-        while(time > 0)
+        while (time > 0)
         {
             yield return new WaitForSeconds(1f);
             time--;
@@ -109,6 +98,15 @@ public class GameManager : SingletonBehaviour<GameManager>
             Canvas.UpdateGameTime(time);
         }
 
+        GameOver();
+    }
+
+    /// <summary>
+    /// Stops the Time Scale completly.
+    /// </summary>
+    private void GameOver()
+    {
+        Time.timeScale = 0;
         GameState = GameState.GameOver;
     }
 
@@ -122,10 +120,37 @@ public class GameManager : SingletonBehaviour<GameManager>
         Pattern pickedPattern = Pool.Fetch<Pattern>(patternPool);
         targetPattern = pickedPattern;
 
+        RefreshPartPool();
         Canvas.UpdateShownPattern(pickedPattern);
         Canvas.UpdatePatternTime(patternCurrentTime, patternMaxTime);
 
         StartCoroutine(PatternCountdown(patternId));
+    }
+
+    /// <summary>
+    /// Refreshes the Part Pool each time a new pattern is picked.
+    /// </summary>
+    public void RefreshPartPool()
+    {
+        List<Part> parts = Reference.parts;
+        if (parts.Count == 0)
+        {
+            Debug.LogError("No Parts Exist in the Reference!");
+            return;
+        }
+
+        partPool.poolVariables.Clear();
+        foreach (Part part in parts)
+        {
+            int poolChance = part.poolChance;
+            if(part == targetPattern.headPart || part == targetPattern.bodyPart || part == targetPattern.legsPart)
+            {
+                Mathf.Round(poolChance * 4.5f);
+            }
+
+            PoolVariable variable = new PoolVariable(part, poolChance);
+            partPool.AddVariable(variable);
+        }
     }
 
     /// <summary>
@@ -139,12 +164,16 @@ public class GameManager : SingletonBehaviour<GameManager>
             yield return new WaitForSeconds(1f);
             patternCurrentTime--;
 
+            if(patternCurrentTime == 0)
+            {
+                Canvas.ShakeClock();
+            }
             Canvas.UpdatePatternTime(patternCurrentTime, patternMaxTime);
         }
 
         if(patternId == patterNumber)
         {
-            AssemblyZone.RemoveAll();
+            AssemblyZone.ThrowAll();
             GenerateNewPattern();
         }
     }
@@ -166,6 +195,20 @@ public class GameManager : SingletonBehaviour<GameManager>
     }
 
     /// <summary>
+    /// Triggers when an assembly is failed.
+    /// </summary>
+    public void FailAssembly()
+    {
+        score -= scorePenalty;       
+        if(score < 0)
+        {
+            score = 0;
+        }
+
+        Canvas.ShakeScoreRemove();
+    }
+
+    /// <summary>
     /// Increasces the score.
     /// </summary>
     public void ConfirmAssembly()
@@ -173,7 +216,8 @@ public class GameManager : SingletonBehaviour<GameManager>
         // Score is defined by the pattern time 
         score += patternCurrentTime * 10;
 
-        AssemblyZone.RemoveAll();
+        Canvas.RecoverClock();
+        Canvas.ShakeScoreAdd();
         GenerateNewPattern();
     }
 }

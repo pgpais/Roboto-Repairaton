@@ -17,14 +17,16 @@ public class AssemblyZone : MonoBehaviour
     public PartInstance bodyPart;
     public PartInstance headPart;
 
-    private GameObject shadow;
+    private GameObject legsShadow;
+    private Animator assemblyAnimator;
 
     /// <summary>
     /// Start is called just before any of the Update methods is called the first time.
     /// </summary>
     private void Start()
     {
-        shadow = legsTransform.GetChild(0).gameObject;
+        assemblyAnimator = transform.parent.GetComponent<Animator>();
+        legsShadow = legsTransform.GetChild(0).gameObject;
     }
 
     /// <summary>
@@ -37,7 +39,7 @@ public class AssemblyZone : MonoBehaviour
         {
             legsPart = part;
             targetTransform = legsTransform;
-            shadow.SetActive(true);
+            legsShadow.SetActive(true);
         }
         else if (bodyPart == null)
         {
@@ -54,6 +56,9 @@ public class AssemblyZone : MonoBehaviour
         AttachPartToTransform(part, targetTransform);
     }
 
+    /// <summary>
+    /// Attachs a part to a transform.
+    /// </summary>
     public void AttachPartToTransform(PartInstance part, Transform point)
     {
         part.transform.parent = point;
@@ -68,13 +73,13 @@ public class AssemblyZone : MonoBehaviour
         // Checks if the player has done any mistake.
         if (legsPart != null && legsPart.part.partType != PartType.Legs)
         {
-            RemoveAll();
+            ThrowAll();
             return;
         }
 
         if (bodyPart != null && bodyPart.part.partType != PartType.Body)
         {
-            RemoveAll();
+            ThrowAll();
             return;
         }
 
@@ -84,37 +89,59 @@ public class AssemblyZone : MonoBehaviour
             Pattern pattern = GameManager.Instance.targetPattern;
             if (legsPart.part != pattern.legsPart)
             {
-                RemoveAll();
+                ThrowAll();
                 return;
             }
 
             if (bodyPart.part != pattern.bodyPart)
             {
-                RemoveAll();
+                ThrowAll();
                 return;
             }
 
             if (headPart.part != pattern.headPart)
             {
-                RemoveAll();
+                ThrowAll();
                 return;
             }
 
-            GameManager.Instance.ConfirmAssembly();
+            StartCoroutine(ConfirmAssembly());
         }
     }
 
     /// <summary>
-    /// Removes all parts from the assembly line.
+    /// Confirms a sucessfull assembly and gives assembly a small delay before submitting. 
     /// </summary>
-    public void RemoveAll()
+    /// <returns></returns>
+    public IEnumerator ConfirmAssembly()
     {
+        assemblyAnimator.SetTrigger("Accept");
+        GameManager.Instance.ConfirmAssembly();
+        yield return new WaitForSeconds(0.6f);
+
+        Destroy(legsPart.gameObject);
+        legsPart = null;
+        legsShadow.SetActive(false);
+
+        Destroy(bodyPart.gameObject);
+        bodyPart = null;
+
+        Destroy(headPart.gameObject);
+        headPart = null;
+    }
+
+    /// <summary>
+    /// Throws away all parts from the assembly line.
+    /// </summary>
+    public void ThrowAll()
+    {
+        assemblyAnimator.SetTrigger("Refuse");
         if (legsPart == null)
         {
             return;
         }
 
-        shadow.SetActive(false);
+        legsShadow.SetActive(false);
         legsPart.ThrowPiece();
         legsPart = null;
 

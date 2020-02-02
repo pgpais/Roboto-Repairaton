@@ -21,7 +21,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1834100100, guid: d70d302d278bb244f97c9512f64c7664, type: 3}
       propertyPath: m_CollisionDetection
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 632628049310528581, guid: d70d302d278bb244f97c9512f64c7664,
         type: 3}
@@ -352,6 +352,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.g
       value: 0.68821096
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266998778199090800, guid: d70d302d278bb244f97c9512f64c7664,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266998778199090800, guid: d70d302d278bb244f97c9512f64c7664,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266998778199090800, guid: d70d302d278bb244f97c9512f64c7664,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7509848448017950120, guid: d70d302d278bb244f97c9512f64c7664,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7827837414083279845, guid: d70d302d278bb244f97c9512f64c7664,
+        type: 3}
+      propertyPath: armClampedSize.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7827837414083279845, guid: d70d302d278bb244f97c9512f64c7664,
+        type: 3}
+      propertyPath: armClampedSize.y
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 8206606958027020028, guid: d70d302d278bb244f97c9512f64c7664,
         type: 3}

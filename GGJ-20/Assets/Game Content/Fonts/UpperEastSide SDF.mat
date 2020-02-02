@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Westmeath SDF
+  m_Name: UpperEastSide SDF
   m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -32,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: -5843623180567012177, guid: 15b78113cacc9764f9b95cdc9f263e18,
+        m_Texture: {fileID: 6011924414220203175, guid: f4e834778fd90264c9a4dfd52439c2d5,
           type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -54,9 +54,9 @@ Material:
     - _FaceDilate: 0.8
     - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
-    - _GlowInner: 0.05
-    - _GlowOffset: 0
-    - _GlowOuter: 0.05
+    - _GlowInner: 0
+    - _GlowOffset: 0.797
+    - _GlowOuter: 0
     - _GlowPower: 0.75
     - _GradientScale: 8
     - _LightAngle: 3.1416
@@ -65,10 +65,10 @@ Material:
     - _OutlineSoftness: 0
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0
-    - _OutlineWidth: 0.5
+    - _OutlineWidth: 0.368
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
-    - _ScaleRatioA: 0.5882353
+    - _ScaleRatioA: 0.64551824
     - _ScaleRatioB: 0.010937512
     - _ScaleRatioC: 0.010937512
     - _ScaleX: 1
@@ -97,7 +97,7 @@ Material:
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
     - _GlowColor: {r: 0, g: 1, b: 0, a: 0.5}
     - _MaskCoord: {r: 0, g: 0, b: 32767, a: 32767}
-    - _OutlineColor: {r: 0.16981131, g: 0.01201495, b: 0.017274823, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}

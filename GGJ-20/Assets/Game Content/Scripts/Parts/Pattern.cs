@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using AssetIcons;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Part Pattern", menuName = "Robots/Pattern")]
 public class Pattern : ScriptableObject
 {
+    [Header("Display Sprite")]
+    [AssetIcon]
+    public Sprite icon;
+
     [Header("Pattern Parts")]
     [ValidateInput("ValidateHead", "This part is not a head part or is not assigned!", InfoMessageType.Warning)]
     public Part headPart;

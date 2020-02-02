@@ -12,7 +12,7 @@ public class CanvasManager : MonoBehaviour
 {
     [Header("Pattern Window")]
     [SerializeField]
-    private GameObject patternWindow;
+    private GameObject patternWindow = null;
 
     // Private
     private GameObject patternTimer;
@@ -21,11 +21,39 @@ public class CanvasManager : MonoBehaviour
 
     [Header("Time and Score")]
     [SerializeField]
-    private TextMeshProUGUI scoreText = null;
+    private GameObject scoreWindow = null;
     [SerializeField]
+    private GameObject timeWindow = null;
+
+    // Text
+    private TextMeshProUGUI scoreText = null;
     private TextMeshProUGUI timeLeftText = null;
 
+    // Animators
+    private Animator patternTimerAnimator;
+    private Animator patternAnimator;
+    private Animator scoreAnimator;
+    private Animator timeAnimator;
+
     private int displayScore = 0;
+
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    private void Awake()
+    {
+        scoreText = scoreWindow.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        timeLeftText = timeWindow.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+
+        patternAnimator = patternWindow.GetComponent<Animator>();
+        scoreAnimator = scoreWindow.GetComponent<Animator>();
+        timeAnimator = timeWindow.GetComponent<Animator>();
+
+        patternTimer = patternWindow.transform.Find("Pattern Timer").gameObject;
+        patternTimerAnimator = patternTimer.GetComponent<Animator>();
+        patternTimerRadial = patternTimer.transform.GetChild(0).GetComponent<Image>();
+        patternTimerText = patternTimerRadial.transform.GetComponentInChildren<TextMeshProUGUI>();
+    }
 
     /// <summary>
     /// Start is called just before any of the Update methods is called the first time.
@@ -36,20 +64,12 @@ public class CanvasManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Awake is called when the script instance is being loaded.
-    /// </summary>
-    private void Awake()
-    {
-        patternTimer = patternWindow.transform.Find("Pattern Timer").gameObject;
-        patternTimerRadial = patternTimer.transform.GetChild(0).GetComponent<Image>();
-        patternTimerText = patternTimerRadial.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-    }
-
-    /// <summary>
     /// Updates the pattern being shown.
     /// </summary>
     public void UpdateShownPattern(Pattern pattern)
     {
+        patternAnimator.SetTrigger("New");
+
         patternWindow.transform.Find("Legs").GetComponent<Image>().sprite = pattern.legsPart.fixedSprite;
         patternWindow.transform.Find("Body").GetComponent<Image>().sprite = pattern.bodyPart.fixedSprite;
         patternWindow.transform.Find("Head").GetComponent<Image>().sprite = pattern.headPart.fixedSprite;
@@ -62,6 +82,27 @@ public class CanvasManager : MonoBehaviour
     {
         patternTimerRadial.fillAmount = (float)((float)time / (float)maxTime);
         patternTimerText.text = time.ToString();
+
+        if(time < 5 && time > 0)
+        {
+            patternTimerAnimator.SetTrigger("Warning");
+        }
+    }
+
+    /// <summary>
+    /// Shows the clock recover animation.
+    /// </summary>
+    public void RecoverClock()
+    {
+        patternTimerAnimator.SetTrigger("Recover");
+    }
+
+    /// <summary>
+    /// Shakes the clock with the shaking animation.
+    /// </summary>
+    public void ShakeClock()
+    {
+        patternTimerAnimator.SetTrigger("Shake");
     }
 
     /// <summary>
@@ -73,6 +114,11 @@ public class CanvasManager : MonoBehaviour
         string timeString = timeSpan.ToString(@"mm\:ss");
 
         timeLeftText.text = timeString;
+
+        if(time % 60 == 0 || time < 11)
+        {
+            timeAnimator.SetTrigger("Warning");
+        }
     }
 
     /// <summary>
@@ -87,10 +133,33 @@ public class CanvasManager : MonoBehaviour
                 displayScore++;
                 scoreText.text = String.Format("{0:n0}", displayScore);
 
-                yield return new WaitForSeconds(0.005f);
+                yield return new WaitForSecondsRealtime(0.005f);
+            }
+            else if(displayScore > GameManager.Instance.score)
+            {
+                displayScore--;
+                scoreText.text = String.Format("{0:n0}", displayScore);
+
+                yield return new WaitForSecondsRealtime(0.005f);
             }
 
             yield return null;
         }
+    }
+
+    /// <summary>
+    /// Shakes the score window when score is obtained.
+    /// </summary>
+    public void ShakeScoreAdd()
+    {
+        scoreAnimator.SetTrigger("Add");
+    }
+
+    /// <summary>
+    /// Shakes the score window when score is removed.
+    /// </summary>
+    public void ShakeScoreRemove()
+    {
+        scoreAnimator.SetTrigger("Remove");
     }
 }
