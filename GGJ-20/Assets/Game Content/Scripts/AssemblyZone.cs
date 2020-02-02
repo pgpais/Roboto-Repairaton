@@ -17,6 +17,9 @@ public class AssemblyZone : MonoBehaviour
     public PartInstance bodyPart;
     public PartInstance headPart;
 
+    public AudioSource kaching;
+    public AudioSource weld;
+
     private ParticleSystem particles;
     private BoxCollider2D bc;
     private GameObject legsShadow;
@@ -124,6 +127,7 @@ public class AssemblyZone : MonoBehaviour
         assemblyAnimator.SetTrigger("Accept");
         yield return new WaitForSeconds(0.1f);
         particles.Play();
+        weld.Play();
         yield return new WaitForSeconds(0.1f);
 
         // Failsafe for when the player finishes the bot as time ends.
