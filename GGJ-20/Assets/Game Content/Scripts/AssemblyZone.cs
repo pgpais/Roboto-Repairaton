@@ -17,6 +17,8 @@ public class AssemblyZone : MonoBehaviour
     public PartInstance bodyPart;
     public PartInstance headPart;
 
+    private ParticleSystem particles;
+    private BoxCollider2D bc;
     private GameObject legsShadow;
     private Animator assemblyAnimator;
 
@@ -25,6 +27,9 @@ public class AssemblyZone : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        bc = GetComponent<BoxCollider2D>();
+        particles = transform.Find("Robot Repair Particles").GetComponent<ParticleSystem>();
+
         assemblyAnimator = transform.parent.GetComponent<Animator>();
         legsShadow = legsTransform.GetChild(0).gameObject;
     }
@@ -115,9 +120,25 @@ public class AssemblyZone : MonoBehaviour
     /// <returns></returns>
     public IEnumerator ConfirmAssembly()
     {
+        bc.enabled = false;
         assemblyAnimator.SetTrigger("Accept");
+        yield return new WaitForSeconds(0.1f);
+        particles.Play();
+        yield return new WaitForSeconds(0.1f);
+
+        // Failsafe for when the player finishes the bot as time ends.
+        if (headPart == null || bodyPart == null || legsPart == null)
+        {
+            bc.enabled = true;
+            yield break;
+        }
+
+        headPart.ChangeSpritesToFixed();
+        bodyPart.ChangeSpritesToFixed();
+        legsPart.ChangeSpritesToFixed();
+
         GameManager.Instance.ConfirmAssembly();
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(1.4f);
 
         Destroy(legsPart.gameObject);
         legsPart = null;
@@ -128,6 +149,8 @@ public class AssemblyZone : MonoBehaviour
 
         Destroy(headPart.gameObject);
         headPart = null;
+
+        bc.enabled = true;
     }
 
     /// <summary>

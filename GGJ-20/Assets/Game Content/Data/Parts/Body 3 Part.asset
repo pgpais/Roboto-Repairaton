@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brokenSprite: {fileID: -7432361424510267669, guid: b2e41cf3e0ba92a4b8f77fda4deb3b56,
     type: 3}
-  fixedSprite: {fileID: -7432361424510267669, guid: b2e41cf3e0ba92a4b8f77fda4deb3b56,
+  fixedSprite: {fileID: -4151991903286384077, guid: b2e41cf3e0ba92a4b8f77fda4deb3b56,
     type: 3}
   instance: {fileID: 199456938661041760, guid: 2929ebb089655854e9592bf38580258d, type: 3}
   partType: 1

@@ -24,15 +24,7 @@ public class LinearConveyerBelt : ConveyerBelt
     /// </summary>
     public override void SpawnPart(PartInstance part)
     {
-        Transform targetSpawn = null;
-        if (!invertedDirection)
-        {
-            targetSpawn = leftPoint;
-        }
-        else
-        {
-            targetSpawn = rightPoint;
-        }
+        Transform targetSpawn = !invertedDirection ? leftPoint : rightPoint;
 
         PartInstance partInstance = Instantiate(part, targetSpawn.position, Quaternion.identity);
         partInstance.transform.SetParent(spawnedPartsTransform);

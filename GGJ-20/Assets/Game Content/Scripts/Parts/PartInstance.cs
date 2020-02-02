@@ -80,4 +80,18 @@ public class PartInstance : MonoBehaviour
         rb.AddForce(new Vector2(Random.Range(-400, 400), Random.Range(200, 400)));
         Destroy(gameObject, 4);
     }
+
+    /// <summary>
+    /// Changes the sprites to fixes after the robot gets repaired.
+    /// </summary>
+    public void ChangeSpritesToFixed()
+    {
+        GetComponent<SpriteRenderer>().sprite = part.fixedSprite;
+
+        // Used for lighting up the eyes if it's an head.
+        if(transform.Find("Eyes") != null)
+        {
+            transform.Find("Eyes").GetComponentInChildren<SpriteRenderer>().enabled = true;
+        }
+    }
 }

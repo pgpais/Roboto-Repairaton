@@ -83,7 +83,7 @@ public class CanvasManager : MonoBehaviour
         patternTimerRadial.fillAmount = (float)((float)time / (float)maxTime);
         patternTimerText.text = time.ToString();
 
-        if(time < 5 && time > 0)
+        if(time < 6 && time > 0)
         {
             patternTimerAnimator.SetTrigger("Warning");
         }

@@ -34,14 +34,7 @@ public class CircularConveyerBelt : ConveyerBelt
     public override void SpawnPart(PartInstance part)
     {
         Vector2 targetStartingPoint = transform.position;
-        if (!inverted)
-        {
-            targetStartingPoint = new Vector2(transform.position.x - radius, transform.position.y);
-        }
-        else
-        {
-            targetStartingPoint = new Vector2(transform.position.x + radius, transform.position.y);
-        }
+        targetStartingPoint = new Vector2(!inverted ? transform.position.x - radius : transform.position.x + radius, transform.position.y);
 
         PartInstance partInstance = Instantiate(part, targetStartingPoint, Quaternion.identity);
         partInstance.transform.SetParent(spawnedPartsTransform);
@@ -51,25 +44,11 @@ public class CircularConveyerBelt : ConveyerBelt
 
         if(!inverted)
         {
-            if(!invertedDirection)
-            {
-                angleDictionary[partInstance.gameObject] = -1.2f;
-            }
-            else
-            {
-                angleDictionary[partInstance.gameObject] = 4.4f;
-            }
+            angleDictionary[partInstance.gameObject] = !invertedDirection ? -1.2f : 4.4f;
         }
         else
         {
-            if (!invertedDirection)
-            {
-                angleDictionary[partInstance.gameObject] = 1.2f;
-            }
-            else
-            {
-                angleDictionary[partInstance.gameObject] = -4.4f;
-            }
+            angleDictionary[partInstance.gameObject] = !invertedDirection ? 1.2f : -4.4f;
         }
     }
 
@@ -85,14 +64,7 @@ public class CircularConveyerBelt : ConveyerBelt
                 sushiBelt.flipY = false;
             }
 
-            if(!inverted)
-            {
-                sushiBelt.transform.Rotate(0, 0, -speed * 60 * Time.deltaTime);
-            }
-            else
-            {
-                sushiBelt.transform.Rotate(0, 0, speed * 60 * Time.deltaTime);
-            }
+            sushiBelt.transform.Rotate(0, 0, (!inverted ? -speed * 60 : speed * 60) * Time.deltaTime);
 
         }
         else
@@ -102,14 +74,7 @@ public class CircularConveyerBelt : ConveyerBelt
                 sushiBelt.flipY = true;
             }
 
-            if (!inverted)
-            {
-                sushiBelt.transform.Rotate(0, 0, speed * 60 * Time.deltaTime);
-            }
-            else
-            {
-                sushiBelt.transform.Rotate(0, 0, -speed * 60 * Time.deltaTime);
-            }
+            sushiBelt.transform.Rotate(0, 0, (!inverted ? speed * 60 : -speed * 60) * Time.deltaTime);
         }
     }
 
@@ -197,16 +162,7 @@ public class CircularConveyerBelt : ConveyerBelt
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, radius);
-
-        if(!inverted)
-        {
-            Gizmos.DrawSphere(new Vector2(transform.position.x - radius, transform.position.y), 0.2f);
-        }
-        else
-        {
-            Gizmos.DrawSphere(new Vector2(transform.position.x + radius, transform.position.y), 0.2f);
-        }
-
+        Gizmos.DrawSphere(new Vector2(!inverted ? transform.position.x - radius : transform.position.x + radius, transform.position.y), 0.2f);
     }
 
 

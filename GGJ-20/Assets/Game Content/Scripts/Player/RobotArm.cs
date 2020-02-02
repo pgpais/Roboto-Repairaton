@@ -26,9 +26,9 @@ public class RobotArm : MonoBehaviour
     private Transform arm;
     private Transform claw;
     private Transform grabArea;
-    //private Transform clawGear;
     
     private Player player;
+    private Animator clawAnimator;
     private SpriteRenderer armRender;
     private BoxCollider2D armCollider;
     private BoxCollider2D grabCollider;
@@ -50,8 +50,8 @@ public class RobotArm : MonoBehaviour
         clawBase = transform.Find("ClawBase");
         arm = clawBase.Find("Arm");
         claw = arm.Find("Claw");
+        clawAnimator = claw.Find("ClawHead/ClawMagnet").GetComponentInChildren<Animator>();
         grabArea = claw.Find("ClawHead/ClawMagnet/Grab Area");
-        //clawGear = claw.Find("ClawHead/ClawGear");
 
         armRender = arm.GetComponent<SpriteRenderer>();
         armCollider = arm.GetComponent<BoxCollider2D>();
@@ -75,7 +75,7 @@ public class RobotArm : MonoBehaviour
         // Extend and shrink arm
         v = player.GetAxis("Vertical");
         Vector2 size = armRender.size;
-        size.y = size.y + ( (stretchInverted? -v : v) * armExtendSpeed * Time.deltaTime);
+        size.y = size.y + ((stretchInverted? -v : v) * armExtendSpeed * Time.deltaTime);
         size.y = Mathf.Clamp(size.y, armClampedSize.x, armClampedSize.y);
         armRender.size = size;
 
@@ -85,11 +85,6 @@ public class RobotArm : MonoBehaviour
 
         // Rotate Arms
         h = player.GetAxis("Horizontal");
-        /*Vector3 rot = transform.rotation.eulerAngles;
-        rot.z += h * armRotationSpeed * Time.deltaTime;
-        transform.rotation = Quaternion.Euler(rot);
-
-        clawGear.Rotate(new Vector3(0, 0, h * armRotationSpeed * Time.deltaTime));*/
 
         // Update Collider
         Vector2 spriteSize = armRender.size;
@@ -100,12 +95,13 @@ public class RobotArm : MonoBehaviour
         // Grab part
         if (player.GetButtonDown("Grab"))
         {
-            // Try to Grab
-            Collider2D hit = Physics2D.OverlapBox(grabArea.position, grabCollider.size, grabArea.rotation.eulerAngles.z, mask);
+            // Try to Grab 
+            Collider2D hit = Physics2D.OverlapBox((Vector2)grabArea.transform.position + new Vector2(grabCollider.size.y / 2, 0), new Vector2(grabCollider.size.y, grabCollider.size.x), grabArea.rotation.eulerAngles.z, mask);
             if (hit)
             {
                 if(hit.tag.Equals("Part"))
                 {
+                    clawAnimator.SetBool("Attracting", true);
                     grabbedPart = hit.GetComponent<PartInstance>();
                     grabbedPart.OnGrab(grabArea);
                     
@@ -119,6 +115,7 @@ public class RobotArm : MonoBehaviour
             if (player.GetButtonUp("Grab"))
             {
                 // Stop Grabbing
+                clawAnimator.SetBool("Attracting", false);
                 grabbedPart.OnRelease();
                 grabbedPart = null;
                 isGrabbing = false;
@@ -129,18 +126,6 @@ public class RobotArm : MonoBehaviour
     private void FixedUpdate()
     {
         DoRotation();
-        //DoStretch();
-        //DoGrab();
-    }
-
-    private void DoGrab()
-    {
-        throw new NotImplementedException();
-    }
-
-    private void DoStretch()
-    {
-        throw new NotImplementedException();
     }
 
     private void DoRotation()
@@ -148,5 +133,20 @@ public class RobotArm : MonoBehaviour
         float rot = rb.rotation;
         rot += (rotationInverted? -h : h) * armRotationSpeed * Time.deltaTime;
         rb.rotation = rot;
+    }
+
+    /// <summary>
+    /// Implement this OnDrawGizmos if you want to draw gizmos that are also pickable and always drawn.
+    /// </summary>
+    private void OnDrawGizmosSelected()
+    {
+        Transform clawBase = transform.Find("ClawBase");
+        Transform arm = clawBase.Find("Arm");
+        Transform claw = arm.Find("Claw");
+        Transform grabArea = claw.Find("ClawHead/ClawMagnet/Grab Area");
+        BoxCollider2D grabCollider = grabArea.GetComponent<BoxCollider2D>();
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireCube((Vector2)grabArea.transform.position + new Vector2(grabCollider.size.y / 2, 0), new Vector2(grabCollider.size.y, grabCollider.size.x));
     }
 }
