@@ -49,7 +49,7 @@ public class GameOverCanvas : MonoBehaviour
     /// </summary>
     public void ResetGame()
     {
-        GlobalManager.Instance.ChangeScene(2, 10);
+        GlobalManager.Instance.ChangeScene("Game", 10);
     }
 
     /// <summary>
@@ -57,6 +57,6 @@ public class GameOverCanvas : MonoBehaviour
     /// </summary>
     public void QuitToMenu()
     {
-        GlobalManager.Instance.ChangeScene(1, 10);
+        GlobalManager.Instance.ChangeScene("Title", 10);
     }
 }
