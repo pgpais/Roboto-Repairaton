@@ -26,7 +26,7 @@ public class GameOverCanvas : MonoBehaviour
     {
         gameOverDialog.SetActive(true);
 
-        partsDropped.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = string.Format("{ 0:n0}", GameManager.Instance.partsDropped);
+        partsDropped.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = string.Format("{0:n0}", GameManager.Instance.partsDropped);
         repairedRobots.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = string.Format("{0:n0}", GameManager.Instance.repairedRobots);
         finalScore.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = string.Format("{0:n0}", GameManager.Instance.score);
     }
