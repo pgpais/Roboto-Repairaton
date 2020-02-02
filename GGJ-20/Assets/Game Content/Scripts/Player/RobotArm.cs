@@ -33,6 +33,8 @@ public class RobotArm : MonoBehaviour
     private SpriteRenderer armRender;
     private BoxCollider2D armCollider;
     private Rigidbody2D rb;
+
+    private HingeJoint2D hinge; // TODO: this might not work, if something breaks, prolly this
     
     // Input vars TODO: are these necessary? Can the input work on FixedUpdate?
     private float h, v;
@@ -56,6 +58,7 @@ public class RobotArm : MonoBehaviour
         armRender = arm.GetComponent<SpriteRenderer>();
         armCollider = arm.GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
+        hinge = GetComponentInChildren<HingeJoint2D>();
     }
 
     // Update is called once per frame
@@ -137,7 +140,11 @@ public class RobotArm : MonoBehaviour
     private void DoRotation()
     {
         float rot = rb.rotation;
-        rot += (rotationInverted? -h : h) * armRotationSpeed * Time.deltaTime;
-        rb.rotation = rot;
+        var jointMotor2D = hinge.motor;
+        jointMotor2D.motorSpeed = (rotationInverted ? -h : h) * armRotationSpeed;
+        hinge.motor = jointMotor2D;
+        //rot += (rotationInverted? -h : h) * armRotationSpeed * Time.deltaTime;
+        //rb.rotation = rot;
     }
+    
 }

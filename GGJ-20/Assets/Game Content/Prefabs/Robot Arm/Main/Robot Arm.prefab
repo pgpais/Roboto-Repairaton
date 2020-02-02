@@ -257,7 +257,6 @@ GameObject:
   - component: {fileID: 7827837414083279845}
   - component: {fileID: 3958306837478797386}
   - component: {fileID: 8053447563240404347}
-  - component: {fileID: 5086380830434901855}
   m_Layer: 8
   m_Name: Robot Arm
   m_TagString: Untagged
@@ -368,77 +367,11 @@ CompositeCollider2D:
   m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 3547607985239854590}
-    m_ColliderPaths:
-    - - X: 10335505
-        Y: 49300004
-      - X: 10335505
-        Y: 60366688
-      - X: -10279858
-        Y: 60366395
-      - X: -10279565
-        Y: 49300004
-  - m_Collider: {fileID: 245589901}
-    m_ColliderPaths:
-    - - X: 1499707
-        Y: 1800000
-      - X: 1499707
-        Y: 51800000
-      - X: -1500000
-        Y: 51799707
-      - X: -1499707
-        Y: 1800000
-  - m_Collider: {fileID: 7300757171051295806}
-    m_ColliderPaths:
-    - - X: 5199707
-        Y: -5100000
-      - X: 5199707
-        Y: 5100000
-      - X: -5200000
-        Y: 5099707
-      - X: -5199707
-        Y: -5100000
+  m_ColliderPaths: []
   m_CompositePaths:
-    m_Paths:
-    - - {x: 0.5199414, y: -0.51}
-      - {x: 0.5199414, y: 0.51}
-      - {x: 0.1499707, y: 0.510019}
-      - {x: 0.1500001, y: 4.9300003}
-      - {x: 1.0335505, y: 4.93003}
-      - {x: 1.0335212, y: 6.036669}
-      - {x: -1.0279858, y: 6.0366106}
-      - {x: -1.0279272, y: 4.9300003}
-      - {x: -0.1499985, y: 4.929971}
-      - {x: -0.150002, y: 0.5099811}
-      - {x: -0.52, y: 0.5099414}
-      - {x: -0.5199414, y: -0.51}
+    m_Paths: []
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
---- !u!233 &5086380830434901855
-HingeJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2093243404672128448}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0, y: 0}
-  m_UseMotor: 0
-  m_Motor:
-    m_MotorSpeed: 30.22
-    m_MaximumMotorForce: 10000
-  m_UseLimits: 0
-  m_AngleLimits:
-    m_LowerAngle: 0
-    m_UpperAngle: 359
 --- !u!1 &2331432017476209062
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,7 +665,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6715559570945146155}
   - component: {fileID: 5657057009766467099}
-  - component: {fileID: 7300757171051295806}
+  - component: {fileID: 5150695925526562916}
+  - component: {fileID: 6091646411428718048}
   m_Layer: 8
   m_Name: ClawBase
   m_TagString: Untagged
@@ -805,29 +739,48 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &7300757171051295806
-BoxCollider2D:
+--- !u!50 &5150695925526562916
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7095807251575042442}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 200
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!233 &6091646411428718048
+HingeJoint2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7095807251575042442}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 1
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.04, y: 1.02}
-    newSize: {x: 1.16, y: 1.14}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.04, y: 1.02}
-  m_EdgeRadius: 0
+  serializedVersion: 4
+  m_EnableCollision: 1
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_UseMotor: 1
+  m_Motor:
+    m_MotorSpeed: 34.18
+    m_MaximumMotorForce: 700000
+  m_UseLimits: 0
+  m_AngleLimits:
+    m_LowerAngle: 0
+    m_UpperAngle: 359
