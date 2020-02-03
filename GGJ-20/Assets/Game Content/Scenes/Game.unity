@@ -980,6 +980,16 @@ PrefabInstance:
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[7].y
       value: 4.93
       objectReference: {fileID: 0}
+    - target: {fileID: 6876071059398946182, guid: 22ab9c22d0ca8154086484c2bf63447d,
+        type: 3}
+      propertyPath: shakeDuration
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876071059398946182, guid: 22ab9c22d0ca8154086484c2bf63447d,
+        type: 3}
+      propertyPath: shakeMagnitude
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 7441994665246503811, guid: 22ab9c22d0ca8154086484c2bf63447d,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
@@ -1549,6 +1559,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[7].y
       value: 0.1800003
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848380950661910539, guid: bb79a7620bf6e964d8e9e0c143bf96a7,
+        type: 3}
+      propertyPath: shakeDuration
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848380950661910539, guid: bb79a7620bf6e964d8e9e0c143bf96a7,
+        type: 3}
+      propertyPath: shakeMagnitude
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 7431404159968906766, guid: bb79a7620bf6e964d8e9e0c143bf96a7,
         type: 3}

@@ -40,7 +40,6 @@ public class RobotArm : MonoBehaviour
     private SpriteRenderer armRender;
     private BoxCollider2D armCollider;
     private Rigidbody2D rb;
-    private CameraController cameraController;
     private AudioSource audioSource;
     private GameObject invertedStatus;
 
@@ -66,7 +65,6 @@ public class RobotArm : MonoBehaviour
         grabPoint = grabArea.transform.GetChild(0);
         invertedStatus = claw.Find("ClawHead/Inverted Status").gameObject;
 
-        cameraController = GameObject.Find("Main Camera").GetComponent<CameraController>();
         audioSource = GetComponent<AudioSource>();
         armRender = arm.GetComponent<SpriteRenderer>();
         armCollider = arm.GetComponent<BoxCollider2D>();
@@ -152,7 +150,7 @@ public class RobotArm : MonoBehaviour
     public void SpawnCollisionParticles(Vector3 spawnPos)
     {
         Instantiate(sparks, spawnPos, Quaternion.identity).Play();
-        cameraController.ShakeCamera(shakeDuration, shakeMagnitude);
+        FindObjectOfType<CameraController>().ShakeCamera(shakeDuration, shakeMagnitude);
     }
 
 

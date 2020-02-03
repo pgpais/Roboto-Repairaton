@@ -564,6 +564,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
         type: 3}
+      propertyPath: _userData.players.Array.data[1]._defaultJoystickMaps.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
+        type: 3}
+      propertyPath: _userData.players.Array.data[2]._defaultJoystickMaps.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
+        type: 3}
       propertyPath: _userData.actions.Array.data[3]._id
       value: 3
       objectReference: {fileID: 0}
@@ -1442,6 +1452,26 @@ PrefabInstance:
       propertyPath: _userData.players.Array.data[0]._defaultJoystickMaps.Array.data[0]._layoutId
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
+        type: 3}
+      propertyPath: _userData.players.Array.data[1]._defaultJoystickMaps.Array.data[1]._enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
+        type: 3}
+      propertyPath: _userData.players.Array.data[1]._defaultJoystickMaps.Array.data[1]._layoutId
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
+        type: 3}
+      propertyPath: _userData.players.Array.data[2]._defaultJoystickMaps.Array.data[1]._enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
+        type: 3}
+      propertyPath: _userData.players.Array.data[2]._defaultJoystickMaps.Array.data[1]._layoutId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3255348842058789254, guid: 24d1bda3b7fffab4489f61be200dde93,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1844,7 +1874,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 0ace17f5ff0dab9489bb107180ea6acc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 8.5, y: 8.58}
