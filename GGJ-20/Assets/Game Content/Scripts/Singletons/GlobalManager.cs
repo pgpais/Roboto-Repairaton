@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Rewired;
 
 /// <summary>
 /// Handles Saved Data, and Global Operations.
@@ -31,6 +32,18 @@ public class GlobalManager : SingletonBehaviour<GlobalManager>
     private void Start()
     {
         fadeCanvas = transform.Find("Fade Canvas").GetComponent<Canvas>();
+    }
+
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    private void Update()
+    {
+        if (ReInput.players.GetSystemPlayer().GetButtonDown("UIQuit") || ReInput.players.GetPlayer(0).GetButtonDown("UIQuit")
+    || ReInput.players.GetPlayer(1).GetButtonDown("UIQuit"))
+        {
+            ExitGame();
+        }
     }
 
     /// <summary>

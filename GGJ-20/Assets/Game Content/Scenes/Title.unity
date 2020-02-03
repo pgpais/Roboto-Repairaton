@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -510,12 +510,12 @@ PrefabInstance:
     - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
         type: 3}
       propertyPath: _userData.actions.Array.size
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
         type: 3}
       propertyPath: _userData.actionCategoryMap.list.Array.data[0].actionIds.Array.size
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
         type: 3}
@@ -550,7 +550,7 @@ PrefabInstance:
     - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
         type: 3}
       propertyPath: _userData.keyboardMaps.Array.data[3].actionElementMaps.Array.size
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
         type: 3}
@@ -605,7 +605,7 @@ PrefabInstance:
     - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
         type: 3}
       propertyPath: _userData.actionIdCounter
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
         type: 3}
@@ -960,7 +960,7 @@ PrefabInstance:
     - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
         type: 3}
       propertyPath: _userData.joystickMaps.Array.data[1].actionElementMaps.Array.data[15]._actionId
-      value: -1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
         type: 3}
@@ -1430,7 +1430,7 @@ PrefabInstance:
     - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
         type: 3}
       propertyPath: _userData.keyboardMaps.Array.data[3].actionElementMaps.Array.data[9]._keyboardKeyCode
-      value: 32
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
         type: 3}
@@ -1471,6 +1471,61 @@ PrefabInstance:
         type: 3}
       propertyPath: _userData.players.Array.data[2]._defaultJoystickMaps.Array.data[1]._layoutId
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
+        type: 3}
+      propertyPath: _userData.actions.Array.data[7]._id
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
+        type: 3}
+      propertyPath: _userData.actions.Array.data[7]._name
+      value: UIQuit
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
+        type: 3}
+      propertyPath: _userData.actions.Array.data[7]._type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
+        type: 3}
+      propertyPath: _userData.actions.Array.data[7]._descriptiveName
+      value: UIQuit
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
+        type: 3}
+      propertyPath: _userData.actions.Array.data[7]._userAssignable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
+        type: 3}
+      propertyPath: _userData.actionCategoryMap.list.Array.data[0].actionIds.Array.data[7]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
+        type: 3}
+      propertyPath: _userData.keyboardMaps.Array.data[3].actionElementMaps.Array.data[10]._actionId
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
+        type: 3}
+      propertyPath: _userData.keyboardMaps.Array.data[3].actionElementMaps.Array.data[10]._elementType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
+        type: 3}
+      propertyPath: _userData.keyboardMaps.Array.data[3].actionElementMaps.Array.data[10]._elementIdentifierId
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
+        type: 3}
+      propertyPath: _userData.keyboardMaps.Array.data[3].actionElementMaps.Array.data[10]._keyboardKeyCode
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328940929006436278, guid: 24d1bda3b7fffab4489f61be200dde93,
+        type: 3}
+      propertyPath: _userData.joystickMaps.Array.data[0].actionElementMaps.Array.data[15]._actionId
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3255348842058789254, guid: 24d1bda3b7fffab4489f61be200dde93,
         type: 3}
