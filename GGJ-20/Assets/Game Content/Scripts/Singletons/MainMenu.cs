@@ -31,7 +31,8 @@ public class MainMenu : MonoBehaviour
             return;
         }
 
-        if(ReInput.players.GetSystemPlayer().GetButtonDown("UISubmit"))
+        if(ReInput.players.GetSystemPlayer().GetButtonDown("UISubmit") || ReInput.players.GetPlayer(0).GetButtonDown("UISubmit")
+            || ReInput.players.GetPlayer(1).GetButtonDown("UISubmit"))
         {
             hasStarted = true;
             StartCoroutine(StartToGame());

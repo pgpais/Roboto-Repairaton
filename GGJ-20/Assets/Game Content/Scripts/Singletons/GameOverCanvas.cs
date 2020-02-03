@@ -49,6 +49,7 @@ public class GameOverCanvas : MonoBehaviour
     /// </summary>
     public void ResetGame()
     {
+        Time.timeScale = 1;
         GlobalManager.Instance.ChangeScene("Game", 10);
     }
 
@@ -57,6 +58,7 @@ public class GameOverCanvas : MonoBehaviour
     /// </summary>
     public void QuitToMenu()
     {
+        Time.timeScale = 1;
         GlobalManager.Instance.ChangeScene("Title", 10);
     }
 }

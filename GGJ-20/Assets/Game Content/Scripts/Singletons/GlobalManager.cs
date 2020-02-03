@@ -21,6 +21,8 @@ public class GlobalManager : SingletonBehaviour<GlobalManager>
             Destroy(gameObject);
             return;
         }
+
+        DontDestroyOnLoad(gameObject);
     }
 
     /// <summary>
