@@ -17,19 +17,14 @@ namespace Game_Content.Scripts.Chaos_Events
 
         private ConveyerBelt belt;
 
-        private void Start()
+        private new void Start()
         {
+            base.Start();
+            
             belt = GetComponent<ConveyerBelt>();
-            ChaosManager.EventTrigger.AddListener(Acceptevent);
         }
 
-        public void Acceptevent()
-        {
-            if((Random.Range(0f, 1f) <= eventAcceptChance))
-                StartCoroutine("ErraticBeltMovement");
-        }
-
-        IEnumerator ErraticBeltMovement()
+        protected override IEnumerator StartEvent()
         {
             float localDur = duration;
             float defaultSpeed = belt.speed;

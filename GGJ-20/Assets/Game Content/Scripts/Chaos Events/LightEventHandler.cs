@@ -2,37 +2,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using Game_Content.Scripts.Chaos_Events;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using Random = UnityEngine.Random;
 
 public class LightEventHandler : ChaosEventHandler
 {
-    [Header("Event Properties")]
-    public float offMinTime = 0.1f;
+    [Header("Event Properties")] public float offMinTime = 0.1f;
     public float offMaxTime = 0.5f;
     public float onMinTime = 0.1f;
     public float onMaxTime = 0.5f;
     public float duration = 5;
-    
+
+
     private Light2D light;
-    
-    
-    private void Start()
+
+    private float nextEvent = -1f;
+
+    private new void Start()
     {
-        ChaosManager.EventTrigger.AddListener(AcceptEvent);
+        base.Start();
+        
         light = GetComponent<Light2D>();
     }
 
-    
-
-    public void AcceptEvent()
-    {
-        if((Random.Range(0f, 1f) <= eventAcceptChance))
-            StartCoroutine("LightFlicker");
-    }
-
-    IEnumerator LightFlicker()
+    protected override IEnumerator StartEvent()
     {
         // I know, this is disgusting.
         float localDur = duration;
@@ -43,7 +38,7 @@ public class LightEventHandler : ChaosEventHandler
                 light.enabled = true;
                 break;
             }
-            
+
             if (light.enabled)
             {
                 light.enabled = false;

@@ -16,19 +16,14 @@ namespace Game_Content.Scripts.Chaos_Events
 
         private RobotArm controls;
 
-        private void Start()
+        private new void Start()
         {
-            ChaosManager.EventTrigger.AddListener(AcceptEvent);
+            base.Start();
+            
             controls = GetComponent<RobotArm>();
         }
 
-        public void AcceptEvent()
-        {
-            if((Random.Range(0f, 1f) <= eventAcceptChance))
-                StartCoroutine("InvertControls");
-        }
-
-        IEnumerator InvertControls()
+        protected override IEnumerator StartEvent()
         {
             float rand = Random.Range(0f, 1f);
 

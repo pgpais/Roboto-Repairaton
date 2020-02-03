@@ -138,7 +138,6 @@ GameObject:
   - component: {fileID: 219630656}
   - component: {fileID: 219630655}
   - component: {fileID: 219630657}
-  - component: {fileID: 219630658}
   m_Layer: 0
   m_Name: Left Conveyer Light
   m_TagString: Untagged
@@ -215,25 +214,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventAcceptChance: 0.2
   acceptanceIncrease: 0.01
-  offMinTime: 0.1
-  offMaxTime: 0.5
-  onMinTime: 0.1
-  onMaxTime: 0.5
-  duration: 5
---- !u!114 &219630658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 219630654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 648f3bcd725ff054995aff4e5dac95d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventAcceptChance: 0.1
-  acceptanceIncrease: 0.01
+  standalone: 1
+  firstTime: 0
+  period: 15
+  randomOffset: 2
   offMinTime: 0.1
   offMaxTime: 0.5
   onMinTime: 0.1
@@ -361,7 +345,6 @@ GameObject:
   - component: {fileID: 595447547}
   - component: {fileID: 595447546}
   - component: {fileID: 595447548}
-  - component: {fileID: 595447549}
   m_Layer: 0
   m_Name: Right Conveyer Light
   m_TagString: Untagged
@@ -438,25 +421,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventAcceptChance: 0.2
   acceptanceIncrease: 0.01
-  offMinTime: 0.1
-  offMaxTime: 0.5
-  onMinTime: 0.1
-  onMaxTime: 0.5
-  duration: 5
---- !u!114 &595447549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 595447545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 648f3bcd725ff054995aff4e5dac95d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventAcceptChance: 0.1
-  acceptanceIncrease: 0.01
+  standalone: 1
+  firstTime: 0
+  period: 12
+  randomOffset: 2
   offMinTime: 0.1
   offMaxTime: 0.5
   onMinTime: 0.1
@@ -505,6 +473,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 369327663687345705, guid: 22ab9c22d0ca8154086484c2bf63447d,
+        type: 3}
+      propertyPath: standalone
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1532228872274336415, guid: 22ab9c22d0ca8154086484c2bf63447d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1023,7 +996,6 @@ GameObject:
   - component: {fileID: 1575621286}
   - component: {fileID: 1575621285}
   - component: {fileID: 1575621287}
-  - component: {fileID: 1575621288}
   m_Layer: 0
   m_Name: Bottom Light
   m_TagString: Untagged
@@ -1100,25 +1072,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventAcceptChance: 0.2
   acceptanceIncrease: 0.01
-  offMinTime: 0.1
-  offMaxTime: 0.5
-  onMinTime: 0.1
-  onMaxTime: 0.5
-  duration: 5
---- !u!114 &1575621288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575621284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 648f3bcd725ff054995aff4e5dac95d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventAcceptChance: 0.1
-  acceptanceIncrease: 0.01
+  standalone: 1
+  firstTime: 0
+  period: 11
+  randomOffset: 2
   offMinTime: 0.1
   offMaxTime: 0.5
   onMinTime: 0.1
@@ -1161,6 +1118,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 117903203, guid: ea7f640cb0209c74a99781679d3e2691, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2417276153425680818, guid: ea7f640cb0209c74a99781679d3e2691,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1275,6 +1236,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 380270011544968100, guid: bb79a7620bf6e964d8e9e0c143bf96a7,
+        type: 3}
+      propertyPath: standalone
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1523749430397921042, guid: bb79a7620bf6e964d8e9e0c143bf96a7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1615,7 +1581,6 @@ GameObject:
   - component: {fileID: 2135105423}
   - component: {fileID: 2135105422}
   - component: {fileID: 2135105424}
-  - component: {fileID: 2135105425}
   m_Layer: 0
   m_Name: Top Light
   m_TagString: Untagged
@@ -1692,25 +1657,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventAcceptChance: 0.2
   acceptanceIncrease: 0.01
-  offMinTime: 0.1
-  offMaxTime: 0.5
-  onMinTime: 0.1
-  onMaxTime: 0.5
-  duration: 5
---- !u!114 &2135105425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2135105421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 648f3bcd725ff054995aff4e5dac95d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventAcceptChance: 0.1
-  acceptanceIncrease: 0.01
+  standalone: 1
+  firstTime: 0
+  period: 20
+  randomOffset: 2
   offMinTime: 0.1
   offMaxTime: 0.5
   onMinTime: 0.1
@@ -1962,6 +1912,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 7057805860989221583, guid: 1e7463e8c7e20a544bf2476f0f393d88,
+        type: 3}
+      propertyPath: standalone
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761825548235625578, guid: 1e7463e8c7e20a544bf2476f0f393d88,
+        type: 3}
+      propertyPath: standalone
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932191054813033511, guid: 1e7463e8c7e20a544bf2476f0f393d88,
+        type: 3}
+      propertyPath: standalone
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e7463e8c7e20a544bf2476f0f393d88, type: 3}
