@@ -6,22 +6,21 @@ using Rewired;
 /// <summary>
 /// Defines the Main Menu of the game.
 /// </summary>
-public class MainMenu : MonoBehaviour
+public class TitleMenu : MonoBehaviour
 {
     [SerializeField]
-    private Animator menuAnimator;
+    private Animator menuAnimator = null;
 
     private bool hasStarted = false;
 
-    // Start is called just before any of the Update methods is called the first time
+    /// <summary>
+    /// Start is called just before any of the Update methods is called the first time.
+    /// </summary>
     private void Start()
     {
-        GlobalManager.Instance.ProcessFade(true, 10);
-
         // Fades-Out.
         GlobalManager.Instance.ProcessFade(true, 10);
     }
-
 
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.

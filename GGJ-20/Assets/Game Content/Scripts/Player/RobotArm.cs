@@ -5,6 +5,9 @@ using UnityEngine;
 using Rewired;
 using UnityEngine.Serialization;
 
+/// <summary>
+/// Represents a player as a magnet, allowing for controls and similiar.
+/// </summary>
 public class RobotArm : MonoBehaviour
 {
     [Header("Rewired Info")]
@@ -21,7 +24,7 @@ public class RobotArm : MonoBehaviour
     [Header("Grab Options")] 
     public LayerMask mask;
 
-    [Header("CHAOS")] 
+    [Header("Chaos")] 
     public bool stretchInverted;
     public bool rotationInverted;
 
@@ -43,18 +46,26 @@ public class RobotArm : MonoBehaviour
     private AudioSource audioSource;
     private GameObject invertedStatus;
 
-    private HingeJoint2D hinge; // TODO: this might not work, if something breaks, prolly this
-    
+    private HingeJoint2D hinge;
+
     // Input vars TODO: are these necessary? Can the input work on FixedUpdate?
-    private float h, v;
+    private float verticalInput;
+    private float horizontalInput;
+
+    private PartInstance grabbablePiece;
     private PartInstance grabbedPart;
 
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
     private void Awake()
     {
         player = ReInput.players.GetPlayer(playerId);
     }
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Start is called just before any of the Update methods is called the first time.
+    /// </summary>
     void Start()
     {
         clawBase = transform.Find("ClawBase");
@@ -72,10 +83,12 @@ public class RobotArm : MonoBehaviour
         hinge = GetComponentInChildren<HingeJoint2D>();
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
     void Update()
     {
-        if(GameManager.Instance.GameState != GameState.Running)
+        if (GameManager.Instance.GameState != GameState.Running)
         {
             return;
         }
@@ -83,12 +96,15 @@ public class RobotArm : MonoBehaviour
         GetInput();
     }
 
+    /// <summary>
+    /// Gets input from the player to perform the magnet's actions.
+    /// </summary>
     void GetInput()
     {
-        // Extend and shrink arm
-        v = player.GetAxis("Vertical");
+        // Extend and shrink arm.
+        verticalInput = player.GetAxis("Vertical");
         Vector2 size = armRender.size;
-        size.y = size.y + ((stretchInverted? -v : v) * armExtendSpeed * Time.deltaTime);
+        size.y += ((stretchInverted ? -verticalInput : verticalInput) * armExtendSpeed * Time.deltaTime);
         size.y = Mathf.Clamp(size.y, armClampedSize.x, armClampedSize.y);
         armRender.size = size;
 
@@ -96,20 +112,20 @@ public class RobotArm : MonoBehaviour
         clawPosition.y = size.y - 1.7f;
         claw.transform.localPosition = clawPosition;
 
-        // Rotate Arms
-        h = player.GetAxis("Horizontal");
+        // Rotate Arms.
+        horizontalInput = player.GetAxis("Horizontal");
 
-        // Update Collider
+        // Update Collider depending on size.
         Vector2 spriteSize = armRender.size;
         spriteSize.x *= 0.3f;
         armCollider.size = spriteSize;
         armCollider.offset = new Vector2(0, spriteSize.y / 2);
 
+        // If a piece is being grabbed, stop grabbing.
         if (grabbedPart != null)
         {
             if (player.GetButtonUp("Grab"))
             {
-                // Stop Grabbing
                 // TODO: Play POP Audio
                 audioSource.Play();
                 clawAnimator.SetBool("Attracting", false);
@@ -117,58 +133,75 @@ public class RobotArm : MonoBehaviour
                 grabbedPart = null;
             }
         }
-    }
-
-    /// <summary>
-    /// Allows the player to pick stuff up using the Grab Area Collider.
-    /// </summary>
-    public void ColliderDetected(GameObject other)
-    {
-        if(grabbedPart != null)
+        else if(grabbablePiece != null)
         {
-            return;
-        }
-
-        // Grab part
-        if (player.GetButtonDown("Grab"))
-        {
-            // Try to Grab 
+            if (player.GetButtonDown("Grab"))
             {
-                if (other.tag.Equals("Part"))
-                {
-                    // TODO: Play POP Audio
-                    audioSource.Play();
-                    clawAnimator.SetBool("Attracting", true);
-                    grabbedPart = other.GetComponent<PartInstance>();
-                    grabbedPart.OnGrab(grabPoint);
-                    grabbedPart.playerId = playerId;
-                }
+                // TODO: Play POP Audio
+                audioSource.Play();
+
+                clawAnimator.SetBool("Attracting", true);
+                grabbedPart = grabbablePiece;
+
+                grabbedPart.OnGrab(grabPoint);
+                grabbedPart.playerId = playerId;
             }
         }
     }
 
+    /// <summary>
+    /// Marks a piece as grabbable.
+    /// </summary>
+    public void MarkPartAsGrabbable(PartInstance part)
+    {
+        grabbablePiece = part;
+    }
+
+    /// <summary>
+    /// Removes a piece from being a grabbable. 
+    /// </summary>
+    public void RemovePartAsGrabbable(PartInstance part)
+    {
+        // Fail-Safe to assure that the piece being removed is effectively the one the player thinks they're grabbing.
+        if(grabbablePiece == part)
+        {
+            grabbablePiece = null;
+        }
+    }
+
+    /// <summary>
+    /// Spawns collision particles and does camera shake whenever two arms hit each other.
+    /// </summary>
     public void SpawnCollisionParticles(Vector3 spawnPos)
     {
         Instantiate(sparks, spawnPos, Quaternion.identity).Play();
         FindObjectOfType<CameraController>().ShakeCamera(shakeDuration, shakeMagnitude);
     }
 
-
+    /// <summary>
+    /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
+    /// </summary>
     private void FixedUpdate()
     {
         DoRotation();
     }
 
+    /// <summary>
+    /// Handles the rotations of the arms depending on physics.
+    /// </summary>
     private void DoRotation()
     {
         float rot = rb.rotation;
         var jointMotor2D = hinge.motor;
-        jointMotor2D.motorSpeed = (rotationInverted ? -h : h) * armRotationSpeed;
+        jointMotor2D.motorSpeed = (rotationInverted ? -horizontalInput : horizontalInput) * armRotationSpeed;
         hinge.motor = jointMotor2D;
         //rot += (rotationInverted? -h : h) * armRotationSpeed * Time.deltaTime;
         //rb.rotation = rot;
     }
 
+    /// <summary>
+    /// Inverts the controls of the arms as an effect.
+    /// </summary>
     public void InvertControls(bool isInverted)
     {
         invertedStatus.SetActive(isInverted);

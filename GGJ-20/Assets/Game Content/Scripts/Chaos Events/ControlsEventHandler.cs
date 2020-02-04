@@ -1,52 +1,57 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-namespace Game_Content.Scripts.Chaos_Events
+/// <summary>
+/// Inverts the player's controls.
+/// </summary>
+public class ControlsEventHandler : ChaosEventHandler
 {
-    public class ControlsEventHandler : ChaosEventHandler
+    [Header("Event Properties")] 
+    public float duration = 2f;
+
+    public float invertStretchChance = 0.45f;
+    public float invertRotationChance = 0.45f;
+    public float invertBothChance = 0.1f;
+
+    private RobotArm controls;
+
+    /// <summary>
+    /// Start is called just before any of the Update methods is called the first time.
+    /// </summary>
+    protected override void Start()
     {
-        [Header("Event Properties")] 
-        public float duration = 2f;
-
-        public float invertStretchChance = 0.45f;
-        public float invertRotationChance = 0.45f;
-        public float invertBothChance = 0.1f;
-
-        private RobotArm controls;
-
-        private new void Start()
-        {
-            base.Start();
+        base.Start();
             
-            controls = GetComponent<RobotArm>();
-        }
+        controls = GetComponent<RobotArm>();
+    }
 
-        protected override IEnumerator StartEvent()
+    /// <summary>
+    /// Starts the actual event.
+    /// </summary>
+    protected override IEnumerator StartEvent()
+    {
+        float rand = Random.Range(0f, 1f);
+
+        if (rand <= invertStretchChance)
         {
-            float rand = Random.Range(0f, 1f);
-
-            if (rand <= invertStretchChance)
-            {
-                controls.stretchInverted = true;
-            }
-            else if (rand <= invertStretchChance + invertRotationChance)
-            {
-                controls.rotationInverted = true;
-            }
-            else
-            {
-                controls.stretchInverted = true;
-                controls.rotationInverted = true;
-            }
-            controls.InvertControls(true);
-            yield return new WaitForSeconds(duration);
-
-            controls.stretchInverted = false;
-            controls.rotationInverted = false;
-            controls.InvertControls(false);
-
+            controls.stretchInverted = true;
         }
+        else if (rand <= invertStretchChance + invertRotationChance)
+        {
+            controls.rotationInverted = true;
+        }
+        else
+        {
+            controls.stretchInverted = true;
+            controls.rotationInverted = true;
+        }
+
+        controls.InvertControls(true);
+        yield return new WaitForSeconds(duration);
+
+        controls.stretchInverted = false;
+        controls.rotationInverted = false;
+        controls.InvertControls(false);
+
     }
 }

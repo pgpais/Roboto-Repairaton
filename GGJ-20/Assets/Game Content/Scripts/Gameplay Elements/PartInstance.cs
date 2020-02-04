@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Stpres the instance of a part.
+/// Holds the actual living data relevant to the game of a piece, after it's been instasiated. 
 /// </summary>
 public class PartInstance : MonoBehaviour
 {
     [Header("Part")]
     public Part part;
     public int playerId;
+
+    [SerializeField]
+    private LayerMask mask = 0;
 
     [ReadOnly]
     public ConveyerBelt belt;
@@ -19,11 +22,12 @@ public class PartInstance : MonoBehaviour
     public BoxCollider2D col;
 
     private Rigidbody2D rb;
-    [SerializeField]
-    private LayerMask mask;
     private bool inAssembly;
     private bool markedToDestory = false;
 
+    /// <summary>
+    /// Start is called just before any of the Update methods is called the first time.
+    /// </summary>
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -42,6 +46,9 @@ public class PartInstance : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called when a piece is grabbed from the player's magnet.
+    /// </summary>
     public void OnGrab(Transform claw)
     {
         if(inAssembly)
@@ -59,6 +66,9 @@ public class PartInstance : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called when a piece is released from the player's magnet.
+    /// </summary>
     public void OnRelease()
     {
         transform.parent = null;

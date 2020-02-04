@@ -1,32 +1,35 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using Game_Content.Scripts.Chaos_Events;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
-using Random = UnityEngine.Random;
 
+/// <summary>
+/// Makes lights flickers on and off reducing visibility on the field.
+/// </summary>
 public class LightEventHandler : ChaosEventHandler
 {
-    [Header("Event Properties")] public float offMinTime = 0.1f;
+    [Header("Event Properties")]
+    public float offMinTime = 0.1f;
     public float offMaxTime = 0.5f;
     public float onMinTime = 0.1f;
     public float onMaxTime = 0.5f;
     public float duration = 5;
 
+    private new Light2D light = null;
 
-    private Light2D light;
-
-    private float nextEvent = -1f;
-
-    private new void Start()
+    /// <summary>
+    /// Start is called just before any of the Update methods is called the first time.
+    /// </summary>
+    protected override void Start()
     {
-        base.Start();
-        
+        base.Start();        
         light = GetComponent<Light2D>();
     }
 
+    /// <summary>
+    /// Starts the actual event.
+    /// </summary>
     protected override IEnumerator StartEvent()
     {
         // I know, this is disgusting.

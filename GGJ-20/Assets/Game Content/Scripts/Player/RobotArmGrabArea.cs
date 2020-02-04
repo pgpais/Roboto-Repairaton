@@ -10,35 +10,30 @@ using UnityEngine;
 public class RobotArmGrabArea : MonoBehaviour
 {
     public RobotArm arm;
-    
-    //TODO: create variable to make sure only one part is selectable?
 
     /// <summary>
-    /// OnTriggerEnter is called when the Collider other enters the trigger.
+    /// OnTriggerEnter2D is called when the Collider2D other enters the trigger (2D physics only).
     /// </summary>
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        arm.ColliderDetected(other.gameObject);
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.CompareTag("Part"))
-            other.GetComponent<Animator>().SetBool("isHovered", true);
+        PartInstance part = collision.GetComponent<PartInstance>();
+        if (part != null)
+        {
+            arm.MarkPartAsGrabbable(part);
+            part.GetComponent<Animator>().SetBool("isHovered", true);
+        }
     }
 
     /// <summary>
-    /// OnTriggerStay2D is called once per frame for every Collider2D other that is touching the trigger (2D physics only).
+    /// OnTriggerExit2D is called when the Collider2D other has stopped touching the trigger (2D physics only).
     /// </summary>
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.CompareTag("Part"))
-            arm.ColliderDetected(collision.gameObject);
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if(other.CompareTag("Part"))
-            other.GetComponent<Animator>().SetBool("isHovered", false);
+        PartInstance part = collision.GetComponent<PartInstance>();
+        if (part != null)
+        {
+            arm.RemovePartAsGrabbable(part);
+            part.GetComponent<Animator>().SetBool("isHovered", false);
+        }
     }
 }

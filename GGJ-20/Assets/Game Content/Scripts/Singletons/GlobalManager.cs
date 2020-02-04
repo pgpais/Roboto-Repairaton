@@ -5,11 +5,10 @@ using UnityEngine.SceneManagement;
 using Rewired;
 
 /// <summary>
-/// Handles Saved Data, and Global Operations.
+/// Handles the Global State of the game, and is used for scene transition with fades and others.
 /// </summary>
 public class GlobalManager : SingletonBehaviour<GlobalManager>
 {
-
     private Canvas fadeCanvas;
 
     /// <summary>
@@ -84,7 +83,7 @@ public class GlobalManager : SingletonBehaviour<GlobalManager>
     {
         // Does the fade animation, and does a WaitForSeconds before applying it.
         ProcessFade(false, fadeSortOrder);
-        yield return new WaitForSecondsRealtime(0.75f);
+        yield return new WaitForSecondsRealtime(1.5f);
 
         // Changes the scene to the target scene.
         AsyncOperation loadScene = SceneManager.LoadSceneAsync(targetScene);
