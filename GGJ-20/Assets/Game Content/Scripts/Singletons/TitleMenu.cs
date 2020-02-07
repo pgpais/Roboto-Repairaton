@@ -48,6 +48,6 @@ public class TitleMenu : MonoBehaviour
     {
         menuAnimator.enabled = true;
         yield return new WaitForSeconds(1f);
-        GlobalManager.Instance.ChangeScene("Game", 10);
+        GlobalManager.Instance.ChangeScene("Game (Two-Player)", 10);
     }
 }

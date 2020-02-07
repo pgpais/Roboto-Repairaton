@@ -50,7 +50,7 @@ public class GameOverCanvas : MonoBehaviour
     public void ResetGame()
     {
         Time.timeScale = 1;
-        GlobalManager.Instance.ChangeScene("Game", 10);
+        GlobalManager.Instance.ChangeScene("Game (Two-Player)", 10);
     }
 
     /// <summary>

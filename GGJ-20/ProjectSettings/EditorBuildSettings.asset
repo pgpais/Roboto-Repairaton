@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Game Content/Scenes/Game (Two-Player).unity
     guid: 8028371fa3296744cb7d5d16066fb738
+  - enabled: 1
+    path: Assets/Game Content/Scenes/Game (Single).unity
+    guid: 6752f76f1bb6a734890d293d876e174b
   m_configObjects: {}
