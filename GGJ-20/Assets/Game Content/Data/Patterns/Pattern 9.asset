@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72a56227efbfe57459c5977526f62cb2, type: 3}
+  m_Name: Pattern 9
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 309c0ad667226d348a8371957a063e67, type: 3}
+  headPart: {fileID: 11400000, guid: 82f45352656e362438ffc6d2e1ad9879, type: 2}
+  bodyPart: {fileID: 11400000, guid: 9373a91e20f146a4f83b26a46fb2643e, type: 2}
+  legsPart: {fileID: 11400000, guid: 2db9a9f7fcf695f438e0f6ac898c4857, type: 2}
+  poolChance: 6

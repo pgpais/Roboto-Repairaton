@@ -2,7 +2,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Makes conveyer belts go faster and spawn more pieces over time.
+/// Makes conveyor belts go faster and spawn more pieces over time.
 /// </summary>
 public class BeltEventHandler : ChaosEventHandler
 {
@@ -14,7 +14,7 @@ public class BeltEventHandler : ChaosEventHandler
     public float invertSpeedIncreaseChance = 0.1f;
     public float speedMultiplier = 2f;
 
-    private ConveyerBelt belt;
+    private ConveyorBelt belt;
 
     /// <summary>
     /// Start is called just before any of the Update methods is called the first time.
@@ -22,7 +22,7 @@ public class BeltEventHandler : ChaosEventHandler
     protected override void Start()
     {
         base.Start();
-        belt = GetComponent<ConveyerBelt>();
+        belt = GetComponent<ConveyorBelt>();
     }
 
     /// <summary>

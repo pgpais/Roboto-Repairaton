@@ -47,11 +47,13 @@ public class ControlsEventHandler : ChaosEventHandler
         }
 
         controls.InvertControls(true);
+        controls.ChangeSpriteColors(controls.invertedColor);
         yield return new WaitForSeconds(duration);
 
         controls.stretchInverted = false;
         controls.rotationInverted = false;
         controls.InvertControls(false);
+        controls.ChangeSpriteColors(Color.clear);
 
     }
 }

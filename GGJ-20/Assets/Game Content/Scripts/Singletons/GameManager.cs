@@ -27,9 +27,9 @@ public class GameManager : SingletonBehaviour<GameManager>
     public PoolTable partPool;
     public PoolTable patternPool;
 
-    [Header("Conveyers")]
+    [Header("Conveyors")]
     public float startingSpawnTime;
-    public ConveyerBelt[] conveyerBelts;
+    public ConveyorBelt[] conveyorBelts;
 
     [Header("Patterns")]
     public int patternMaxTime = 25;
@@ -84,9 +84,9 @@ public class GameManager : SingletonBehaviour<GameManager>
 
         yield return new WaitForSeconds(3f);
 
-        // Starts the conveyer belts.
+        // Starts the conveyor belts.
         GameState = GameState.Running;
-        foreach(ConveyerBelt belt in conveyerBelts)
+        foreach(ConveyorBelt belt in conveyorBelts)
         {
             belt.StartSpawnParts();
         }
@@ -157,7 +157,7 @@ public class GameManager : SingletonBehaviour<GameManager>
             int poolChance = part.poolChance;
             if(part == targetPattern.headPart || part == targetPattern.bodyPart || part == targetPattern.legsPart)
             {
-                poolChance = 12;
+                poolChance = 20;
             }
 
             PoolVariable variable = new PoolVariable(part, poolChance);

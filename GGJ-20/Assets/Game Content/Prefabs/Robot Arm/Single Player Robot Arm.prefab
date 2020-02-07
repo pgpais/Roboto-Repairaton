@@ -7,6 +7,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1057677089394160052, guid: bb79a7620bf6e964d8e9e0c143bf96a7,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1057677089394160052, guid: bb79a7620bf6e964d8e9e0c143bf96a7,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.2333653
+      objectReference: {fileID: 0}
     - target: {fileID: 1523749430397921042, guid: bb79a7620bf6e964d8e9e0c143bf96a7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -137,10 +147,30 @@ PrefabInstance:
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[7].y
       value: 0.18
       objectReference: {fileID: 0}
+    - target: {fileID: 4777192323119349010, guid: bb79a7620bf6e964d8e9e0c143bf96a7,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4777192323119349010, guid: bb79a7620bf6e964d8e9e0c143bf96a7,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.2333653
+      objectReference: {fileID: 0}
     - target: {fileID: 6848380950661910539, guid: bb79a7620bf6e964d8e9e0c143bf96a7,
         type: 3}
       propertyPath: armClampedSize.x
       value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848380950661910539, guid: bb79a7620bf6e964d8e9e0c143bf96a7,
+        type: 3}
+      propertyPath: mask.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 7281886504501871474, guid: bb79a7620bf6e964d8e9e0c143bf96a7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7431404159968906766, guid: bb79a7620bf6e964d8e9e0c143bf96a7,
         type: 3}

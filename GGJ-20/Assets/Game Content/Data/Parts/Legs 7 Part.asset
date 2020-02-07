@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57a72fe5c892c7740b18dd8b939d22ed, type: 3}
+  m_Name: Legs 7 Part
+  m_EditorClassIdentifier: 
+  brokenSprite: {fileID: -7091959824535142274, guid: 01d1c597f3987a64484d2b8a2d800f59,
+    type: 3}
+  fixedSprite: {fileID: -2827907721900253164, guid: 01d1c597f3987a64484d2b8a2d800f59,
+    type: 3}
+  instance: {fileID: 8079061271835679219, guid: 96919431c3523ec458d347a4dcd4145d,
+    type: 3}
+  partType: 0
+  poolChance: 4

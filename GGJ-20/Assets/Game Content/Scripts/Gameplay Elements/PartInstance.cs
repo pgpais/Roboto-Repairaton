@@ -8,19 +8,23 @@ using UnityEngine;
 /// </summary>
 public class PartInstance : MonoBehaviour
 {
-    [Header("Part")]
+    [Header("Part SO")]
     public Part part;
-    public int playerId;
 
+    [Header("Masking")]
     [SerializeField]
     private LayerMask mask = 0;
 
+    [Header("In-Game Properties")]
     [ReadOnly]
-    public ConveyerBelt belt;
+    public int playerId;
+    [ReadOnly]
+    public ConveyorBelt belt;
     [ReadOnly]
     public bool beingGrabbed;
-    public BoxCollider2D col;
 
+    // Private
+    private BoxCollider2D col;
     private Rigidbody2D rb;
     private bool inAssembly;
     private bool markedToDestory = false;
@@ -31,6 +35,7 @@ public class PartInstance : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        col = GetComponent<BoxCollider2D>();
     }
 
     /// <summary>
@@ -55,14 +60,16 @@ public class PartInstance : MonoBehaviour
         {
             return;
         }
-        
+
+        GetComponent<Animator>().SetBool("isHovered", false);
+
         transform.SetParent(claw);
         transform.localPosition = Vector3.zero;
         
         // This should only remove part from the belt's list?
         if(belt != null)
         {
-            belt.RemoveConveyerPart(this);
+            belt.RemoveConveyorPart(this);
         }
     }
 

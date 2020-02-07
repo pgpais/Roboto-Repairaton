@@ -9,6 +9,9 @@ using Rewired;
 /// </summary>
 public class GlobalManager : SingletonBehaviour<GlobalManager>
 {
+    [Header("Game State")]
+    public GameType GameType;
+
     private Canvas fadeCanvas;
 
     /// <summary>
@@ -104,4 +107,10 @@ public class GlobalManager : SingletonBehaviour<GlobalManager>
         Application.Quit();
         return;
     }
+}
+
+public enum GameType
+{
+    NormalSingle,
+    NormalTwoPlayers,
 }

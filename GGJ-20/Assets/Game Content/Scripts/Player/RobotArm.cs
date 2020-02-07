@@ -27,6 +27,8 @@ public class RobotArm : MonoBehaviour
     [Header("Chaos")] 
     public bool stretchInverted;
     public bool rotationInverted;
+    public Color invertedColor = Color.green;
+    public Color frozenColor = Color.cyan;
 
     [Header("Camera Shake")]
     public float shakeDuration = 0.5f;
@@ -41,6 +43,7 @@ public class RobotArm : MonoBehaviour
     private Player player;
     private Animator clawAnimator;
     private SpriteRenderer armRender;
+    private List<SpriteRenderer> allSprites = new List<SpriteRenderer>();
     private BoxCollider2D armCollider;
     private Rigidbody2D rb;
     private AudioSource audioSource;
@@ -75,6 +78,11 @@ public class RobotArm : MonoBehaviour
         grabArea = claw.Find("ClawHead/ClawMagnet/Grab Area");
         grabPoint = grabArea.transform.GetChild(0);
         invertedStatus = claw.Find("ClawHead/Inverted Status").gameObject;
+
+        allSprites.Add(clawBase.GetComponent<SpriteRenderer>());
+        allSprites.Add(arm.GetComponent<SpriteRenderer>());
+        allSprites.Add(claw.Find("ClawHead").GetComponent<SpriteRenderer>());
+        allSprites.Add(claw.Find("ClawHead/ClawMagnet").GetComponent<SpriteRenderer>());
 
         audioSource = GetComponent<AudioSource>();
         armRender = arm.GetComponent<SpriteRenderer>();
@@ -197,6 +205,17 @@ public class RobotArm : MonoBehaviour
         hinge.motor = jointMotor2D;
         //rot += (rotationInverted? -h : h) * armRotationSpeed * Time.deltaTime;
         //rb.rotation = rot;
+    }
+
+    /// <summary>
+    /// Changes the sprite colours.
+    /// </summary>
+    public void ChangeSpriteColors(Color target)
+    {
+        foreach(SpriteRenderer renderer in allSprites)
+        {
+            renderer.material.SetColor("_Tint", target);
+        }
     }
 
     /// <summary>

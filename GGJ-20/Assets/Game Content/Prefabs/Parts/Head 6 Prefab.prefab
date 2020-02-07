@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 5145942237148407341}
   - component: {fileID: -7570429008311246476}
   - component: {fileID: -6232820406078494220}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Head 6 Prefab
   m_TagString: Part
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7393428548084436018}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.8875804, y: -1.0655105, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8638479156221322837}
@@ -136,7 +136,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: e21b4c56588ca0a438673aac111b9087, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -181,14 +181,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b5da9239db2d014e9180e7c5486f1cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  part: {fileID: 11400000, guid: f906b416704d4b6408aa6dd2ccba3e6e, type: 2}
-  playerId: 0
-  belt: {fileID: 0}
-  beingGrabbed: 0
-  col: {fileID: 5145942237148407341}
+  part: {fileID: 11400000, guid: c05cca620f710564ea1f9b8db239b78d, type: 2}
   mask:
     serializedVersion: 2
     m_Bits: 512
+  playerId: 0
+  belt: {fileID: 0}
+  beingGrabbed: 0
 --- !u!61 &5145942237148407341
 BoxCollider2D:
   m_ObjectHideFlags: 0

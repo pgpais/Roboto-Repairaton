@@ -16,4 +16,4 @@ MonoBehaviour:
   headPart: {fileID: 11400000, guid: 3c6c2844154c8c7459f9c5c7f3490aea, type: 2}
   bodyPart: {fileID: 11400000, guid: b3d3be5ad95ec304dba42e6b85581ff3, type: 2}
   legsPart: {fileID: 11400000, guid: c9af95454bb79044aad2e85c5698c911, type: 2}
-  poolChance: 2
+  poolChance: 3
