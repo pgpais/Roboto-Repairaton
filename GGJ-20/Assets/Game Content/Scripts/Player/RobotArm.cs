@@ -25,6 +25,7 @@ public class RobotArm : MonoBehaviour
     public LayerMask mask;
 
     [Header("Chaos")] 
+    public bool controlsFrozen;
     public bool stretchInverted;
     public bool rotationInverted;
     public Color invertedColor = Color.green;
@@ -48,10 +49,11 @@ public class RobotArm : MonoBehaviour
     private Rigidbody2D rb;
     private AudioSource audioSource;
     private GameObject invertedStatus;
+    private GameObject frozenStatus;
 
     private HingeJoint2D hinge;
 
-    // Input vars TODO: are these necessary? Can the input work on FixedUpdate?
+    // Input vars
     private float verticalInput;
     private float horizontalInput;
 
@@ -78,6 +80,7 @@ public class RobotArm : MonoBehaviour
         grabArea = claw.Find("ClawHead/ClawMagnet/Grab Area");
         grabPoint = grabArea.transform.GetChild(0);
         invertedStatus = claw.Find("ClawHead/Inverted Status").gameObject;
+        frozenStatus = claw.Find("ClawHead/Frozen Status").gameObject;
 
         allSprites.Add(clawBase.GetComponent<SpriteRenderer>());
         allSprites.Add(arm.GetComponent<SpriteRenderer>());
@@ -224,5 +227,11 @@ public class RobotArm : MonoBehaviour
     public void InvertControls(bool isInverted)
     {
         invertedStatus.SetActive(isInverted);
+    }
+
+    public void FreezeControls(bool isFrozen)
+    {
+        frozenStatus.SetActive(isFrozen);
+        
     }
 }

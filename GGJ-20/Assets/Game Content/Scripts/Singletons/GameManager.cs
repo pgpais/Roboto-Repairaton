@@ -78,6 +78,9 @@ public class GameManager : SingletonBehaviour<GameManager>
             patternPool.AddVariable(variable);
         }
 
+        // Populates list of conveyor belts
+        conveyorBelts = FindObjectsOfType<ConveyorBelt>();
+        
         // Fades-Out.
         GlobalManager.Instance.ProcessFade(true, 10);
         Canvas.UpdateGameTime(time);
