@@ -29,6 +29,11 @@ public class CanvasManager : MonoBehaviour
     private TextMeshProUGUI scoreText = null;
     private TextMeshProUGUI timeLeftText = null;
 
+    // Images
+    private Image legsImage;
+    private Image bodyImage;
+    private Image headImage;
+
     // Animators
     private Animator patternTimerAnimator;
     private Animator patternAnimator;
@@ -53,6 +58,10 @@ public class CanvasManager : MonoBehaviour
         patternTimerAnimator = patternTimer.GetComponent<Animator>();
         patternTimerRadial = patternTimer.transform.GetChild(0).GetComponent<Image>();
         patternTimerText = patternTimerRadial.transform.GetComponentInChildren<TextMeshProUGUI>();
+
+        legsImage = patternWindow.transform.Find("Legs").GetComponent<Image>();
+        bodyImage = patternWindow.transform.Find("Body").GetComponent<Image>();
+        headImage = patternWindow.transform.Find("Head").GetComponent<Image>();
     }
 
     /// <summary>
@@ -70,9 +79,27 @@ public class CanvasManager : MonoBehaviour
     {
         patternAnimator.SetTrigger("New");
 
-        patternWindow.transform.Find("Legs").GetComponent<Image>().sprite = pattern.legsPart.fixedSprite;
-        patternWindow.transform.Find("Body").GetComponent<Image>().sprite = pattern.bodyPart.fixedSprite;
-        patternWindow.transform.Find("Head").GetComponent<Image>().sprite = pattern.headPart.fixedSprite;
+        legsImage.sprite = pattern.legsPart.fixedSprite;
+        bodyImage.sprite = pattern.bodyPart.fixedSprite;
+        headImage.sprite = pattern.headPart.fixedSprite;
+    }
+
+    /// <summary>
+    /// Resets the checkmarks in patterns.
+    /// </summary>
+    public void ResetPatternCheckmark()
+    {
+        legsImage.transform.GetChild(0).GetComponent<Image>().enabled = false;
+        bodyImage.transform.GetChild(0).GetComponent<Image>().enabled = false;
+        headImage.transform.GetChild(0).GetComponent<Image>().enabled = false;
+    }
+
+    /// <summary>
+    /// Updates the progress on 
+    /// </summary>
+    public void TogglePatterCheckmark()
+    {
+
     }
 
     /// <summary>

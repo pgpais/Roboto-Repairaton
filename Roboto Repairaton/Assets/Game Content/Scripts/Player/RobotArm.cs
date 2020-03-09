@@ -26,8 +26,7 @@ public class RobotArm : MonoBehaviour
 
     [Header("Chaos")] 
     public bool controlsFrozen;
-    public bool stretchInverted;
-    public bool rotationInverted;
+    public bool controlsInverted;
     public Color invertedColor = Color.green;
     public Color frozenColor = Color.cyan;
 
@@ -112,10 +111,18 @@ public class RobotArm : MonoBehaviour
     /// </summary>
     void GetInput()
     {
+        // Sets variables to zero and returns if the inputs are frozen.
+        if(controlsFrozen)
+        {
+            horizontalInput = 0;
+            verticalInput = 0;
+            return;
+        }
+
         // Extend and shrink arm.
         verticalInput = player.GetAxis("Vertical");
         Vector2 size = armRender.size;
-        size.y += ((stretchInverted ? -verticalInput : verticalInput) * armExtendSpeed * Time.deltaTime);
+        size.y += ((controlsInverted ? -verticalInput : verticalInput) * armExtendSpeed * Time.deltaTime);
         size.y = Mathf.Clamp(size.y, armClampedSize.x, armClampedSize.y);
         armRender.size = size;
 
@@ -204,10 +211,9 @@ public class RobotArm : MonoBehaviour
     {
         float rot = rb.rotation;
         var jointMotor2D = hinge.motor;
-        jointMotor2D.motorSpeed = (rotationInverted ? -horizontalInput : horizontalInput) * armRotationSpeed;
+
+        jointMotor2D.motorSpeed = (controlsInverted ? -horizontalInput : horizontalInput) * armRotationSpeed;
         hinge.motor = jointMotor2D;
-        //rot += (rotationInverted? -h : h) * armRotationSpeed * Time.deltaTime;
-        //rb.rotation = rot;
     }
 
     /// <summary>
@@ -226,12 +232,16 @@ public class RobotArm : MonoBehaviour
     /// </summary>
     public void InvertControls(bool isInverted)
     {
+        controlsInverted = isInverted;
         invertedStatus.SetActive(isInverted);
     }
 
+    /// <summary>
+    /// Freezes the controls of the arms as an effect.
+    /// </summary>
     public void FreezeControls(bool isFrozen)
     {
+        controlsFrozen = isFrozen;
         frozenStatus.SetActive(isFrozen);
-        
     }
 }

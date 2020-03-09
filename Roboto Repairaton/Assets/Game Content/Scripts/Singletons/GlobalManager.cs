@@ -9,8 +9,11 @@ using Rewired;
 /// </summary>
 public class GlobalManager : SingletonBehaviour<GlobalManager>
 {
+    [Header("Reference")]
+    public Reference Reference;
+
     [Header("Game State")]
-    public GameType GameType;
+    public GameMode GameMode;
 
     private Canvas fadeCanvas;
 
@@ -26,6 +29,9 @@ public class GlobalManager : SingletonBehaviour<GlobalManager>
         }
 
         DontDestroyOnLoad(gameObject);
+
+        // Instatiates the Reference for safe-keeping.
+        Reference = Instantiate(Reference);
     }
 
     /// <summary>
@@ -107,10 +113,4 @@ public class GlobalManager : SingletonBehaviour<GlobalManager>
         Application.Quit();
         return;
     }
-}
-
-public enum GameType
-{
-    NormalSingle,
-    NormalTwoPlayers,
 }

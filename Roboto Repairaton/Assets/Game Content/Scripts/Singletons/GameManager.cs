@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WhalesAndGames.Pools;
@@ -10,17 +11,25 @@ public class GameManager : SingletonBehaviour<GameManager>
 {
     [Header("Game State")]
     public GameState GameState;
-    public Reference Reference;
 
     [Header("Game Values")]
+    [ReadOnly]
     public int time;
+    [ReadOnly]
     public int score;
+    [ReadOnly]
     public int repairedRobots;
+    [ReadOnly]
     public int partsDropped;
-    private int scorePenalty = 50;
+    [ReadOnly]
+    public int timeScoreMultiplier;
+    [ReadOnly]
+    public int scorePenalty;
 
     [Header("Contribution")]
+    [ReadOnly]
     public int player1Contribution;
+    [ReadOnly]
     public int player2Contribution;
 
     [Header("Pool Parts")]
@@ -32,7 +41,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     public ConveyorBelt[] conveyorBelts;
 
     [Header("Patterns")]
-    public int patternMaxTime = 25;
+    public int patternTime = 25;
     private int patternCurrentTime;
     public Pattern targetPattern;
     private int patternId = 0;
@@ -42,6 +51,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     public AssemblyZone AssemblyZone;
     [HideInInspector]
     public CanvasManager Canvas;
+    private GameMode GameMode;
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -54,7 +64,6 @@ public class GameManager : SingletonBehaviour<GameManager>
         }
 
         // Clones the reference for future-proofing.
-        Reference = Instantiate(Reference);
         AssemblyZone = FindObjectOfType<AssemblyZone>();
         Canvas = FindObjectOfType<CanvasManager>();
     }
@@ -64,8 +73,18 @@ public class GameManager : SingletonBehaviour<GameManager>
     /// </summary>
     private IEnumerator Start()
     {
-        RefreshPartPool();
-        List<Pattern> patterns = Reference.patterns;
+        // Gets the current active game mode.
+        GameMode = GlobalManager.Instance.GameMode;
+        time = GameMode.gameTime;
+        patternTime = GameMode.patternTime;
+        scorePenalty = GameMode.scorePenalty;
+        timeScoreMultiplier = GameMode.timeScoreMultiplier;
+
+        // Updates the time displayed in the UI.
+        Canvas.UpdatePatternTime(patternTime, patternTime);
+
+        // Sets-up the part poll.
+        List<Pattern> patterns = GlobalManager.Instance.Reference.patterns;
         if (patterns.Count == 0)
         {
             Debug.LogError("No Patterns Exist in the Reference!");
@@ -77,6 +96,8 @@ public class GameManager : SingletonBehaviour<GameManager>
             PoolVariable variable = new PoolVariable(pattern, pattern.poolChance);
             patternPool.AddVariable(variable);
         }
+
+        RefreshPartPool();
 
         // Populates list of conveyor belts
         conveyorBelts = FindObjectsOfType<ConveyorBelt>();
@@ -131,13 +152,13 @@ public class GameManager : SingletonBehaviour<GameManager>
     public void GenerateNewPattern()
     {
         patternId++;
-        patternCurrentTime = patternMaxTime;
+        patternCurrentTime = patternTime;
         Pattern pickedPattern = Pool.Fetch<Pattern>(patternPool);
         targetPattern = pickedPattern;
 
         RefreshPartPool();
         Canvas.UpdateShownPattern(pickedPattern);
-        Canvas.UpdatePatternTime(patternCurrentTime, patternMaxTime);
+        Canvas.UpdatePatternTime(patternCurrentTime, patternTime);
 
         StartCoroutine(PatternCountdown(patternId));
     }
@@ -147,7 +168,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     /// </summary>
     public void RefreshPartPool()
     {
-        List<Part> parts = Reference.parts;
+        List<Part> parts = GlobalManager.Instance.Reference.parts;
         if (parts.Count == 0)
         {
             Debug.LogError("No Parts Exist in the Reference!");
@@ -157,14 +178,27 @@ public class GameManager : SingletonBehaviour<GameManager>
         partPool.poolVariables.Clear();
         foreach (Part part in parts)
         {
-            int poolChance = part.poolChance;
-            if(part == targetPattern.headPart || part == targetPattern.bodyPart || part == targetPattern.legsPart)
+            if(!GameMode.onlyGiveCurrentPieces)
             {
-                poolChance = 20;
-            }
+                int poolChance = part.poolChance;
+                if (part == targetPattern.headPart || part == targetPattern.bodyPart || part == targetPattern.legsPart)
+                {
+                    poolChance = 20;
+                }
 
-            PoolVariable variable = new PoolVariable(part, poolChance);
-            partPool.AddVariable(variable);
+                PoolVariable variable = new PoolVariable(part, poolChance);
+                partPool.AddVariable(variable);
+            }
+            else
+            {
+                if(part != targetPattern.headPart && part != targetPattern.bodyPart && part != targetPattern.legsPart)
+                {
+                    continue;
+                }
+
+                PoolVariable variable = new PoolVariable(part, part.poolChance);
+                partPool.AddVariable(variable);
+            }
         }
     }
 
@@ -183,7 +217,7 @@ public class GameManager : SingletonBehaviour<GameManager>
             {
                 Canvas.ShakeClock();
             }
-            Canvas.UpdatePatternTime(patternCurrentTime, patternMaxTime);
+            Canvas.UpdatePatternTime(patternCurrentTime, patternTime);
         }
 
         if(patternId == patterNumber)
@@ -229,7 +263,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     public void ConfirmAssembly()
     {
         // Score is defined by the pattern time 
-        score += patternCurrentTime * 10;
+        score += patternCurrentTime * timeScoreMultiplier;
         repairedRobots += 1;
 
         Canvas.RecoverClock();

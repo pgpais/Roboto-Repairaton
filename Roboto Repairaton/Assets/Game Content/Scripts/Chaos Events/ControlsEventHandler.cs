@@ -11,10 +11,7 @@ public class ControlsEventHandler : ChaosEventHandler
     public bool isFreezeEvent = true;
     
     [Header("Invert Event Properties")]
-    public float invertStretchChance = 0.45f;
-    public float invertRotationChance = 0.45f;
-    public float invertBothChance = 0.1f;
-
+    public float invertChance = 0.2f;
 
     private RobotArm controls;
 
@@ -23,8 +20,7 @@ public class ControlsEventHandler : ChaosEventHandler
     /// </summary>
     protected override void Start()
     {
-        base.Start();
-            
+        base.Start();           
         controls = GetComponent<RobotArm>();
     }
 
@@ -33,6 +29,12 @@ public class ControlsEventHandler : ChaosEventHandler
     /// </summary>
     protected override IEnumerator StartEvent()
     {
+        // If controls are already broken or frozen, avoid doing them twice.
+        if(controls.controlsFrozen || controls.controlsInverted)
+        {
+            yield break;
+        }
+
         if (isFreezeEvent)
         {
             controls.FreezeControls(true);
@@ -41,19 +43,9 @@ public class ControlsEventHandler : ChaosEventHandler
         else
         {
             float rand = Random.Range(0f, 1f);
-
-            if (rand <= invertStretchChance)
+            if (rand <= invertChance)
             {
-                controls.stretchInverted = true;
-            }
-            else if (rand <= invertStretchChance + invertRotationChance)
-            {
-                controls.rotationInverted = true;
-            }
-            else
-            {
-                controls.stretchInverted = true;
-                controls.rotationInverted = true;
+                controls.controlsInverted = true;
             }
 
             controls.InvertControls(true);
@@ -62,11 +54,9 @@ public class ControlsEventHandler : ChaosEventHandler
 
         yield return new WaitForSeconds(duration);
 
-        
-        controls.stretchInverted = false;
-        controls.rotationInverted = false;
-        controls.FreezeControls(false);
+        // Clears any effects from the arms.
         controls.InvertControls(false);
+        controls.FreezeControls(false);
         controls.ChangeSpriteColors(Color.clear);
 
     }

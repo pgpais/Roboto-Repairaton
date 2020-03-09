@@ -4410,6 +4410,16 @@
             The time in seconds this axis has been inactive based on raw value.
             </summary>
         </member>
+        <member name="P:Rewired.Controller.Axis.pollingDeadZone">
+            <summary>
+            The polling dead zone used when polling the axis.
+            In order for the axis to be detected when polling, the change in absolute value
+            of the axis over the polling period must be greater than this amount.
+            Do not set this value extremely low or noisy axes will be detected when at rest.
+            A value of -1 means the default global polling dead zone will be used instead.
+            [Default = -1]
+            </summary>
+        </member>
         <member name="T:Rewired.Controller.Button">
             <summary>
             A Button controller element.
@@ -18408,6 +18418,28 @@
             If enabled, the corner directions on all hats will activate the adjacent 2 cardinal direction buttons instead of the corner button.
             This is useful if you need joystick hats to behave like D-Pads instead of 8-way hats.
             This setting can be changed without resetting Rewired.
+            </summary>
+        </member>
+        <member name="P:Rewired.ReInput.ConfigHelper.defaultAbsoluteAxisPollingDeadZone">
+            <summary>
+            The default polling dead zone used when polling Absolute coordinate mode axes.
+            In order for the axis to be detected when polling, the change in absolute value
+            of the axis over the polling period must be greater than this amount.
+            Do not set this value too low or noisy axes will be detected.
+            This only applies to axes that use an Absolute coordinate system such as joysticks.
+            Each indivisual axis may override this default value.
+            [Default = 0.7]
+            </summary>
+        </member>
+        <member name="P:Rewired.ReInput.ConfigHelper.defaultRelativeAxisPollingDeadZone">
+            <summary>
+            The default polling dead zone used when polling Relative coordinate mode axes.
+            In order for the axis to be detected when polling, the change in absolute value
+            of the axis over the polling period must be greater than this amount.
+            Do not set this value too low or noisy axes will be detected.
+            This only applies to axes that use a Relative coordinate system such as mouse axes.
+            Each indivisual axis may override this default value.
+            [Default = 100]
             </summary>
         </member>
         <member name="P:Rewired.ReInput.ConfigHelper.activateActionButtonsOnNegativeValue">
