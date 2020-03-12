@@ -377,4 +377,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3cb0c111a7bcea4c949fbb05a21abcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameType: 0
+  Reference: {fileID: 11400000, guid: 9f4ab3464ceaf0d44adcfb4253bcb142, type: 2}
+  GameMode: {fileID: 11400000, guid: f21d531ee4ad0e646bcb13d08bb825df, type: 2}

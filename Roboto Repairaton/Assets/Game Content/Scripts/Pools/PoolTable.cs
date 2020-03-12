@@ -13,33 +13,55 @@ namespace WhalesAndGames.Pools
         public List<PoolVariable> poolVariables = new List<PoolVariable>();
 
         /// <summary>
-        /// Used for adding a new variable to this list.
+        /// Adds a variable to the pool from unconstructed objects. If variable already exists, changes it chance.
         /// </summary>
-        public void AddVariable(PoolVariable newVariable)
+        public void AddOrChangeVariable(Object newObject, int chance)
         {
-            // Adds a new variable to the pool chance.
-            if (newVariable.variable != null)
+            if(newObject == null)
             {
-                PoolVariable existingVariable = poolVariables.Find(x => x.variable == newVariable.variable);
-                if (existingVariable != null)
-                {
-                    existingVariable.chance += newVariable.chance;
-                }
-                else
-                {
-                    poolVariables.Add(newVariable);
-                }
+                Debug.LogError("Can't assigned an empty variable!");
+                return;
+            }
+
+            PoolVariable existingVariable = poolVariables.Find(x => x.variable == newObject);
+            if (existingVariable != null)
+            {
+                existingVariable.chance = chance;
             }
             else
             {
+                PoolVariable poolVariable = new PoolVariable(newObject, chance);
+                poolVariables.Add(poolVariable);
+            }
+        }
+
+        /// <summary>
+        /// Adds a new variable to the pool. If variable already exists, changes it chance.
+        /// </summary>
+        public void AddOrChangeVariable(PoolVariable newVariable)
+        {
+            // Adds a new variable to the pool chance.
+            if (newVariable.variable == null)
+            {
                 Debug.LogError("Variable has no variable assigned!");
+                return;
+            }
+
+            PoolVariable existingVariable = poolVariables.Find(x => x.variable == newVariable.variable);
+            if (existingVariable != null)
+            {
+                existingVariable.chance = newVariable.chance;
+            }
+            else
+            {
+                poolVariables.Add(newVariable);
             }
         }
 
         /// <summary>
         /// Checks if a variable already exists on the pool.
         /// </summary>
-        public bool Contains(Object checkObject)
+        public bool ContainsVariable(Object checkObject)
         {
             // Checks each variable in the list until it finds the Remove Variable.
             PoolVariable existingVariable = poolVariables.Find(x => x.variable == checkObject);
@@ -48,7 +70,8 @@ namespace WhalesAndGames.Pools
                 return true;
             }
 
-            // Action is not in the list, let's go back.
+            // The variable does not exist in the pool.
+            Debug.LogError("There is no variable with " + checkObject + " assigned to it!");
             return false;
         }
 
@@ -69,8 +92,7 @@ namespace WhalesAndGames.Pools
         }
 
         /// <summary>
-        /// Gets a list of variables as a specific type.
-        /// TODO: Fix to be better acessible.
+        /// Gets a list of the variables as long as if they're of the parsed type.
         /// </summary>
         public List<T> GetVariablesAsList<T>() where T : UnityEngine.Object
         {

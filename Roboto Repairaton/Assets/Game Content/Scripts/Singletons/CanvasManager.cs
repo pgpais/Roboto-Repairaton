@@ -23,7 +23,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField]
     private GameObject scoreWindow = null;
     [SerializeField]
-    private GameObject timeWindow = null;
+    private GameObject timeLeftWindow = null;
 
     // Text
     private TextMeshProUGUI scoreText = null;
@@ -38,7 +38,7 @@ public class CanvasManager : MonoBehaviour
     private Animator patternTimerAnimator;
     private Animator patternAnimator;
     private Animator scoreAnimator;
-    private Animator timeAnimator;
+    private Animator timeLeftAnimator;
 
     private int displayScore = 0;
 
@@ -48,11 +48,11 @@ public class CanvasManager : MonoBehaviour
     private void Awake()
     {
         scoreText = scoreWindow.transform.Find("Text").GetComponent<TextMeshProUGUI>();
-        timeLeftText = timeWindow.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        timeLeftText = timeLeftWindow.transform.Find("Text").GetComponent<TextMeshProUGUI>();
 
         patternAnimator = patternWindow.GetComponent<Animator>();
         scoreAnimator = scoreWindow.GetComponent<Animator>();
-        timeAnimator = timeWindow.GetComponent<Animator>();
+        timeLeftAnimator = timeLeftWindow.GetComponent<Animator>();
 
         patternTimer = patternWindow.transform.Find("Pattern Timer").gameObject;
         patternTimerAnimator = patternTimer.GetComponent<Animator>();
@@ -73,6 +73,24 @@ public class CanvasManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Plays the countdown animation.
+    /// </summary>
+    public void PlayCountdown()
+    {
+        StartWindows();
+    }
+
+    /// <summary>
+    /// Starts the windows around the game.
+    /// </summary>
+    public void StartWindows()
+    {
+        patternAnimator.SetTrigger("Start");
+        scoreAnimator.SetTrigger("Start");
+        timeLeftAnimator.SetTrigger("Start");
+    }
+
+    /// <summary>
     /// Updates the pattern being shown.
     /// </summary>
     public void UpdateShownPattern(Pattern pattern)
@@ -87,7 +105,7 @@ public class CanvasManager : MonoBehaviour
     /// <summary>
     /// Resets the checkmarks in patterns.
     /// </summary>
-    public void ResetPatternCheckmark()
+    public void ResetPatternCheckmarks()
     {
         legsImage.transform.GetChild(0).GetComponent<Image>().enabled = false;
         bodyImage.transform.GetChild(0).GetComponent<Image>().enabled = false;
@@ -95,11 +113,27 @@ public class CanvasManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Updates the progress on 
+    /// Shows the checkmark on the head part.
     /// </summary>
-    public void TogglePatterCheckmark()
+    public void CheckmarkHeadPart()
     {
+        headImage.transform.GetChild(0).GetComponent<Image>().enabled = true;
+    }
 
+    /// <summary>
+    /// Shows the checkmark on the body part.
+    /// </summary>
+    public void CheckmarkBodyPart()
+    {
+        bodyImage.transform.GetChild(0).GetComponent<Image>().enabled = true;
+    }
+
+    /// <summary>
+    /// Shows the checkmark on the legs part.
+    /// </summary>
+    public void CheckmarkLegsPart()
+    {
+        legsImage.transform.GetChild(0).GetComponent<Image>().enabled = true;
     }
 
     /// <summary>
@@ -144,7 +178,7 @@ public class CanvasManager : MonoBehaviour
 
         if(time % 60 == 0 || time < 11)
         {
-            timeAnimator.SetTrigger("Warning");
+            timeLeftAnimator.SetTrigger("Warning");
         }
     }
 

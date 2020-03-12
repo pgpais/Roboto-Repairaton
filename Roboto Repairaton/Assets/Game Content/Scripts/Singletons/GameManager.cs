@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -83,7 +84,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         // Updates the time displayed in the UI.
         Canvas.UpdatePatternTime(patternTime, patternTime);
 
-        // Sets-up the part poll.
+        // Sets-up the pattern poll.
         List<Pattern> patterns = GlobalManager.Instance.Reference.patterns;
         if (patterns.Count == 0)
         {
@@ -94,17 +95,28 @@ public class GameManager : SingletonBehaviour<GameManager>
         foreach (Pattern pattern in patterns)
         {
             PoolVariable variable = new PoolVariable(pattern, pattern.poolChance);
-            patternPool.AddVariable(variable);
+            patternPool.AddOrChangeVariable(variable);
         }
 
-        RefreshPartPool();
+        // Sets-up the parts poll.
+        List<Part> parts = GlobalManager.Instance.Reference.parts;
+        if (parts.Count == 0)
+        {
+            Debug.LogError("No Parts Exist in the Reference!");
+            yield break;
+        }
+ 
+        foreach (Part part in parts)
+        {
+            PoolVariable variable = new PoolVariable(part, part.poolChance);
+            partPool.AddOrChangeVariable(variable);
+        }
 
         // Populates list of conveyor belts
         conveyorBelts = FindObjectsOfType<ConveyorBelt>();
         
         // Fades-Out.
         GlobalManager.Instance.ProcessFade(true, 10);
-        Canvas.UpdateGameTime(time);
 
         yield return new WaitForSeconds(3f);
 
@@ -115,14 +127,15 @@ public class GameManager : SingletonBehaviour<GameManager>
             belt.StartSpawnParts();
         }
 
-        StartCoroutine(GameCountdown());
+        Canvas.PlayCountdown();
+        StartCoroutine(TimerCountdown());
         GenerateNewPattern();
     }
 
     /// <summary>
     /// Starts the countdown timer until the end of the game.
     /// </summary>
-    public IEnumerator GameCountdown()
+    public IEnumerator TimerCountdown()
     {
         while (time > 0)
         {
@@ -136,7 +149,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     }
 
     /// <summary>
-    /// Stops the Time Scale completly.
+    /// Shows the Game Over screen and stops the timescale completly.
     /// </summary>
     private void GameOver()
     {
@@ -153,10 +166,30 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
         patternId++;
         patternCurrentTime = patternTime;
+
+        // Resets the pattern probability back to their original.
+        if (GameMode.onlyGiveCurrentPieces)
+        {
+            partPool.AddOrChangeVariable(targetPattern.legsPart, 0);
+            partPool.AddOrChangeVariable(targetPattern.bodyPart, 0);
+            partPool.AddOrChangeVariable(targetPattern.headPart, 0);
+        }
+        else
+        {
+            partPool.AddOrChangeVariable(targetPattern.legsPart, targetPattern.legsPart.poolChance);
+            partPool.AddOrChangeVariable(targetPattern.bodyPart, targetPattern.bodyPart.poolChance);
+            partPool.AddOrChangeVariable(targetPattern.headPart, targetPattern.headPart.poolChance);
+        }
+        
         Pattern pickedPattern = Pool.Fetch<Pattern>(patternPool);
         targetPattern = pickedPattern;
 
-        RefreshPartPool();
+        // Buffs the pattern pieces on the current pattern.
+        partPool.AddOrChangeVariable(targetPattern.legsPart, 26);
+        partPool.AddOrChangeVariable(targetPattern.bodyPart, 26);
+        partPool.AddOrChangeVariable(targetPattern.headPart, 26);
+
+        Canvas.ResetPatternCheckmarks();
         Canvas.UpdateShownPattern(pickedPattern);
         Canvas.UpdatePatternTime(patternCurrentTime, patternTime);
 
@@ -164,48 +197,8 @@ public class GameManager : SingletonBehaviour<GameManager>
     }
 
     /// <summary>
-    /// Refreshes the Part Pool each time a new pattern is picked.
-    /// </summary>
-    public void RefreshPartPool()
-    {
-        List<Part> parts = GlobalManager.Instance.Reference.parts;
-        if (parts.Count == 0)
-        {
-            Debug.LogError("No Parts Exist in the Reference!");
-            return;
-        }
-
-        partPool.poolVariables.Clear();
-        foreach (Part part in parts)
-        {
-            if(!GameMode.onlyGiveCurrentPieces)
-            {
-                int poolChance = part.poolChance;
-                if (part == targetPattern.headPart || part == targetPattern.bodyPart || part == targetPattern.legsPart)
-                {
-                    poolChance = 20;
-                }
-
-                PoolVariable variable = new PoolVariable(part, poolChance);
-                partPool.AddVariable(variable);
-            }
-            else
-            {
-                if(part != targetPattern.headPart && part != targetPattern.bodyPart && part != targetPattern.legsPart)
-                {
-                    continue;
-                }
-
-                PoolVariable variable = new PoolVariable(part, part.poolChance);
-                partPool.AddVariable(variable);
-            }
-        }
-    }
-
-    /// <summary>
     /// Countsdown the pattern time.
     /// </summary>
-    /// <returns></returns>
     public IEnumerator PatternCountdown(int patterNumber)
     {
         while(patternCurrentTime > 0 && patternId == patterNumber)
@@ -244,16 +237,17 @@ public class GameManager : SingletonBehaviour<GameManager>
     }
 
     /// <summary>
-    /// Triggers when an assembly is failed.
+    /// Triggers when an assembly is failed, throwing the pieces all away.
     /// </summary>
     public void FailAssembly()
     {
-        score -= scorePenalty;       
-        if(score < 0)
+        score -= scorePenalty;
+        if (score < 0)
         {
             score = 0;
         }
 
+        Canvas.ResetPatternCheckmarks();
         Canvas.ShakeScoreRemove();
     }
 

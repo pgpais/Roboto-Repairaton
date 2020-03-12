@@ -250,10 +250,40 @@ PrefabInstance:
       propertyPath: m_Name
       value: StatusConfusedSpiral
       objectReference: {fileID: 0}
+    - target: {fileID: 1472796869752879101, guid: d70d302d278bb244f97c9512f64c7664,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1154087765
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472796869752879101, guid: d70d302d278bb244f97c9512f64c7664,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472796869752879101, guid: d70d302d278bb244f97c9512f64c7664,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2093243404672128448, guid: d70d302d278bb244f97c9512f64c7664,
         type: 3}
       propertyPath: m_Name
       value: (Player 1) Robot Arm
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250562114829648046, guid: d70d302d278bb244f97c9512f64c7664,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1154087765
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250562114829648046, guid: d70d302d278bb244f97c9512f64c7664,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250562114829648046, guid: d70d302d278bb244f97c9512f64c7664,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2777934405189045500, guid: d70d302d278bb244f97c9512f64c7664,
         type: 3}
@@ -442,6 +472,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7304888086668067080, guid: d70d302d278bb244f97c9512f64c7664,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1154087765
+      objectReference: {fileID: 0}
+    - target: {fileID: 7304888086668067080, guid: d70d302d278bb244f97c9512f64c7664,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7304888086668067080, guid: d70d302d278bb244f97c9512f64c7664,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7622117047905228094, guid: d70d302d278bb244f97c9512f64c7664,
         type: 3}
       propertyPath: m_RootOrder
@@ -481,6 +526,21 @@ PrefabInstance:
         type: 3}
       propertyPath: frozenColor.a
       value: 0.6509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 7938680256622736987, guid: d70d302d278bb244f97c9512f64c7664,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1154087765
+      objectReference: {fileID: 0}
+    - target: {fileID: 7938680256622736987, guid: d70d302d278bb244f97c9512f64c7664,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7938680256622736987, guid: d70d302d278bb244f97c9512f64c7664,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8206606958027020028, guid: d70d302d278bb244f97c9512f64c7664,
         type: 3}

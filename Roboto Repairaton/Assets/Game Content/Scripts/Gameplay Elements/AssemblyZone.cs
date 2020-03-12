@@ -13,9 +13,9 @@ public class AssemblyZone : MonoBehaviour
     public Transform headTransform;
 
     [Header("Assembled Parts")]
-    public PartInstance legsPart;
-    public PartInstance bodyPart;
-    public PartInstance headPart;
+    public PartInstance assembledLegs;
+    public PartInstance assembledBody;
+    public PartInstance assembledHead;
 
     public AudioSource kaching;
     public AudioSource weld;
@@ -43,20 +43,20 @@ public class AssemblyZone : MonoBehaviour
     public void AttachPart(PartInstance part)
     {
         Transform targetTransform = null;
-        if(legsPart == null)
+        if(assembledLegs == null)
         {
-            legsPart = part;
+            assembledLegs = part;
             targetTransform = legsTransform;
             legsShadow.SetActive(true);
         }
-        else if (bodyPart == null)
+        else if (assembledBody == null)
         {
-            bodyPart = part;
+            assembledBody = part;
             targetTransform = bodyTransform;
         }
-        else if (headPart == null)
+        else if (assembledHead == null)
         {
-            headPart = part;
+            assembledHead = part;
             targetTransform = headTransform;
         }
 
@@ -79,49 +79,57 @@ public class AssemblyZone : MonoBehaviour
     public void ValidateAssembly()
     {
         // Checks if the player has done any mistake.
-        if (legsPart != null && legsPart.part.partType != PartType.Legs)
+        Pattern pattern = GameManager.Instance.targetPattern;
+        if (assembledLegs != null)
         {
-            ThrowAll();
+            if (assembledLegs.part != pattern.legsPart)
+            {
+                ThrowAll();
+                return;
+            }
+        }
+        else
+        {
             return;
         }
+        GameManager.Instance.Canvas.CheckmarkLegsPart();
 
-        if (bodyPart != null && bodyPart.part.partType != PartType.Body)
+        if (assembledBody != null)
         {
-            ThrowAll();
+            if (assembledBody.part != pattern.bodyPart)
+            {
+                ThrowAll();
+                return;
+            }
+        }
+        else
+        {
             return;
         }
+        GameManager.Instance.Canvas.CheckmarkBodyPart();
 
-        // Validates if the robot is the robot order.
-        if(headPart != null)
+        if (assembledHead != null)
         {
-            Pattern pattern = GameManager.Instance.targetPattern;
-            if (legsPart.part != pattern.legsPart)
+            if (assembledHead.part != pattern.headPart)
             {
                 ThrowAll();
                 return;
             }
-
-            if (bodyPart.part != pattern.bodyPart)
-            {
-                ThrowAll();
-                return;
-            }
-
-            if (headPart.part != pattern.headPart)
-            {
-                ThrowAll();
-                return;
-            }
-
-            StartCoroutine(ConfirmAssembly());
         }
+        else
+        {
+            return;
+        }
+        GameManager.Instance.Canvas.CheckmarkHeadPart();
+
+        StartCoroutine(ValidAssembly());
     }
 
     /// <summary>
     /// Confirms a sucessfull assembly and gives assembly a small delay before submitting. 
     /// </summary>
     /// <returns></returns>
-    public IEnumerator ConfirmAssembly()
+    public IEnumerator ValidAssembly()
     {
         bc.enabled = false;
         assemblyAnimator.SetTrigger("Accept");
@@ -131,18 +139,18 @@ public class AssemblyZone : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         // Failsafe for when the player finishes the bot as time ends.
-        if (headPart == null || bodyPart == null || legsPart == null)
+        if (assembledHead == null || assembledBody == null || assembledLegs == null)
         {
             bc.enabled = true;
             yield break;
         }
 
-        headPart.ChangeSpritesToFixed();
-        bodyPart.ChangeSpritesToFixed();
-        legsPart.ChangeSpritesToFixed();
+        assembledHead.ChangeSpritesToFixed();
+        assembledBody.ChangeSpritesToFixed();
+        assembledLegs.ChangeSpritesToFixed();
 
         // Scores
-        switch(headPart.playerId)
+        switch(assembledHead.playerId)
         {
             case 0:
                 GameManager.Instance.player1Contribution++;
@@ -152,7 +160,7 @@ public class AssemblyZone : MonoBehaviour
                 break;
         }
 
-        switch (bodyPart.playerId)
+        switch (assembledBody.playerId)
         {
             case 0:
                 GameManager.Instance.player1Contribution++;
@@ -162,7 +170,7 @@ public class AssemblyZone : MonoBehaviour
                 break;
         }
 
-        switch (legsPart.playerId)
+        switch (assembledLegs.playerId)
         {
             case 0:
                 GameManager.Instance.player1Contribution++;
@@ -175,15 +183,15 @@ public class AssemblyZone : MonoBehaviour
         GameManager.Instance.ConfirmAssembly();
         yield return new WaitForSeconds(1.5f);
 
-        Destroy(legsPart.gameObject);
-        legsPart = null;
+        Destroy(assembledLegs.gameObject);
+        assembledLegs = null;
         legsShadow.SetActive(false);
 
-        Destroy(bodyPart.gameObject);
-        bodyPart = null;
+        Destroy(assembledBody.gameObject);
+        assembledBody = null;
 
-        Destroy(headPart.gameObject);
-        headPart = null;
+        Destroy(assembledHead.gameObject);
+        assembledHead = null;
 
         bc.enabled = true;
     }
@@ -196,29 +204,29 @@ public class AssemblyZone : MonoBehaviour
         GameManager.Instance.FailAssembly();
 
         assemblyAnimator.SetTrigger("Refuse");
-        if (legsPart == null)
+        if (assembledLegs == null)
         {
             return;
         }
 
         legsShadow.SetActive(false);
-        legsPart.ThrowPiece();
-        legsPart = null;
+        assembledLegs.ThrowPiece();
+        assembledLegs = null;
 
-        if (bodyPart == null)
+        if (assembledBody == null)
         {
             return;
         }
 
-        bodyPart.ThrowPiece();
-        bodyPart = null;
+        assembledBody.ThrowPiece();
+        assembledBody = null;
 
-        if (headPart == null)
+        if (assembledHead == null)
         {
             return;
         }
 
-        headPart.ThrowPiece();
-        headPart = null;
+        assembledHead.ThrowPiece();
+        assembledHead = null;
     }
 }

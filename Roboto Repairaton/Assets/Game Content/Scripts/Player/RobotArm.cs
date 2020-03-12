@@ -98,7 +98,7 @@ public class RobotArm : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (GameManager.Instance.GameState != GameState.Running)
+        if (GameManager.Instance.GameState == GameState.GameOver)
         {
             return;
         }
