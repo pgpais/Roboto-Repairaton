@@ -17,6 +17,7 @@ public class GameMode : ScriptableObject
     public bool onlyGiveCurrentPieces;
     public int gameTime;
     public int patternTime;
+    public int extraBiasPerSecond;
     public int timeScoreMultiplier;
     public int scorePenalty;
 }

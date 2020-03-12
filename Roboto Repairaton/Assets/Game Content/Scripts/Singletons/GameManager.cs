@@ -197,6 +197,45 @@ public class GameManager : SingletonBehaviour<GameManager>
     }
 
     /// <summary>
+    /// Gives bias to the current part to appear depending on the parts that have already been placed
+    /// on the assembly zone.
+    /// </summary>
+    public void UpdatePartPoolBias()
+    {
+        int timeLeft = patternTime - patternCurrentTime;
+        int extraBias = timeLeft * GlobalManager.Instance.GameMode.extraBiasPerSecond;
+        if(AssemblyZone.assembledLegs == null)
+        {
+            partPool.AddOrChangeVariable(targetPattern.legsPart, 26 + extraBias);
+            return;
+        }
+        else
+        {
+            partPool.AddOrChangeVariable(targetPattern.legsPart, 26);
+        }
+
+        if (AssemblyZone.assembledBody == null)
+        {
+            partPool.AddOrChangeVariable(targetPattern.bodyPart, 26 + extraBias);
+            return;
+        }
+        else
+        {
+            partPool.AddOrChangeVariable(targetPattern.bodyPart, 26);
+        }
+
+        if (AssemblyZone.assembledHead == null)
+        {
+            partPool.AddOrChangeVariable(targetPattern.headPart, 26 + extraBias);
+            return;
+        }
+        else
+        {
+            partPool.AddOrChangeVariable(targetPattern.headPart, 26);
+        }
+    }
+
+    /// <summary>
     /// Countsdown the pattern time.
     /// </summary>
     public IEnumerator PatternCountdown(int patterNumber)
@@ -205,8 +244,9 @@ public class GameManager : SingletonBehaviour<GameManager>
         {
             yield return new WaitForSeconds(1f);
             patternCurrentTime--;
+            UpdatePartPoolBias();
 
-            if(patternCurrentTime == 0)
+            if (patternCurrentTime == 0)
             {
                 Canvas.ShakeClock();
             }

@@ -18,5 +18,6 @@ MonoBehaviour:
   onlyGiveCurrentPieces: 1
   gameTime: 60
   patternTime: 20
+  extraBiasPerSecond: 2
   timeScoreMultiplier: 20
   scorePenalty: 50
