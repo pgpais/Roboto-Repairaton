@@ -105,7 +105,7 @@ public abstract class ConveyorBelt : MonoBehaviour
     /// </summary>
     public bool CheckSpawnClear(Vector2 target)
     {
-        Collider2D[] pointsAtSpawn = Physics2D.OverlapPointAll(target, spawningMask);
+        Collider2D[] pointsAtSpawn = Physics2D.OverlapCircleAll(target, 0.2f, spawningMask);
         if (pointsAtSpawn.Length == 0)
         {
             return true;

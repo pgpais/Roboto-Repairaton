@@ -13,6 +13,8 @@ public class CanvasManager : MonoBehaviour
     [Header("Pattern Window")]
     [SerializeField]
     private GameObject patternWindow = null;
+    [SerializeField]
+    private GameObject newOrderWindow = null;
 
     // Private
     private GameObject patternTimer;
@@ -30,9 +32,12 @@ public class CanvasManager : MonoBehaviour
     private TextMeshProUGUI timeLeftText = null;
 
     // Images
-    private Image legsImage;
-    private Image bodyImage;
-    private Image headImage;
+    private Image patternWindowLegs;
+    private Image patternWindowBody;
+    private Image patternWindowHead;
+    private Image newOrderWindowLegs;
+    private Image newOrderWindowBody;
+    private Image newOrderWindowHead;
 
     // Animators
     private Animator patternTimerAnimator;
@@ -59,9 +64,15 @@ public class CanvasManager : MonoBehaviour
         patternTimerRadial = patternTimer.transform.GetChild(0).GetComponent<Image>();
         patternTimerText = patternTimerRadial.transform.GetComponentInChildren<TextMeshProUGUI>();
 
-        legsImage = patternWindow.transform.Find("Legs").GetComponent<Image>();
-        bodyImage = patternWindow.transform.Find("Body").GetComponent<Image>();
-        headImage = patternWindow.transform.Find("Head").GetComponent<Image>();
+        patternWindowLegs = patternWindow.transform.Find("Legs").GetComponent<Image>();
+        patternWindowBody = patternWindow.transform.Find("Body").GetComponent<Image>();
+        patternWindowHead = patternWindow.transform.Find("Head").GetComponent<Image>();
+
+        Transform newOrderInfo = newOrderWindow.transform.Find("New Order 9-Slice").Find("New Order Info");
+
+        newOrderWindowLegs = newOrderInfo.Find("Legs").GetComponent<Image>();
+        newOrderWindowBody = newOrderInfo.Find("Body").GetComponent<Image>();
+        newOrderWindowHead = newOrderInfo.Find("Head").GetComponent<Image>();
     }
 
     /// <summary>
@@ -96,10 +107,14 @@ public class CanvasManager : MonoBehaviour
     public void UpdateShownPattern(Pattern pattern)
     {
         patternAnimator.SetTrigger("New");
+        patternWindowLegs.sprite = pattern.legsPart.fixedSprite;
+        patternWindowBody.sprite = pattern.bodyPart.fixedSprite;
+        patternWindowHead.sprite = pattern.headPart.fixedSprite;
 
-        legsImage.sprite = pattern.legsPart.fixedSprite;
-        bodyImage.sprite = pattern.bodyPart.fixedSprite;
-        headImage.sprite = pattern.headPart.fixedSprite;
+        newOrderWindow.SetActive(true);
+        newOrderWindowLegs.sprite = pattern.legsPart.fixedSprite;
+        newOrderWindowBody.sprite = pattern.bodyPart.fixedSprite;
+        newOrderWindowHead.sprite = pattern.headPart.fixedSprite;
     }
 
     /// <summary>
@@ -107,9 +122,25 @@ public class CanvasManager : MonoBehaviour
     /// </summary>
     public void ResetPatternCheckmarks()
     {
-        legsImage.transform.GetChild(0).GetComponent<Image>().enabled = false;
-        bodyImage.transform.GetChild(0).GetComponent<Image>().enabled = false;
-        headImage.transform.GetChild(0).GetComponent<Image>().enabled = false;
+        patternWindowLegs.transform.GetChild(0).GetComponent<Image>().enabled = false;
+        patternWindowBody.transform.GetChild(0).GetComponent<Image>().enabled = false;
+        patternWindowHead.transform.GetChild(0).GetComponent<Image>().enabled = false;
+    }
+
+    /// <summary>
+    /// Pulses the screen with a red-border to indicate the time for a order is running out.
+    /// </summary>
+    public void PulseOrderTimeWarning()
+    {
+
+    }
+
+    /// <summary>
+    /// Shows a time-left warning text on the screen when the full game time is running out.
+    /// </summary>
+    public void ShowTimeLeftWarning()
+    {
+
     }
 
     /// <summary>
@@ -117,7 +148,7 @@ public class CanvasManager : MonoBehaviour
     /// </summary>
     public void CheckmarkHeadPart()
     {
-        headImage.transform.GetChild(0).GetComponent<Image>().enabled = true;
+        patternWindowHead.transform.GetChild(0).GetComponent<Image>().enabled = true;
     }
 
     /// <summary>
@@ -125,7 +156,7 @@ public class CanvasManager : MonoBehaviour
     /// </summary>
     public void CheckmarkBodyPart()
     {
-        bodyImage.transform.GetChild(0).GetComponent<Image>().enabled = true;
+        patternWindowBody.transform.GetChild(0).GetComponent<Image>().enabled = true;
     }
 
     /// <summary>
@@ -133,7 +164,7 @@ public class CanvasManager : MonoBehaviour
     /// </summary>
     public void CheckmarkLegsPart()
     {
-        legsImage.transform.GetChild(0).GetComponent<Image>().enabled = true;
+        patternWindowLegs.transform.GetChild(0).GetComponent<Image>().enabled = true;
     }
 
     /// <summary>
