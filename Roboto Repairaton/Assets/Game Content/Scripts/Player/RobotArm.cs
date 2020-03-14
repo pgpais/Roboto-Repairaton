@@ -103,13 +103,14 @@ public class RobotArm : MonoBehaviour
             return;
         }
 
-        GetInput();
+        GetMovementInput();
+        GetGrabInput();
     }
 
     /// <summary>
     /// Gets input from the player to perform the magnet's actions.
     /// </summary>
-    void GetInput()
+    void GetMovementInput()
     {
         // Sets variables to zero and returns if the inputs are frozen.
         if(controlsFrozen)
@@ -138,32 +139,61 @@ public class RobotArm : MonoBehaviour
         spriteSize.x *= 0.3f;
         armCollider.size = spriteSize;
         armCollider.offset = new Vector2(0, spriteSize.y / 2);
+    }
 
+    /// <summary>
+    /// Handles the grabbing input for a piece that's being held.
+    /// </summary>
+    public void GetGrabInput()
+    {
         // If a piece is being grabbed, stop grabbing.
         if (grabbedPart != null)
         {
             if (player.GetButtonUp("Grab"))
             {
-                // TODO: Play POP Audio
-                audioSource.Play();
-                clawAnimator.SetBool("Attracting", false);
-                grabbedPart.OnRelease();
+                OnReleasePiece();
                 grabbedPart = null;
             }
         }
-        else if(grabbablePiece != null)
+        else if (grabbablePiece != null)
         {
             if (player.GetButtonDown("Grab"))
             {
-                // TODO: Play POP Audio
-                audioSource.Play();
-
-                clawAnimator.SetBool("Attracting", true);
-                grabbedPart = grabbablePiece;
-
-                grabbedPart.OnGrab(grabPoint);
-                grabbedPart.playerId = playerId;
+                OnGrabPiece();
             }
+        }
+    }
+
+    /// <summary>
+    /// Called when the piece is grabbed.
+    /// </summary>
+    private void OnGrabPiece()
+    {
+        audioSource.Play();
+        clawAnimator.SetBool("Attracting", true);
+
+        grabbedPart = grabbablePiece;
+        if (grabbedPart.beingGrabbed)
+        {
+            grabbedPart.lastRobotArm.grabbedPart = null;
+            grabbedPart.lastRobotArm.OnReleasePiece();
+        }
+
+        grabbedPart.OnGrab(this, grabPoint);
+        grabbablePiece = null;
+    }
+
+    /// <summary>
+    /// Called when the piece is released, either by input, or by being taken by another player.
+    /// </summary>
+    public void OnReleasePiece()
+    {
+        clawAnimator.SetBool("Attracting", false);
+
+        if(grabbedPart != null)
+        {
+            audioSource.Play();
+            grabbedPart.OnRelease();
         }
     }
 

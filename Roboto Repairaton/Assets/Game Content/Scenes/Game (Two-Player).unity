@@ -515,11 +515,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: (Player 2) Robot Arm
       objectReference: {fileID: 0}
-    - target: {fileID: 6876071059398946182, guid: 22ab9c22d0ca8154086484c2bf63447d,
-        type: 3}
-      propertyPath: mask.m_Bits
-      value: 1024
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22ab9c22d0ca8154086484c2bf63447d, type: 3}
 --- !u!1 &1575621284
@@ -834,11 +829,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: (Player 1) Robot Arm
       objectReference: {fileID: 0}
-    - target: {fileID: 6848380950661910539, guid: bb79a7620bf6e964d8e9e0c143bf96a7,
-        type: 3}
-      propertyPath: mask.m_Bits
-      value: 1024
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb79a7620bf6e964d8e9e0c143bf96a7, type: 3}
 --- !u!1 &2135105421
@@ -972,7 +962,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 0.07
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 2342814669f819d100000000
+  m_ApplyToSortingLayers: 2342814669f819d100000000ab0436bbc185f92f
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0

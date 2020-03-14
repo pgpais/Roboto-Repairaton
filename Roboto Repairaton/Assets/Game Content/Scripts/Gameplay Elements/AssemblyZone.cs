@@ -150,7 +150,7 @@ public class AssemblyZone : MonoBehaviour
         assembledLegs.ChangeSpritesToFixed();
 
         // Scores
-        switch(assembledHead.playerId)
+        switch(assembledHead.lastRobotArm.playerId)
         {
             case 0:
                 GameManager.Instance.player1Contribution++;
@@ -160,7 +160,7 @@ public class AssemblyZone : MonoBehaviour
                 break;
         }
 
-        switch (assembledBody.playerId)
+        switch (assembledBody.lastRobotArm.playerId)
         {
             case 0:
                 GameManager.Instance.player1Contribution++;
@@ -170,7 +170,7 @@ public class AssemblyZone : MonoBehaviour
                 break;
         }
 
-        switch (assembledLegs.playerId)
+        switch (assembledLegs.lastRobotArm.playerId)
         {
             case 0:
                 GameManager.Instance.player1Contribution++;

@@ -17,7 +17,7 @@ public class PartInstance : MonoBehaviour
 
     [Header("In-Game Properties")]
     [ReadOnly]
-    public int playerId;
+    public RobotArm lastRobotArm;
     [ReadOnly]
     public ConveyorBelt belt;
     [ReadOnly]
@@ -54,15 +54,23 @@ public class PartInstance : MonoBehaviour
     /// <summary>
     /// Called when a piece is grabbed from the player's magnet.
     /// </summary>
-    public void OnGrab(Transform claw)
+    public void OnGrab(RobotArm arm, Transform claw)
     {
-        if(inAssembly)
+        if(inAssembly || markedToDestory)
         {
             return;
         }
 
+        beingGrabbed = true;
         GetComponent<Animator>().SetBool("isHovered", false);
 
+        // Marks the body as being kinematic.
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.gravityScale = 0;
+        rb.velocity = Vector2.zero;
+
+        // Sets the parent to the claw.
+        lastRobotArm = arm;
         transform.SetParent(claw);
         transform.localPosition = Vector3.zero;
         
@@ -78,6 +86,7 @@ public class PartInstance : MonoBehaviour
     /// </summary>
     public void OnRelease()
     {
+        beingGrabbed = false;
         transform.parent = null;
 
         Collider2D hit = Physics2D.OverlapBox(transform.position, col.size, transform.rotation.eulerAngles.z, mask);
@@ -93,10 +102,9 @@ public class PartInstance : MonoBehaviour
         }
         else
         {
-            // Destroy if outside of building zone.
+            // Makes it dynamic if outside of the assembly zone.
             rb.bodyType = RigidbodyType2D.Dynamic;
             rb.gravityScale = 2;
-            Destroy(gameObject, 4);
         }    
     }
 
@@ -106,6 +114,7 @@ public class PartInstance : MonoBehaviour
     public void ThrowPiece()
     {
         inAssembly = false;
+        markedToDestory = true;
 
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.gravityScale = 2;

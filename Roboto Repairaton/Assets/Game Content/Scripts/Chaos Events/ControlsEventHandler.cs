@@ -9,6 +9,7 @@ public class ControlsEventHandler : ChaosEventHandler
     [Header("General Event Properties")] 
     public float duration = 2f;
     public bool isFreezeEvent = true;
+    public bool hasFrozen = false;
     
     [Header("Invert Event Properties")]
     public float invertChance = 0.2f;
@@ -30,7 +31,7 @@ public class ControlsEventHandler : ChaosEventHandler
     protected override IEnumerator StartEvent()
     {
         // If controls are already broken or frozen, avoid doing them twice.
-        if(controls.controlsFrozen || controls.controlsInverted)
+        if(controls.controlsFrozen || controls.controlsInverted || hasFrozen)
         {
             yield break;
         }
@@ -55,6 +56,7 @@ public class ControlsEventHandler : ChaosEventHandler
         yield return new WaitForSeconds(duration);
 
         // Clears any effects from the arms.
+        hasFrozen = true;
         controls.InvertControls(false);
         controls.FreezeControls(false);
         controls.ChangeSpriteColors(Color.clear);
