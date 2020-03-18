@@ -45,11 +45,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameState: 0
-  Reference: {fileID: 11400000, guid: 9f4ab3464ceaf0d44adcfb4253bcb142, type: 2}
-  time: 150
+  time: 0
   score: 0
   repairedRobots: 0
   partsDropped: 0
+  timeScoreMultiplier: 0
+  scorePenalty: 0
+  singlePlayerArm: {fileID: 3548708596147373148, guid: e943d26006bd84741bcf1c33ad18de64,
+    type: 3}
+  coopArms: {fileID: 4258816723346382800, guid: e28157b8b6d943c4f9bbe3db5157cbb3,
+    type: 3}
   player1Contribution: 0
   player2Contribution: 0
   partPool:
@@ -61,7 +66,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  patternMaxTime: 30
+  patternTime: 25
   targetPattern: {fileID: 11400000, guid: c70c5ae82d704144fb72a46570f5a4b6, type: 2}
   AssemblyZone: {fileID: 0}
   Canvas: {fileID: 0}

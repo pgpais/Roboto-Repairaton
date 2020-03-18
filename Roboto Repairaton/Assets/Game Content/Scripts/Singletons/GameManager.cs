@@ -27,6 +27,12 @@ public class GameManager : SingletonBehaviour<GameManager>
     [ReadOnly]
     public int scorePenalty;
 
+    [Header("Arms")]
+    [SerializeField]
+    private GameObject singlePlayerArm = null;
+    [SerializeField]
+    private GameObject coopArms = null;
+
     [Header("Contribution")]
     [ReadOnly]
     public int player1Contribution;
@@ -80,6 +86,16 @@ public class GameManager : SingletonBehaviour<GameManager>
         patternTime = GameMode.patternTime;
         scorePenalty = GameMode.scorePenalty;
         timeScoreMultiplier = GameMode.timeScoreMultiplier;
+
+        // Spawns the expected wands.
+        if(!GameMode.isCoOp)
+        {
+            Instantiate(singlePlayerArm, Vector2.zero, Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(coopArms, Vector2.zero, Quaternion.identity);
+        }
 
         // Updates the time displayed in the UI.
         Canvas.UpdatePatternTime(patternTime, patternTime);

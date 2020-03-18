@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Standard Co-Op
   m_EditorClassIdentifier: 
   modeId: standard-co-op
-  modeName: Standard Co-Op
+  modeName: Standard (Co-Op)
   isCoOp: 1
   onlyGiveCurrentPieces: 0
   gameTime: 120

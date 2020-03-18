@@ -187,6 +187,11 @@ PrefabInstance:
       propertyPath: mask.m_Bits
       value: 1024
       objectReference: {fileID: 0}
+    - target: {fileID: 6848380950661910539, guid: bb79a7620bf6e964d8e9e0c143bf96a7,
+        type: 3}
+      propertyPath: armRotationSpeed
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 7281886504501871474, guid: bb79a7620bf6e964d8e9e0c143bf96a7,
         type: 3}
       propertyPath: m_IsActive

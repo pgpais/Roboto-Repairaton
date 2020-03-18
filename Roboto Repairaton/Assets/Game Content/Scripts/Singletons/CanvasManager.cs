@@ -68,7 +68,7 @@ public class CanvasManager : MonoBehaviour
         patternWindowBody = patternWindow.transform.Find("Body").GetComponent<Image>();
         patternWindowHead = patternWindow.transform.Find("Head").GetComponent<Image>();
 
-        Transform newOrderInfo = newOrderWindow.transform.Find("New Order 9-Slice").Find("New Order Info");
+        Transform newOrderInfo = newOrderWindow.transform.Find("New Order Window").Find("New Order Info");
 
         newOrderWindowLegs = newOrderInfo.Find("Legs").GetComponent<Image>();
         newOrderWindowBody = newOrderInfo.Find("Body").GetComponent<Image>();

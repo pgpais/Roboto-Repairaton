@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Standard Single
   m_EditorClassIdentifier: 
   modeId: standard-single
-  modeName: Standard Single
-  isCoOp: 1
+  modeName: Standard (Single-Player)
+  isCoOp: 0
   onlyGiveCurrentPieces: 0
   gameTime: 120
   patternTime: 30

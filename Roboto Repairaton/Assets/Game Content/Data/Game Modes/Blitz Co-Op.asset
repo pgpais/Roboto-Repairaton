@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a18192b4a4656a418746f4764bb6589, type: 3}
   m_Name: Blitz Co-Op
   m_EditorClassIdentifier: 
-  modeId: blitz-single
-  modeName: Blitz Single
+  modeId: blitz-co-op
+  modeName: Blitz (Co-Op)
   isCoOp: 1
   onlyGiveCurrentPieces: 1
   gameTime: 60
