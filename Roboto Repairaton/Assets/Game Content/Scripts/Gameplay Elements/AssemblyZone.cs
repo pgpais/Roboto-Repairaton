@@ -17,6 +17,10 @@ public class AssemblyZone : MonoBehaviour
     public PartInstance assembledBody;
     public PartInstance assembledHead;
 
+    [Header("Animators")]
+    [SerializeField]
+    private Animator glowingCircle = null;
+
     public AudioSource kaching;
     public AudioSource weld;
 
@@ -35,6 +39,14 @@ public class AssemblyZone : MonoBehaviour
 
         assemblyAnimator = transform.parent.GetComponent<Animator>();
         legsShadow = legsTransform.GetChild(0).gameObject;
+    }
+
+    /// <summary>
+    /// Sets the circle to glow depending on the player's arms and if they're holding a piece.
+    /// </summary>
+    public void ToggleCircleGlow(bool toggle)
+    {
+        glowingCircle.SetBool("Glowing", toggle);
     }
 
     /// <summary>

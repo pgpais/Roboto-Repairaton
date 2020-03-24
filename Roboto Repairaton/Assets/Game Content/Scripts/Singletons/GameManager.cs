@@ -134,7 +134,10 @@ public class GameManager : SingletonBehaviour<GameManager>
         // Fades-Out.
         GlobalManager.Instance.ProcessFade(true, 10);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
+        Canvas.PlayCountdown();
+
+        yield return new WaitForSeconds(4f);
 
         // Starts the conveyor belts.
         GameState = GameState.Running;
@@ -143,7 +146,7 @@ public class GameManager : SingletonBehaviour<GameManager>
             belt.StartSpawnParts();
         }
 
-        Canvas.PlayCountdown();
+        Canvas.StartWindows();
         StartCoroutine(TimerCountdown());
         GenerateNewPattern();
     }

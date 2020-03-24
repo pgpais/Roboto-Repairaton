@@ -27,6 +27,10 @@ public class CanvasManager : MonoBehaviour
     [SerializeField]
     private GameObject timeLeftWindow = null;
 
+    [Header("UI Elements")]
+    [SerializeField]
+    private GameObject countdown;
+
     // Text
     private TextMeshProUGUI scoreText = null;
     private TextMeshProUGUI timeLeftText = null;
@@ -88,7 +92,7 @@ public class CanvasManager : MonoBehaviour
     /// </summary>
     public void PlayCountdown()
     {
-        StartWindows();
+        countdown.SetActive(true);
     }
 
     /// <summary>

@@ -27,6 +27,7 @@ public class PartInstance : MonoBehaviour
     private BoxCollider2D col;
     private Rigidbody2D rb;
     private bool inAssembly;
+    private bool insideAssemblyZone;
     private bool markedToDestory = false;
 
     /// <summary>
@@ -48,6 +49,25 @@ public class PartInstance : MonoBehaviour
             markedToDestory = true;
             Destroy(gameObject);
             GameManager.Instance.partsDropped++;
+            return;
+        }
+
+        if(!beingGrabbed)
+        {
+            return;
+        }
+
+        // Checks what the piece is currently in bounds off.
+        Collider2D hit = Physics2D.OverlapBox(transform.position, col.size, transform.rotation.eulerAngles.z, mask);
+        if (hit != null && hit.gameObject == GameManager.Instance.AssemblyZone.gameObject)
+        {
+            insideAssemblyZone = true;
+            GameManager.Instance.AssemblyZone.ToggleCircleGlow(true);
+        }
+        else if (insideAssemblyZone)
+        {
+            insideAssemblyZone = false;
+            GameManager.Instance.AssemblyZone.ToggleCircleGlow(false);
         }
     }
 
@@ -89,13 +109,13 @@ public class PartInstance : MonoBehaviour
         beingGrabbed = false;
         transform.parent = null;
 
-        Collider2D hit = Physics2D.OverlapBox(transform.position, col.size, transform.rotation.eulerAngles.z, mask);
-        if (hit)
+        GameManager.Instance.AssemblyZone.ToggleCircleGlow(false);
+
+        // Depending on where the piece is, decide on how to drop it.
+        if (insideAssemblyZone)
         {
-            // Attach to something if inside?
-            AssemblyZone assembly = hit.GetComponent<AssemblyZone>();
+            GameManager.Instance.AssemblyZone.AttachPart(this);
             transform.localRotation = Quaternion.identity;
-            assembly.AttachPart(this);
 
             inAssembly = true;
             col.enabled = false;
@@ -114,6 +134,7 @@ public class PartInstance : MonoBehaviour
     public void ThrowPiece()
     {
         inAssembly = false;
+        beingGrabbed = false;
         markedToDestory = true;
 
         rb.bodyType = RigidbodyType2D.Dynamic;

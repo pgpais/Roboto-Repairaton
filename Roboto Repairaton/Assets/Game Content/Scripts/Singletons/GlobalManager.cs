@@ -52,6 +52,11 @@ public class GlobalManager : SingletonBehaviour<GlobalManager>
         {
             ExitGame();
         }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            GlobalManager.Instance.ChangeScene("Game", 10);
+        }
     }
 
     /// <summary>
