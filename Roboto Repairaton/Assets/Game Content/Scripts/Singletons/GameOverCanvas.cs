@@ -11,6 +11,8 @@ public class GameOverCanvas : MonoBehaviour
 {
     [Header("Game Over Canvas")]
     [SerializeField]
+    private GameObject timesUpDialog = null;
+    [SerializeField]
     private GameObject gameOverDialog = null;
 
     [Header("Game Over Elements")]
@@ -32,10 +34,23 @@ public class GameOverCanvas : MonoBehaviour
     private GameObject retryButton = null;
 
     /// <summary>
-    /// Shows the game over screen.
+    /// Shows the Game Over.
     /// </summary>
     public void ShowGameOverScreen()
     {
+        StartCoroutine(ShowGameOverScreenIE());
+    }
+
+    /// <summary>
+    /// Shows the Game Over with respective waitings between time.
+    /// </summary>
+    public IEnumerator ShowGameOverScreenIE()
+    {
+        timesUpDialog.SetActive(true);
+
+        // TODO: Something that makes this not affected by the 
+        yield return new WaitForSecondsRealtime(3.5f);
+
         gameOverDialog.SetActive(true);
 
         gameModeText.text = "<b>Game Mode:</b> " + GlobalManager.Instance.GameMode.modeName;
@@ -44,13 +59,17 @@ public class GameOverCanvas : MonoBehaviour
         repairedRobots.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = string.Format("{0:n0}", GameManager.Instance.repairedRobots);
         finalScore.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = string.Format("{0:n0}", GameManager.Instance.score);
 
-        if(!GlobalManager.Instance.GameMode.isCoOp)
+        if (!GlobalManager.Instance.GameMode.isCoOp)
         {
+            gameOverDialog.GetComponent<Animator>().SetBool("Co-Op", false);
+
             divider.SetActive(false);
             playerContribution.SetActive(false);
         }
         else
         {
+            gameOverDialog.GetComponent<Animator>().SetBool("Co-Op", true);
+
             divider.SetActive(true);
             playerContribution.SetActive(true);
 

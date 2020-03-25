@@ -26,7 +26,6 @@ public class AssemblyZone : MonoBehaviour
 
     private ParticleSystem particles;
     private BoxCollider2D bc;
-    private GameObject legsShadow;
     private Animator assemblyAnimator;
 
     /// <summary>
@@ -38,7 +37,6 @@ public class AssemblyZone : MonoBehaviour
         particles = transform.Find("Robot Repair Particles").GetComponent<ParticleSystem>();
 
         assemblyAnimator = transform.parent.GetComponent<Animator>();
-        legsShadow = legsTransform.GetChild(0).gameObject;
     }
 
     /// <summary>
@@ -52,28 +50,30 @@ public class AssemblyZone : MonoBehaviour
     /// <summary>
     /// Attaches a part to the collider.
     /// </summary>
-    public void AttachPart(PartInstance part)
+    public void AttachPart(PartInstance partInstance)
     {
         Transform targetTransform = null;
         if(assembledLegs == null)
         {
-            assembledLegs = part;
+            assembledLegs = partInstance;
             targetTransform = legsTransform;
-            legsShadow.SetActive(true);
+            
+            Transform legsShadow = partInstance.gameObject.transform.Find("Shadow");
+            legsShadow.gameObject.SetActive(true);
         }
         else if (assembledBody == null)
         {
-            assembledBody = part;
+            assembledBody = partInstance;
             targetTransform = bodyTransform;
         }
         else if (assembledHead == null)
         {
-            assembledHead = part;
+            assembledHead = partInstance;
             targetTransform = headTransform;
         }
 
         ValidateAssembly();
-        AttachPartToTransform(part, targetTransform);
+        AttachPartToTransform(partInstance, targetTransform);
     }
 
     /// <summary>
@@ -96,6 +96,9 @@ public class AssemblyZone : MonoBehaviour
         {
             if (assembledLegs.part != pattern.legsPart)
             {
+                Transform legsShadow = assembledLegs.gameObject.transform.Find("Shadow");
+                legsShadow.gameObject.SetActive(false);
+
                 ThrowAll();
                 return;
             }
@@ -197,7 +200,6 @@ public class AssemblyZone : MonoBehaviour
 
         Destroy(assembledLegs.gameObject);
         assembledLegs = null;
-        legsShadow.SetActive(false);
 
         Destroy(assembledBody.gameObject);
         assembledBody = null;
@@ -221,7 +223,9 @@ public class AssemblyZone : MonoBehaviour
             return;
         }
 
-        legsShadow.SetActive(false);
+        Transform legsShadow = assembledLegs.gameObject.transform.Find("Shadow");
+        legsShadow.gameObject.SetActive(false);
+
         assembledLegs.ThrowPiece();
         assembledLegs = null;
 
