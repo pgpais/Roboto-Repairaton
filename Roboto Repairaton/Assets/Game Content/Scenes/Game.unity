@@ -1089,6 +1089,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6081107294666525053, guid: 436210be8f594bf488d1b97a6b61bb4d,
+        type: 3}
+      propertyPath: m_fontColorGradient.bottomRight.r
+      value: 0.8867924
+      objectReference: {fileID: 0}
+    - target: {fileID: 6081107294666525053, guid: 436210be8f594bf488d1b97a6b61bb4d,
+        type: 3}
+      propertyPath: m_fontColorGradient.bottomRight.g
+      value: 0.8867924
+      objectReference: {fileID: 0}
+    - target: {fileID: 6081107294666525053, guid: 436210be8f594bf488d1b97a6b61bb4d,
+        type: 3}
+      propertyPath: m_fontColorGradient.bottomRight.b
+      value: 0.8867924
+      objectReference: {fileID: 0}
     - target: {fileID: 6081107294974612728, guid: 436210be8f594bf488d1b97a6b61bb4d,
         type: 3}
       propertyPath: m_Name

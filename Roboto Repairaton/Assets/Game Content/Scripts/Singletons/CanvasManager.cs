@@ -26,6 +26,8 @@ public class CanvasManager : MonoBehaviour
     private GameObject scoreWindow = null;
     [SerializeField]
     private GameObject timeLeftWindow = null;
+    [SerializeField]
+    private Animator timeLeftWarning = null;
 
     [Header("UI Elements")]
     [SerializeField]
@@ -132,22 +134,6 @@ public class CanvasManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Pulses the screen with a red-border to indicate the time for a order is running out.
-    /// </summary>
-    public void PulseOrderTimeWarning()
-    {
-
-    }
-
-    /// <summary>
-    /// Shows a time-left warning text on the screen when the full game time is running out.
-    /// </summary>
-    public void ShowTimeLeftWarning()
-    {
-
-    }
-
-    /// <summary>
     /// Shows the checkmark on the head part.
     /// </summary>
     public void CheckmarkHeadPart()
@@ -182,6 +168,7 @@ public class CanvasManager : MonoBehaviour
         if(time < 6 && time > 0)
         {
             patternTimerAnimator.SetTrigger("Warning");
+            timeLeftWarning.SetTrigger("Warning");
         }
     }
 
