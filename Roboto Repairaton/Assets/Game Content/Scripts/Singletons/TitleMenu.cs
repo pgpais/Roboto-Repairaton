@@ -8,6 +8,10 @@ using Rewired;
 /// </summary>
 public class TitleMenu : MonoBehaviour
 {
+    // HACK
+    public GameMode singlePlayer;
+    public GameMode coOp;
+
     [SerializeField]
     private Animator menuAnimator = null;
 
@@ -27,6 +31,12 @@ public class TitleMenu : MonoBehaviour
     /// </summary>
     private void Update()
     {
+        if (ReInput.players.GetSystemPlayer().GetButtonDown("UIQuit") || ReInput.players.GetPlayer(0).GetButtonDown("UIQuit")
+|| ReInput.players.GetPlayer(1).GetButtonDown("UIQuit"))
+        {
+            QuitGame();
+        }
+
         if (hasStarted)
         {
             return;
@@ -38,8 +48,22 @@ public class TitleMenu : MonoBehaviour
             hasStarted = true;
             StartCoroutine(StartToGame());
         }
-    }
 
+        // Hack
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            GlobalManager.Instance.GameMode = coOp;
+            hasStarted = true;
+            StartCoroutine(StartToGame());
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            GlobalManager.Instance.GameMode = singlePlayer;
+            hasStarted = true;
+            StartCoroutine(StartToGame());
+        }
+    }
 
     /// <summary>
     /// Starts the game.
@@ -49,5 +73,14 @@ public class TitleMenu : MonoBehaviour
         menuAnimator.enabled = true;
         yield return new WaitForSeconds(1f);
         GlobalManager.Instance.ChangeScene("Game", 10);
+    }
+
+    /// <summary>
+    /// Quits the game.
+    /// </summary>
+    public void QuitGame()
+    {
+        Application.Quit();
+        return;
     }
 }

@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using Rewired;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -150,6 +151,19 @@ public class GameManager : SingletonBehaviour<GameManager>
         StartCoroutine(TimerCountdown());
         GenerateNewPattern();
     }
+
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    private void Update()
+    {
+        if (ReInput.players.GetSystemPlayer().GetButtonDown("UIQuit") || ReInput.players.GetPlayer(0).GetButtonDown("UIQuit")
+|| ReInput.players.GetPlayer(1).GetButtonDown("UIQuit"))
+        {
+            GlobalManager.Instance.ChangeScene("Title", 10);
+        }
+    }
+
 
     /// <summary>
     /// Starts the countdown timer until the end of the game.

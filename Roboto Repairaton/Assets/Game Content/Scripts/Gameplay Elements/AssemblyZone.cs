@@ -52,28 +52,54 @@ public class AssemblyZone : MonoBehaviour
     /// </summary>
     public void AttachPart(PartInstance partInstance)
     {
-        Transform targetTransform = null;
+        // Checks if the player has done any mistake.
+        Pattern pattern = GameManager.Instance.targetPattern;
+
         if(assembledLegs == null)
         {
             assembledLegs = partInstance;
-            targetTransform = legsTransform;
-            
-            Transform legsShadow = partInstance.gameObject.transform.Find("Shadow");
+            if (assembledLegs.part != pattern.legsPart)
+            {
+                ThrowAll();
+                return;
+            }
+
+            AttachPartToTransform(assembledLegs, legsTransform);
+
+            Transform legsShadow = assembledLegs.gameObject.transform.Find("Shadow");
             legsShadow.gameObject.SetActive(true);
+
+            GameManager.Instance.Canvas.CheckmarkLegsPart();
+            return;
         }
         else if (assembledBody == null)
         {
             assembledBody = partInstance;
-            targetTransform = bodyTransform;
+            if (assembledBody.part != pattern.bodyPart)
+            {
+                ThrowAll();
+                return;
+            }
+
+            AttachPartToTransform(assembledBody, bodyTransform);
+
+            GameManager.Instance.Canvas.CheckmarkBodyPart();
+            return;
         }
         else if (assembledHead == null)
         {
             assembledHead = partInstance;
-            targetTransform = headTransform;
+            if (assembledHead.part != pattern.headPart)
+            {
+                ThrowAll();
+                return;
+            }
+
+            AttachPartToTransform(assembledHead, headTransform);
+            GameManager.Instance.Canvas.CheckmarkHeadPart();
         }
 
-        ValidateAssembly();
-        AttachPartToTransform(partInstance, targetTransform);
+        StartCoroutine(ValidateAssembly());
     }
 
     /// <summary>
@@ -86,65 +112,10 @@ public class AssemblyZone : MonoBehaviour
     }
 
     /// <summary>
-    /// Validates the pieces that have been put into assembly.
-    /// </summary>
-    public void ValidateAssembly()
-    {
-        // Checks if the player has done any mistake.
-        Pattern pattern = GameManager.Instance.targetPattern;
-        if (assembledLegs != null)
-        {
-            if (assembledLegs.part != pattern.legsPart)
-            {
-                Transform legsShadow = assembledLegs.gameObject.transform.Find("Shadow");
-                legsShadow.gameObject.SetActive(false);
-
-                ThrowAll();
-                return;
-            }
-        }
-        else
-        {
-            return;
-        }
-        GameManager.Instance.Canvas.CheckmarkLegsPart();
-
-        if (assembledBody != null)
-        {
-            if (assembledBody.part != pattern.bodyPart)
-            {
-                ThrowAll();
-                return;
-            }
-        }
-        else
-        {
-            return;
-        }
-        GameManager.Instance.Canvas.CheckmarkBodyPart();
-
-        if (assembledHead != null)
-        {
-            if (assembledHead.part != pattern.headPart)
-            {
-                ThrowAll();
-                return;
-            }
-        }
-        else
-        {
-            return;
-        }
-        GameManager.Instance.Canvas.CheckmarkHeadPart();
-
-        StartCoroutine(ValidAssembly());
-    }
-
-    /// <summary>
     /// Confirms a sucessfull assembly and gives assembly a small delay before submitting. 
     /// </summary>
     /// <returns></returns>
-    public IEnumerator ValidAssembly()
+    public IEnumerator ValidateAssembly()
     {
         bc.enabled = false;
         assemblyAnimator.SetTrigger("Accept");
@@ -223,8 +194,11 @@ public class AssemblyZone : MonoBehaviour
             return;
         }
 
-        Transform legsShadow = assembledLegs.gameObject.transform.Find("Shadow");
-        legsShadow.gameObject.SetActive(false);
+        if(assembledLegs.part.partType == PartType.Legs)
+        {
+            Transform legsShadow = assembledLegs.gameObject.transform.Find("Shadow");
+            legsShadow.gameObject.SetActive(false);
+        }
 
         assembledLegs.ThrowPiece();
         assembledLegs = null;

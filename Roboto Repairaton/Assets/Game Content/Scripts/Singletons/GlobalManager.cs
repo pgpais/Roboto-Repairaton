@@ -43,23 +43,6 @@ public class GlobalManager : SingletonBehaviour<GlobalManager>
     }
 
     /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    private void Update()
-    {
-        if (ReInput.players.GetSystemPlayer().GetButtonDown("UIQuit") || ReInput.players.GetPlayer(0).GetButtonDown("UIQuit")
-    || ReInput.players.GetPlayer(1).GetButtonDown("UIQuit"))
-        {
-            ExitGame();
-        }
-
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            GlobalManager.Instance.ChangeScene("Game", 10);
-        }
-    }
-
-    /// <summary>
     /// Used for making transition fades between scenes and menus.
     /// </summary>
     public void ProcessFade(bool fadeIn, int sortOrder)
@@ -108,14 +91,5 @@ public class GlobalManager : SingletonBehaviour<GlobalManager>
 
         // Returns gameplay control.
         Time.timeScale = 1;
-    }
-
-    /// <summary>
-    /// Exits the game.
-    /// </summary>
-    public void ExitGame()
-    {
-        Application.Quit();
-        return;
     }
 }
