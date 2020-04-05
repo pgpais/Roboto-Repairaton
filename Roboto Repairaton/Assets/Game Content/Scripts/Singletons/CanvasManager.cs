@@ -35,6 +35,7 @@ public class CanvasManager : MonoBehaviour
 
     // Text
     private TextMeshProUGUI scoreText = null;
+    private TextMeshProUGUI highscoreText = null;
     private TextMeshProUGUI timeLeftText = null;
 
     // Images
@@ -59,6 +60,7 @@ public class CanvasManager : MonoBehaviour
     private void Awake()
     {
         scoreText = scoreWindow.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        highscoreText = scoreWindow.transform.Find("Highscore").GetComponent<TextMeshProUGUI>();
         timeLeftText = timeLeftWindow.transform.Find("Text").GetComponent<TextMeshProUGUI>();
 
         patternAnimator = patternWindow.GetComponent<Animator>();
@@ -209,16 +211,46 @@ public class CanvasManager : MonoBehaviour
     /// </summary>
     public IEnumerator UpdateDisplayScore()
     {
-        while(true)
+        bool newHighscoreAnimationDone = false;
+        bool removeHighscoreAnimationDone = true;
+
+        while (true)
         {
-            if(displayScore < GameManager.Instance.score)
+            if (GameManager.Instance.previousHighScore < GameManager.Instance.score)
+            {
+                highscoreText.text = "New Highscore!";
+
+                if (!newHighscoreAnimationDone)
+                {
+                    highscoreText.GetComponent<Animator>().SetTrigger("Bump");
+                    highscoreText.ForceMeshUpdate();
+
+                    removeHighscoreAnimationDone = false;
+                    newHighscoreAnimationDone = true;
+                }
+            }
+            else
+            {
+                highscoreText.text = "<size=56>Highscore:</size> " + GameManager.Instance.previousHighScore;
+
+                if (!removeHighscoreAnimationDone)
+                {
+                    highscoreText.GetComponent<Animator>().SetTrigger("Remove");
+                    highscoreText.ForceMeshUpdate();
+
+                    removeHighscoreAnimationDone = true;
+                    newHighscoreAnimationDone = false;
+                }
+            }
+
+            if (displayScore < GameManager.Instance.score)
             {
                 displayScore++;
                 scoreText.text = String.Format("{0:n0}", displayScore);
 
                 yield return new WaitForSecondsRealtime(0.005f);
             }
-            else if(displayScore > GameManager.Instance.score)
+            else if (displayScore > GameManager.Instance.score)
             {
                 displayScore--;
                 scoreText.text = String.Format("{0:n0}", displayScore);
@@ -249,8 +281,8 @@ public class CanvasManager : MonoBehaviour
     /// <summary>
     /// Shows the Game Over Screen.
     /// </summary>
-    public void ShowGameOverScreen()
+    public void ShowGameOverScreen(bool isNewHighscore)
     {
-        FindObjectOfType<GameOverCanvas>().ShowGameOverScreen();
+        FindObjectOfType<GameOverCanvas>().ShowGameOverScreen(isNewHighscore);
     }
 }

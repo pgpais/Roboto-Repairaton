@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a18192b4a4656a418746f4764bb6589, type: 3}
   m_Name: Standard Co-Op
   m_EditorClassIdentifier: 
-  modeId: standard-co-op
+  modeId: StandardCoOp
   modeName: Standard (Co-Op)
   isCoOp: 1
   onlyGiveCurrentPieces: 0
-  gameTime: 120
+  gameTime: 45
   patternTime: 25
   extraBiasPerSecond: 1
   timeScoreMultiplier: 10

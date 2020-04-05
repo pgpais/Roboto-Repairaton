@@ -27,6 +27,8 @@ public class GameManager : SingletonBehaviour<GameManager>
     public int timeScoreMultiplier;
     [ReadOnly]
     public int scorePenalty;
+    [ReadOnly]
+    public int previousHighScore;
 
     [Header("Arms")]
     [SerializeField]
@@ -88,8 +90,11 @@ public class GameManager : SingletonBehaviour<GameManager>
         scorePenalty = GameMode.scorePenalty;
         timeScoreMultiplier = GameMode.timeScoreMultiplier;
 
+        string highscoreCheck = GlobalManager.Instance.GameMode.modeId + "Highscore";
+        previousHighScore = PlayerPrefs.GetInt(highscoreCheck, 0);
+
         // Spawns the expected wands.
-        if(!GameMode.isCoOp)
+        if (!GameMode.isCoOp)
         {
             Instantiate(singlePlayerArm, Vector2.zero, Quaternion.identity);
         }
@@ -189,7 +194,18 @@ public class GameManager : SingletonBehaviour<GameManager>
         Time.timeScale = 0;
         GameState = GameState.GameOver;
 
-        Canvas.ShowGameOverScreen();
+        // Registers if it's a new highscore.
+        // TODO: Leaderboard Support?
+        bool isNewHighscore = false;
+        if(score > previousHighScore)
+        {
+            string highscoreCheck = GlobalManager.Instance.GameMode.modeId + "Highscore";
+
+            isNewHighscore = true;
+            PlayerPrefs.SetInt(highscoreCheck, score);
+        }
+
+        Canvas.ShowGameOverScreen(isNewHighscore);
     }
 
     /// <summary>
