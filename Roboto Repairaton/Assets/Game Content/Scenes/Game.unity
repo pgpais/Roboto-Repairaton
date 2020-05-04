@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1563,6 +1563,16 @@ PrefabInstance:
       propertyPath: m_subTextObjects.Array.data[1]
       value: 
       objectReference: {fileID: 1804303862}
+    - target: {fileID: 1446430310273597733, guid: 436210be8f594bf488d1b97a6b61bb4d,
+        type: 3}
+      propertyPath: m_text
+      value: <size=56>Highscore:</size> 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1446430310273597733, guid: 436210be8f594bf488d1b97a6b61bb4d,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 1628573962716735190, guid: 436210be8f594bf488d1b97a6b61bb4d,
         type: 3}
       propertyPath: m_IsActive
@@ -1655,6 +1665,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 622.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5436031654081688677, guid: 436210be8f594bf488d1b97a6b61bb4d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -10
+      objectReference: {fileID: 0}
     - target: {fileID: 5854998537110697304, guid: 436210be8f594bf488d1b97a6b61bb4d,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -1694,6 +1709,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6001597132211754306, guid: 436210be8f594bf488d1b97a6b61bb4d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 6081107294974612728, guid: 436210be8f594bf488d1b97a6b61bb4d,
         type: 3}
@@ -1810,6 +1830,11 @@ PrefabInstance:
       propertyPath: m_subTextObjects.Array.data[1]
       value: 
       objectReference: {fileID: 321086111}
+    - target: {fileID: 6149700303773893853, guid: 436210be8f594bf488d1b97a6b61bb4d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -10
+      objectReference: {fileID: 0}
     - target: {fileID: 6832196957740324520, guid: 436210be8f594bf488d1b97a6b61bb4d,
         type: 3}
       propertyPath: m_AnchorMin.y

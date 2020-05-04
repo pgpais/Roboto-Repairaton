@@ -36,33 +36,19 @@ public class TitleMenu : MonoBehaviour
         {
             QuitGame();
         }
+    }
 
-        if (hasStarted)
+    /// <summary>
+    /// Starts to the game.
+    /// </summary>
+    public void StartGame()
+    {
+        if(hasStarted)
         {
             return;
         }
 
-        if(ReInput.players.GetSystemPlayer().GetButtonDown("UISubmit") || ReInput.players.GetPlayer(0).GetButtonDown("UISubmit")
-            || ReInput.players.GetPlayer(1).GetButtonDown("UISubmit"))
-        {
-            hasStarted = true;
-            StartCoroutine(StartToGame());
-        }
-
-        // Hack
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            GlobalManager.Instance.GameMode = coOp;
-            hasStarted = true;
-            StartCoroutine(StartToGame());
-        }
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            GlobalManager.Instance.GameMode = singlePlayer;
-            hasStarted = true;
-            StartCoroutine(StartToGame());
-        }
+        StartCoroutine(StartToGame());
     }
 
     /// <summary>
@@ -70,6 +56,8 @@ public class TitleMenu : MonoBehaviour
     /// </summary>
     public IEnumerator StartToGame()
     {
+        hasStarted = true;
+
         menuAnimator.enabled = true;
         yield return new WaitForSeconds(1f);
         GlobalManager.Instance.ChangeScene("Game", 10);

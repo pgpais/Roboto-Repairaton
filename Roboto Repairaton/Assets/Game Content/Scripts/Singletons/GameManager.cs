@@ -130,7 +130,16 @@ public class GameManager : SingletonBehaviour<GameManager>
  
         foreach (Part part in parts)
         {
-            PoolVariable variable = new PoolVariable(part, part.poolChance);
+            PoolVariable variable = null;
+            if (!GameMode.onlyGiveCurrentPieces)
+            {
+                variable = new PoolVariable(part, part.poolChance);
+            }
+            else
+            {
+                variable = new PoolVariable(part, 0);
+            }
+
             partPool.AddOrChangeVariable(variable);
         }
 
