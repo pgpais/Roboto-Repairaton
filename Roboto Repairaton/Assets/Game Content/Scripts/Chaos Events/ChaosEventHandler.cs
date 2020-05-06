@@ -26,6 +26,7 @@ public class ChaosEventHandler : MonoBehaviour
     /// </summary>
     protected virtual void Start()
     {
+        this.enabled = false;
         if (standalone)
         {
             if (firstTime == 0f)
@@ -36,7 +37,7 @@ public class ChaosEventHandler : MonoBehaviour
         }
         else
         {
-            ChaosManager.EventTrigger.AddListener(AcceptEvent);
+            //ChaosManager.EventTrigger.AddListener(AcceptEvent);
         }
     }
 
