@@ -287,6 +287,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -608,6 +609,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -806,6 +808,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -835,7 +838,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 117903203, guid: ea7f640cb0209c74a99781679d3e2691, type: 3}
       propertyPath: events.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 117903203, guid: ea7f640cb0209c74a99781679d3e2691, type: 3}
       propertyPath: m_Enabled
@@ -850,6 +853,11 @@ PrefabInstance:
       propertyPath: startEventsTime
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 117903203, guid: ea7f640cb0209c74a99781679d3e2691, type: 3}
+      propertyPath: events.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 835f1502d483c724eb897cf8e0d0333f,
+        type: 2}
     - target: {fileID: 2417276153425680818, guid: ea7f640cb0209c74a99781679d3e2691,
         type: 3}
       propertyPath: m_LocalPosition.x

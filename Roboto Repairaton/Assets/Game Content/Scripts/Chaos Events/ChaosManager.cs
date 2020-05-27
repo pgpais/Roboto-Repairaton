@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Game_Content.Scripts.Chaos_Events;
+using Game_Content.Scripts.Chaos_Events.ChaosEvents;
 using UnityEngine;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
+using UnityEditor;
 
 
 /// <summary>
@@ -71,11 +73,11 @@ public class ChaosManager : MonoBehaviour
     {
         // Wait the first few seconds
         Debug.Log("Waiting " + nextEventTime + " seconds before launching first event.");
-        yield return new WaitForSeconds(nextEventTime);
+        yield return new WaitForSeconds(nextEventTime); //TODO: seems to happen way too fast, maybe increase this
         while (true)
         {
-            DoEvent();
             PickEvent();
+            DoEvent();
             Debug.Log("Waiting " + nextEventTime + " seconds before launching next event.");
             yield return new WaitForSeconds(nextEventTime);
         }
@@ -94,7 +96,7 @@ public class ChaosManager : MonoBehaviour
     
     void PickEvent()
     {
-        Debug.Log("Picking new event");
+        Debug.Log("Picking new target player");
        // Randomize next target player
        targetPlayer = Random.Range(0, players.Count);
        for (int i = 0; playerEventHit[targetPlayer].Count == 0; i++)
@@ -103,13 +105,17 @@ public class ChaosManager : MonoBehaviour
            targetPlayer = (targetPlayer + 1) % players.Count;
            if (i >= players.Count)
            {
-               Debug.LogError("All players have been hit with every event!", this);
-               Application.Quit();
+               Debug.LogError("All players have been hit with every event! Pausing game.", this);
+#if UNITY_EDITOR
+               EditorApplication.isPaused = true;
+#endif
                break;
            }
        }
+       Debug.Log("Picked player " + targetPlayer);
        
        // Randomize next event for target player
+       Debug.Log("Picking new event");
        nextEvent = Random.Range(0, playerEventHit[targetPlayer].Count);
     }
 }
