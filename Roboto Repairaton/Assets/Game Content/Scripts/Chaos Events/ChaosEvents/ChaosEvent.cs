@@ -27,10 +27,22 @@ namespace Game_Content.Scripts.Chaos_Events.ChaosEvents
             yield return null;
         }
 
+        /// <summary>
+        /// Triggers the event warning (animation or coroutine? where to code it?)
+        /// </summary>
+        /// <param name="player">Player to be affected by the event</param>
         public abstract void EventWarning(RobotArm player);
 
+        /// <summary>
+        /// Triggers the event behaviour
+        /// </summary>
+        /// <param name="player">Player to be affected by the event</param>
         public abstract void EventStart(RobotArm player);
 
+        /// <summary>
+        /// Stops the event (and maybe play some animation and stuff?)
+        /// </summary>
+        /// <param name="player">Player to be affected by the event</param>
         public abstract void EventStop(RobotArm player);
 
 
