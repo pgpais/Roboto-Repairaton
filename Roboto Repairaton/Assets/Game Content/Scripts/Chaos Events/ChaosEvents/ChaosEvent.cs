@@ -5,8 +5,13 @@ namespace Game_Content.Scripts.Chaos_Events.ChaosEvents
 {
     public abstract class ChaosEvent : ScriptableObject
     {
-        public float warningDuration;
-        public float eventDuration;
+        public float warningDuration = 2;
+        public float eventDuration = 2;
+
+        /// <summary>
+        /// Initializes variables and such of Event
+        /// </summary>
+        public abstract void EventInit();
 
         /// <summary>
         /// Start the Event
@@ -14,6 +19,8 @@ namespace Game_Content.Scripts.Chaos_Events.ChaosEvents
         /// <param name="player"></param>
         public virtual IEnumerator StartEvent(RobotArm player)
         {
+            EventInit();
+            
             Debug.Log(GetType().Name + " WARNING");
             EventWarning(player);
             yield return new WaitForSeconds(warningDuration);
