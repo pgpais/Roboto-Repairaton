@@ -11,7 +11,7 @@ using UnityEditor;
 /// <summary>
 /// Manages chaos events, throwing in random madness to the player over time.
 /// </summary>
-public class ChaosManager : MonoBehaviour
+public class ChaosManager : SingletonBehaviour<ChaosManager>
 {
     [Tooltip("How long before the first event fires")]
     public float startEventsTime = 4f;
@@ -20,6 +20,7 @@ public class ChaosManager : MonoBehaviour
     [SerializeField]
     private List<ChaosEvent> events;
     [ReadOnly] [SerializeField]private List<RobotArm> players;
+    public List<RobotArm> Players => players;
 
     [ReadOnly] private int targetPlayer;
     [ReadOnly] private int nextEvent;
