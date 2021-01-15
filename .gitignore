@@ -1,9 +1,14 @@
+# Whales And Games Unity Git Ignore File
+# Last Updated 24-06-2020
+
 # Unity Folders
 Temp/
 Obj/
 UnityGenerated/
+[Ll]ogs/
 [Ll]ibrary/
 [Bb]uilds/
+[Ss]creenshots/
 .idea/
 
 # Rewired Folders
@@ -13,6 +18,7 @@ UnityGenerated/
 # Visual Studio Files
 *.vs
 *.csproj
+*.csproj.user
 *.CSharp
 *.sln
 *.userprefs

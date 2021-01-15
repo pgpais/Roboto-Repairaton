@@ -92,4 +92,33 @@ public class GlobalManager : SingletonBehaviour<GlobalManager>
         // Returns gameplay control.
         Time.timeScale = 1;
     }
+
+    /// <summary>
+    /// Opens a dialog, showing it on top of other dialogs.
+    /// </summary>
+    public void OpenDialog(GameObject dialog)
+    {
+        dialog.SetActive(true);
+    }
+
+    /// <summary>
+    /// Closes a dialog.
+    /// </summary>
+    public void CloseDialog(GameObject dialog)
+    {
+        dialog.SetActive(false);
+    }
+
+    /// <summary>
+    /// Statically open a link.
+    /// </summary>
+    public void OpenURL(string url)
+    {
+        // Depending on the current platform use a different share method.
+#if !UNITY_WEBGL
+        Application.OpenURL(url);
+#else
+        OpenWindow(url);
+#endif
+    }
 }

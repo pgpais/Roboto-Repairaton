@@ -178,8 +178,13 @@ namespace Coffee.UIExtensions
 		public virtual void SetVerticesDirty ()
 		{
 #if TMP_PRESENT
-			if (textMeshPro)
+			if (textMeshPro && gameObject.activeInHierarchy)
 			{
+				if (textMeshPro.textInfo?.meshInfo == null)
+				{
+					return;
+				}
+				
 				foreach (var info in textMeshPro.textInfo.meshInfo)
 				{
 					var mesh = info.mesh;
