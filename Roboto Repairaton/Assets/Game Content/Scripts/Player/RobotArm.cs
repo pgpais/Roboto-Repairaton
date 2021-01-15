@@ -29,6 +29,9 @@ public class RobotArm : MonoBehaviour
     public bool controlsInverted;
     public Color invertedColor = Color.green;
     public Color frozenColor = Color.cyan;
+    public bool controlsSwapped;
+    public RobotArm playerSwapped;
+    
 
     [Header("Camera Shake")]
     public float shakeDuration = 0.5f;
@@ -104,6 +107,12 @@ public class RobotArm : MonoBehaviour
         }
 
         GetMovementInput();
+        if(!controlsSwapped)
+            PerformMovement(this.verticalInput); //Grab is in FixedUpdate
+        else
+        {
+            playerSwapped.PerformMovement(this.verticalInput);
+        }
         GetGrabInput();
     }
 
@@ -120,8 +129,15 @@ public class RobotArm : MonoBehaviour
             return;
         }
 
-        // Extend and shrink arm.
         verticalInput = player.GetAxis("Vertical");
+
+        // Rotate Arms.
+        horizontalInput = player.GetAxis("Horizontal");
+    }
+
+    public void PerformMovement(float verticalInput)
+    {
+        // Extend and shrink arm.
         Vector2 size = armRender.size;
         size.y += ((controlsInverted ? -verticalInput : verticalInput) * armExtendSpeed * Time.deltaTime);
         size.y = Mathf.Clamp(size.y, armClampedSize.x, armClampedSize.y);
@@ -130,9 +146,6 @@ public class RobotArm : MonoBehaviour
         Vector2 clawPosition = claw.transform.localPosition;
         clawPosition.y = size.y - 1.7f;
         claw.transform.localPosition = clawPosition;
-
-        // Rotate Arms.
-        horizontalInput = player.GetAxis("Horizontal");
 
         // Update Collider depending on size.
         Vector2 spriteSize = armRender.size;
@@ -231,13 +244,18 @@ public class RobotArm : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        DoRotation();
+        if(!controlsSwapped)
+            DoRotation(this.horizontalInput);
+        else
+        {
+            playerSwapped.DoRotation(this.horizontalInput);
+        }
     }
 
     /// <summary>
     /// Handles the rotations of the arms depending on physics.
     /// </summary>
-    private void DoRotation()
+    public void DoRotation(float horizontalInput)
     {
         float rot = rb.rotation;
         var jointMotor2D = hinge.motor;
